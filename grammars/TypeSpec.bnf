@@ -1,0 +1,124 @@
+{
+  parserClass='jp.s6n.idea.typespec.lang.parser.TypeSpecParser'
+  parserUtilClass='jp.s6n.idea.typespec.lang.parser.TypeSpecParserUtil'
+
+  implements='jp.s6n.idea.typespec.lang.psi.TypeSpecElement'
+  extends='jp.s6n.idea.typespec.lang.psi.impl.TypeSpecElementImpl'
+
+  elementTypeHolderClass='jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes'
+  elementTypeClass='jp.s6n.idea.typespec.lang.psi.TypeSpecElementType'
+  tokenTypeClass='jp.s6n.idea.typespec.lang.psi.TypeSpecTokenType'
+
+  psiClassPrefix='TypeSpec'
+  psiImplClassSuffix='Impl'
+  psiPackage='jp.s6n.idea.typespec.lang.psi'
+  psiImplPackage='jp.s6n.idea.typespec.lang.psi.impl'
+
+  tokens=[
+    IMPORT          = 'import'
+    USING           = 'using'
+    NAMESPACE       = 'namespace'
+    MODEL           = 'model'
+    INTERFACE       = 'interface'
+
+    LBRACE          = '{'
+    RBRACE          = '}'
+    LPAREN          = '('
+    RPAREN          = ')'
+    LBRACKET        = '['
+    RBRACKET        = ']'
+    EQ              = '='
+    DOTDOTDOT       = '...'
+    DOT             = '.'
+    COLON           = ':'
+    SEMICOLON       = ';'
+    QUEST           = '?'
+    EXCL            = '!'
+    AT              = '@'
+    COMMA           = ','
+    PIPE            = '|'
+
+    STRING_LITERAL  = 'regexp:"([^\\"\r\n]|\\[^\r\n])*"?'
+    NUMERIC_LITERAL = 'regexp:-?\d+(\.\d+)?'
+    IDENTIFIER      = 'regexp:[a-zA-Z][a-zA-Z0-9\-_]*|`(\\`|[^`])+`'
+    WHITE_SPACE     = 'regexp:\s+'
+
+    DOC_COMMENT     = 'regexp:/\*\*([^*]|\*[^/])*\*/'
+    BLOCK_COMMENT   = 'regexp:/\*([^*]|\*[^/])*\*/'
+    LINE_COMMENT    = 'regexp://.*'
+  ]
+}
+
+File ::= Statement*
+
+private Statement ::=
+    ImportStatement
+    | UsingStatement
+    | NamespaceStatement
+    | ModelStatement
+    | InterfaceStatement
+
+ImportStatement ::= IMPORT STRING_LITERAL SEMICOLON
+
+UsingStatement ::= USING Path SEMICOLON
+
+NamespaceStatement ::= Decorator* NAMESPACE Path (SEMICOLON | LBRACE Statement* RBRACE)
+
+ModelStatement ::= Decorator* MODEL Identifier ModelPropertiesBlock
+
+private ModelPropertiesBlock ::= LBRACE ModelProperty* RBRACE
+
+ModelProperty ::= Decorator* Identifier QUEST? COLON Type SEMICOLON
+
+InterfaceStatement ::= Decorator* INTERFACE Identifier InterfaceOperationsBlock
+
+private InterfaceOperationsBlock ::= LBRACE InterfaceOperation* RBRACE
+
+InterfaceOperation ::= Decorator* Operation SEMICOLON
+
+Operation ::= Identifier OperationArgumentList COLON Type
+
+OperationArgumentList ::= LPAREN [OperationArgument (COMMA OperationArgument)*] RPAREN
+
+OperationArgument ::=
+    NamedArgument
+    | VariadicArgument
+
+NamedArgument ::= Decorator* Identifier COLON Type
+
+VariadicArgument ::= DOTDOTDOT Identifier
+
+Decorator ::= AT PathExpression ArgumentsList?
+
+ArgumentsList ::= LPAREN [Expression (COMMA Expression)*] RPAREN
+
+Expression ::=
+    ObjectExpression
+    | PathExpression
+    | LiteralExpression
+
+ObjectExpression ::= LBRACE [ObjectExpressionProperty (COMMA ObjectExpressionProperty)* COMMA?] RBRACE {extends=Expression}
+
+ObjectExpressionProperty ::= Identifier COLON Expression
+
+PathExpression ::= Path {extends=Expression}
+
+LiteralExpression ::= STRING_LITERAL | NUMERIC_LITERAL {extends=Expression}
+
+Type ::=
+    UnionType
+    | ArrayType
+    | PathType
+    | LiteralType
+
+UnionType ::= Type (PIPE Type)+ {extends=Type}
+
+ArrayType ::= Type LBRACKET RBRACKET {extends=Type}
+
+PathType ::= Path {extends=Type}
+
+LiteralType ::= STRING_LITERAL | NUMERIC_LITERAL {extends=Type}
+
+Path ::= Identifier (DOT Identifier)*
+
+private Identifier ::= IDENTIFIER

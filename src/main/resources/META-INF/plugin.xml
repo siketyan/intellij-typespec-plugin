@@ -24,6 +24,17 @@
   <!-- Extension points defined by the plugin.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
   <extensions defaultExtensionNs="com.intellij">
+    <!-- File Type -->
+    <fileType name="TypeSpec" implementationClass="jp.s6n.idea.typespec.lang.TypeSpecFileType" fieldName="INSTANCE" language="TypeSpec" extensions="tsp" />
+
+    <!-- Language -->
+    <lang.parserDefinition language="TypeSpec" implementationClass="jp.s6n.idea.typespec.lang.parser.TypeSpecParserDefinition" />
+    <lang.syntaxHighlighterFactory language="TypeSpec" implementationClass="jp.s6n.idea.typespec.highlighting.TypeSpecSyntaxHighlighterFactory" />
+
+    <!-- Annotation -->
+    <annotator language="TypeSpec" implementationClass="jp.s6n.idea.typespec.highlighting.TypeSpecHighlightingAnnotator" />
+
+    <!-- LSP -->
     <platform.lsp.serverSupportProvider implementation="jp.s6n.idea.typespec.lsp.TypeSpecLspServerSupportProvider" />
   </extensions>
 </idea-plugin>

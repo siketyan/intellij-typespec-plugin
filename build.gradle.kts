@@ -25,6 +25,8 @@ dependencies {
   }
 }
 
+sourceSets["main"].java.srcDirs("gen")
+
 tasks {
   withType<JavaCompile> {
     sourceCompatibility = "21"
