@@ -30,7 +30,7 @@ jobs:
         shell: bash
         run: |
           echo "pluginVerifierHomeDir=~/.pluginVerifier" >> $GITHUB_OUTPUT
-          ./gradlew listProductsReleases
+          ./gradlew printProductsReleases
 
       - run: ./gradlew buildPlugin
 
