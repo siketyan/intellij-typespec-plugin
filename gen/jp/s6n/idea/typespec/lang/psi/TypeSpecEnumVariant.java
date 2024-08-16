@@ -5,16 +5,10 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecModelStatement extends TypeSpecElement {
+public interface TypeSpecEnumVariant extends TypeSpecElement {
 
   @NotNull
   List<TypeSpecDecorator> getDecoratorList();
-
-  @Nullable
-  TypeSpecModelExtends getModelExtends();
-
-  @NotNull
-  List<TypeSpecModelProperty> getModelPropertyList();
 
   @NotNull
   PsiElement getIdentifier();

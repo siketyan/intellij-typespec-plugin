@@ -18,6 +18,14 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitElement(o);
   }
 
+  public void visitEnumStatement(@NotNull TypeSpecEnumStatement o) {
+    visitElement(o);
+  }
+
+  public void visitEnumVariant(@NotNull TypeSpecEnumVariant o) {
+    visitElement(o);
+  }
+
   public void visitExpression(@NotNull TypeSpecExpression o) {
     visitElement(o);
   }
@@ -40,6 +48,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
 
   public void visitLiteralType(@NotNull TypeSpecLiteralType o) {
     visitType(o);
+  }
+
+  public void visitModelExtends(@NotNull TypeSpecModelExtends o) {
+    visitElement(o);
   }
 
   public void visitModelProperty(@NotNull TypeSpecModelProperty o) {
@@ -78,6 +90,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitElement(o);
   }
 
+  public void visitOperationStatement(@NotNull TypeSpecOperationStatement o) {
+    visitElement(o);
+  }
+
   public void visitPath(@NotNull TypeSpecPath o) {
     visitElement(o);
   }
@@ -94,8 +110,16 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitElement(o);
   }
 
+  public void visitUnionStatement(@NotNull TypeSpecUnionStatement o) {
+    visitElement(o);
+  }
+
   public void visitUnionType(@NotNull TypeSpecUnionType o) {
     visitType(o);
+  }
+
+  public void visitUnionVariant(@NotNull TypeSpecUnionVariant o) {
+    visitElement(o);
   }
 
   public void visitUsingStatement(@NotNull TypeSpecUsingStatement o) {

@@ -34,6 +34,12 @@ public class TypeSpecNamespaceStatementImpl extends TypeSpecElementImpl implemen
 
   @Override
   @NotNull
+  public List<TypeSpecEnumStatement> getEnumStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecEnumStatement.class);
+  }
+
+  @Override
+  @NotNull
   public List<TypeSpecImportStatement> getImportStatementList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecImportStatement.class);
   }
@@ -58,8 +64,20 @@ public class TypeSpecNamespaceStatementImpl extends TypeSpecElementImpl implemen
 
   @Override
   @NotNull
+  public List<TypeSpecOperationStatement> getOperationStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecOperationStatement.class);
+  }
+
+  @Override
+  @NotNull
   public TypeSpecPath getPath() {
     return findNotNullChildByClass(TypeSpecPath.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TypeSpecUnionStatement> getUnionStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecUnionStatement.class);
   }
 
   @Override

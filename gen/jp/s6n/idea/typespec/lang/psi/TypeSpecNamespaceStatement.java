@@ -11,6 +11,9 @@ public interface TypeSpecNamespaceStatement extends TypeSpecElement {
   List<TypeSpecDecorator> getDecoratorList();
 
   @NotNull
+  List<TypeSpecEnumStatement> getEnumStatementList();
+
+  @NotNull
   List<TypeSpecImportStatement> getImportStatementList();
 
   @NotNull
@@ -23,7 +26,13 @@ public interface TypeSpecNamespaceStatement extends TypeSpecElement {
   List<TypeSpecNamespaceStatement> getNamespaceStatementList();
 
   @NotNull
+  List<TypeSpecOperationStatement> getOperationStatementList();
+
+  @NotNull
   TypeSpecPath getPath();
+
+  @NotNull
+  List<TypeSpecUnionStatement> getUnionStatementList();
 
   @NotNull
   List<TypeSpecUsingStatement> getUsingStatementList();

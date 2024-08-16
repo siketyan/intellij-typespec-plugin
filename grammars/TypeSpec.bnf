@@ -18,8 +18,12 @@
     IMPORT          = 'import'
     USING           = 'using'
     NAMESPACE       = 'namespace'
+    ENUM            = 'enum'
+    UNION           = 'union'
     MODEL           = 'model'
     INTERFACE       = 'interface'
+    EXTENDS         = 'extends'
+    OP              = 'op'
 
     LBRACE          = '{'
     RBRACE          = '}'
@@ -55,8 +59,11 @@ private Statement ::=
     ImportStatement
     | UsingStatement
     | NamespaceStatement
+    | EnumStatement
+    | UnionStatement
     | ModelStatement
     | InterfaceStatement
+    | OperationStatement
 
 ImportStatement ::= IMPORT STRING_LITERAL SEMICOLON
 
@@ -64,7 +71,21 @@ UsingStatement ::= USING Path SEMICOLON
 
 NamespaceStatement ::= Decorator* NAMESPACE Path (SEMICOLON | LBRACE Statement* RBRACE)
 
-ModelStatement ::= Decorator* MODEL Identifier ModelPropertiesBlock
+EnumStatement ::= Decorator* ENUM Identifier EnumVariantsBlock
+
+private EnumVariantsBlock ::= LBRACE [EnumVariant (COMMA EnumVariant)* COMMA?] RBRACE
+
+EnumVariant ::= Decorator* Identifier
+
+UnionStatement ::= Decorator* UNION Identifier UnionVariantsBlock
+
+private UnionVariantsBlock ::= LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
+
+UnionVariant ::= Decorator* Identifier COLON Path
+
+ModelStatement ::= Decorator* MODEL Identifier ModelExtends? ModelPropertiesBlock
+
+ModelExtends ::= EXTENDS Path
 
 private ModelPropertiesBlock ::= LBRACE ModelProperty* RBRACE
 
@@ -75,6 +96,8 @@ InterfaceStatement ::= Decorator* INTERFACE Identifier InterfaceOperationsBlock
 private InterfaceOperationsBlock ::= LBRACE InterfaceOperation* RBRACE
 
 InterfaceOperation ::= Decorator* Operation SEMICOLON
+
+OperationStatement ::= Decorator* OP Operation SEMICOLON
 
 Operation ::= Identifier OperationArgumentList COLON Type
 

@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecModelStatementImpl extends TypeSpecElementImpl implements TypeSpecModelStatement {
+public class TypeSpecEnumStatementImpl extends TypeSpecElementImpl implements TypeSpecEnumStatement {
 
-  public TypeSpecModelStatementImpl(@NotNull ASTNode node) {
+  public TypeSpecEnumStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitModelStatement(this);
+    visitor.visitEnumStatement(this);
   }
 
   @Override
@@ -33,15 +33,9 @@ public class TypeSpecModelStatementImpl extends TypeSpecElementImpl implements T
   }
 
   @Override
-  @Nullable
-  public TypeSpecModelExtends getModelExtends() {
-    return findChildByClass(TypeSpecModelExtends.class);
-  }
-
-  @Override
   @NotNull
-  public List<TypeSpecModelProperty> getModelPropertyList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecModelProperty.class);
+  public List<TypeSpecEnumVariant> getEnumVariantList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecEnumVariant.class);
   }
 
   @Override

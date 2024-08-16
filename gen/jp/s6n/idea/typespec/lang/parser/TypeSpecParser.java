@@ -117,6 +117,118 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // Decorator* ENUM Identifier EnumVariantsBlock
+  public static boolean EnumStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumStatement")) return false;
+    if (!nextTokenIs(b, "<enum statement>", AT, ENUM)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ENUM_STATEMENT, "<enum statement>");
+    r = EnumStatement_0(b, l + 1);
+    r = r && consumeToken(b, ENUM);
+    r = r && Identifier(b, l + 1);
+    r = r && EnumVariantsBlock(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // Decorator*
+  private static boolean EnumStatement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumStatement_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!Decorator(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "EnumStatement_0", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // Decorator* Identifier
+  public static boolean EnumVariant(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumVariant")) return false;
+    if (!nextTokenIs(b, "<enum variant>", AT, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ENUM_VARIANT, "<enum variant>");
+    r = EnumVariant_0(b, l + 1);
+    r = r && Identifier(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // Decorator*
+  private static boolean EnumVariant_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumVariant_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!Decorator(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "EnumVariant_0", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // LBRACE [EnumVariant (COMMA EnumVariant)* COMMA?] RBRACE
+  static boolean EnumVariantsBlock(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumVariantsBlock")) return false;
+    if (!nextTokenIs(b, LBRACE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LBRACE);
+    r = r && EnumVariantsBlock_1(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // [EnumVariant (COMMA EnumVariant)* COMMA?]
+  private static boolean EnumVariantsBlock_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumVariantsBlock_1")) return false;
+    EnumVariantsBlock_1_0(b, l + 1);
+    return true;
+  }
+
+  // EnumVariant (COMMA EnumVariant)* COMMA?
+  private static boolean EnumVariantsBlock_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumVariantsBlock_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = EnumVariant(b, l + 1);
+    r = r && EnumVariantsBlock_1_0_1(b, l + 1);
+    r = r && EnumVariantsBlock_1_0_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (COMMA EnumVariant)*
+  private static boolean EnumVariantsBlock_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumVariantsBlock_1_0_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!EnumVariantsBlock_1_0_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "EnumVariantsBlock_1_0_1", c)) break;
+    }
+    return true;
+  }
+
+  // COMMA EnumVariant
+  private static boolean EnumVariantsBlock_1_0_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumVariantsBlock_1_0_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMA);
+    r = r && EnumVariant(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // COMMA?
+  private static boolean EnumVariantsBlock_1_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumVariantsBlock_1_0_2")) return false;
+    consumeToken(b, COMMA);
+    return true;
+  }
+
+  /* ********************************************************** */
   // ObjectExpression
   //     | PathExpression
   //     | LiteralExpression
@@ -251,6 +363,19 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // EXTENDS Path
+  public static boolean ModelExtends(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ModelExtends")) return false;
+    if (!nextTokenIs(b, EXTENDS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, EXTENDS);
+    r = r && Path(b, l + 1);
+    exit_section_(b, m, MODEL_EXTENDS, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // LBRACE ModelProperty* RBRACE
   static boolean ModelPropertiesBlock(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelPropertiesBlock")) return false;
@@ -311,7 +436,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* MODEL Identifier ModelPropertiesBlock
+  // Decorator* MODEL Identifier ModelExtends? ModelPropertiesBlock
   public static boolean ModelStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelStatement")) return false;
     if (!nextTokenIs(b, "<model statement>", AT, MODEL)) return false;
@@ -320,6 +445,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = ModelStatement_0(b, l + 1);
     r = r && consumeToken(b, MODEL);
     r = r && Identifier(b, l + 1);
+    r = r && ModelStatement_3(b, l + 1);
     r = r && ModelPropertiesBlock(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -333,6 +459,13 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
       if (!Decorator(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "ModelStatement_0", c)) break;
     }
+    return true;
+  }
+
+  // ModelExtends?
+  private static boolean ModelStatement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ModelStatement_3")) return false;
+    ModelExtends(b, l + 1);
     return true;
   }
 
@@ -581,6 +714,32 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // Decorator* OP Operation SEMICOLON
+  public static boolean OperationStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "OperationStatement")) return false;
+    if (!nextTokenIs(b, "<operation statement>", AT, OP)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, OPERATION_STATEMENT, "<operation statement>");
+    r = OperationStatement_0(b, l + 1);
+    r = r && consumeToken(b, OP);
+    r = r && Operation(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // Decorator*
+  private static boolean OperationStatement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "OperationStatement_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!Decorator(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "OperationStatement_0", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
   // Identifier (DOT Identifier)*
   public static boolean Path(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Path")) return false;
@@ -631,17 +790,137 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   // ImportStatement
   //     | UsingStatement
   //     | NamespaceStatement
+  //     | EnumStatement
+  //     | UnionStatement
   //     | ModelStatement
   //     | InterfaceStatement
+  //     | OperationStatement
   static boolean Statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Statement")) return false;
     boolean r;
     r = ImportStatement(b, l + 1);
     if (!r) r = UsingStatement(b, l + 1);
     if (!r) r = NamespaceStatement(b, l + 1);
+    if (!r) r = EnumStatement(b, l + 1);
+    if (!r) r = UnionStatement(b, l + 1);
     if (!r) r = ModelStatement(b, l + 1);
     if (!r) r = InterfaceStatement(b, l + 1);
+    if (!r) r = OperationStatement(b, l + 1);
     return r;
+  }
+
+  /* ********************************************************** */
+  // Decorator* UNION Identifier UnionVariantsBlock
+  public static boolean UnionStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionStatement")) return false;
+    if (!nextTokenIs(b, "<union statement>", AT, UNION)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, UNION_STATEMENT, "<union statement>");
+    r = UnionStatement_0(b, l + 1);
+    r = r && consumeToken(b, UNION);
+    r = r && Identifier(b, l + 1);
+    r = r && UnionVariantsBlock(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // Decorator*
+  private static boolean UnionStatement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionStatement_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!Decorator(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "UnionStatement_0", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // Decorator* Identifier COLON Path
+  public static boolean UnionVariant(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionVariant")) return false;
+    if (!nextTokenIs(b, "<union variant>", AT, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, UNION_VARIANT, "<union variant>");
+    r = UnionVariant_0(b, l + 1);
+    r = r && Identifier(b, l + 1);
+    r = r && consumeToken(b, COLON);
+    r = r && Path(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // Decorator*
+  private static boolean UnionVariant_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionVariant_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!Decorator(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "UnionVariant_0", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
+  static boolean UnionVariantsBlock(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionVariantsBlock")) return false;
+    if (!nextTokenIs(b, LBRACE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LBRACE);
+    r = r && UnionVariantsBlock_1(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // [UnionVariant (COMMA UnionVariant)* COMMA?]
+  private static boolean UnionVariantsBlock_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionVariantsBlock_1")) return false;
+    UnionVariantsBlock_1_0(b, l + 1);
+    return true;
+  }
+
+  // UnionVariant (COMMA UnionVariant)* COMMA?
+  private static boolean UnionVariantsBlock_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionVariantsBlock_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = UnionVariant(b, l + 1);
+    r = r && UnionVariantsBlock_1_0_1(b, l + 1);
+    r = r && UnionVariantsBlock_1_0_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (COMMA UnionVariant)*
+  private static boolean UnionVariantsBlock_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionVariantsBlock_1_0_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!UnionVariantsBlock_1_0_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "UnionVariantsBlock_1_0_1", c)) break;
+    }
+    return true;
+  }
+
+  // COMMA UnionVariant
+  private static boolean UnionVariantsBlock_1_0_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionVariantsBlock_1_0_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMA);
+    r = r && UnionVariant(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // COMMA?
+  private static boolean UnionVariantsBlock_1_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionVariantsBlock_1_0_2")) return false;
+    consumeToken(b, COMMA);
+    return true;
   }
 
   /* ********************************************************** */
