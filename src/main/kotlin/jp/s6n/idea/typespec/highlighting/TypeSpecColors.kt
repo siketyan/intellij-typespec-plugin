@@ -4,7 +4,7 @@ import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey
 
 object TypeSpecColors {
-    val DOC_COMMENT = createTextAttributesKey("TYPESPEC_BLOCK_COMMENT", DefaultLanguageHighlighterColors.DOC_COMMENT)
+    val DOC_COMMENT = createTextAttributesKey("TYPESPEC_DOC_COMMENT", DefaultLanguageHighlighterColors.DOC_COMMENT)
     val BLOCK_COMMENT = createTextAttributesKey("TYPESPEC_BLOCK_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT)
     val LINE_COMMENT = createTextAttributesKey("TYPESPEC_LINE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT)
     val STRING_LITERAL = createTextAttributesKey("TYPESPEC_STRING_LITERAL", DefaultLanguageHighlighterColors.STRING)
@@ -21,4 +21,6 @@ object TypeSpecColors {
 
     val DECORATOR = createTextAttributesKey("TYPESPEC_DECORATOR", DefaultLanguageHighlighterColors.METADATA)
     val TYPE = createTextAttributesKey("TYPESPEC_TYPE", DefaultLanguageHighlighterColors.CLASS_NAME)
+    val TYPE_REFERENCE = createTextAttributesKey("TYPESPEC_TYPE_REFERENCE", DefaultLanguageHighlighterColors.CLASS_REFERENCE)
+    val OPERATION = createTextAttributesKey("TYPESPEC_OPERATION", DefaultLanguageHighlighterColors.FUNCTION_DECLARATION)
 }

@@ -81,11 +81,11 @@ UnionStatement ::= Decorator* UNION Identifier UnionVariantsBlock
 
 private UnionVariantsBlock ::= LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
 
-UnionVariant ::= Decorator* Identifier COLON Path
+UnionVariant ::= Decorator* Identifier COLON PathType
 
 ModelStatement ::= Decorator* MODEL Identifier ModelExtends? ModelPropertiesBlock
 
-ModelExtends ::= EXTENDS Path
+ModelExtends ::= EXTENDS PathType
 
 private ModelPropertiesBlock ::= LBRACE ModelProperty* RBRACE
 
