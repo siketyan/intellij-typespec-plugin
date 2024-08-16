@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecModelExtendsImpl extends TypeSpecElementImpl implements TypeSpecModelExtends {
+public class TypeSpecModelIsImpl extends TypeSpecElementImpl implements TypeSpecModelIs {
 
-  public TypeSpecModelExtendsImpl(@NotNull ASTNode node) {
+  public TypeSpecModelIsImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitModelExtends(this);
+    visitor.visitModelIs(this);
   }
 
   @Override

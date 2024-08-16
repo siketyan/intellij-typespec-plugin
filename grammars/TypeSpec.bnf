@@ -23,7 +23,9 @@
     MODEL           = 'model'
     INTERFACE       = 'interface'
     EXTENDS         = 'extends'
+    IS              = 'is'
     OP              = 'op'
+    ALIAS           = 'alias'
 
     LBRACE          = '{'
     RBRACE          = '}'
@@ -37,7 +39,6 @@
     COLON           = ':'
     SEMICOLON       = ';'
     QUEST           = '?'
-    EXCL            = '!'
     AT              = '@'
     COMMA           = ','
     PIPE            = '|'
@@ -64,6 +65,7 @@ private Statement ::=
     | ModelStatement
     | InterfaceStatement
     | OperationStatement
+    | AliasStatement
 
 ImportStatement ::= IMPORT STRING_LITERAL SEMICOLON
 
@@ -83,9 +85,11 @@ private UnionVariantsBlock ::= LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?
 
 UnionVariant ::= Decorator* Identifier COLON PathType
 
-ModelStatement ::= Decorator* MODEL Identifier ModelExtends? ModelPropertiesBlock
+ModelStatement ::= Decorator* MODEL Identifier (ModelExtends | ModelIs)? ModelPropertiesBlock
 
 ModelExtends ::= EXTENDS PathType
+
+ModelIs ::= IS PathType
 
 private ModelPropertiesBlock ::= LBRACE ModelProperty* RBRACE
 
@@ -98,6 +102,8 @@ private InterfaceOperationsBlock ::= LBRACE InterfaceOperation* RBRACE
 InterfaceOperation ::= Decorator* Operation SEMICOLON
 
 OperationStatement ::= Decorator* OP Operation SEMICOLON
+
+AliasStatement ::= ALIAS Identifier EQ Type SEMICOLON
 
 Operation ::= Identifier OperationArgumentList COLON Type
 

@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecModelStatementImpl extends TypeSpecElementImpl implements TypeSpecModelStatement {
+public class TypeSpecAliasStatementImpl extends TypeSpecElementImpl implements TypeSpecAliasStatement {
 
-  public TypeSpecModelStatementImpl(@NotNull ASTNode node) {
+  public TypeSpecAliasStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitModelStatement(this);
+    visitor.visitAliasStatement(this);
   }
 
   @Override
@@ -28,26 +28,8 @@ public class TypeSpecModelStatementImpl extends TypeSpecElementImpl implements T
 
   @Override
   @NotNull
-  public List<TypeSpecDecorator> getDecoratorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecorator.class);
-  }
-
-  @Override
-  @Nullable
-  public TypeSpecModelExtends getModelExtends() {
-    return findChildByClass(TypeSpecModelExtends.class);
-  }
-
-  @Override
-  @Nullable
-  public TypeSpecModelIs getModelIs() {
-    return findChildByClass(TypeSpecModelIs.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TypeSpecModelProperty> getModelPropertyList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecModelProperty.class);
+  public TypeSpecType getType() {
+    return findNotNullChildByClass(TypeSpecType.class);
   }
 
   @Override

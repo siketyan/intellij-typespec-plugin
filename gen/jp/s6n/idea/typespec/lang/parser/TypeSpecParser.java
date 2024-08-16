@@ -42,6 +42,22 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   };
 
   /* ********************************************************** */
+  // ALIAS Identifier EQ Type SEMICOLON
+  public static boolean AliasStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "AliasStatement")) return false;
+    if (!nextTokenIs(b, ALIAS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ALIAS);
+    r = r && Identifier(b, l + 1);
+    r = r && consumeToken(b, EQ);
+    r = r && Type(b, l + 1, -1);
+    r = r && consumeToken(b, SEMICOLON);
+    exit_section_(b, m, ALIAS_STATEMENT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // LPAREN [Expression (COMMA Expression)*] RPAREN
   public static boolean ArgumentsList(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ArgumentsList")) return false;
@@ -363,15 +379,28 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // EXTENDS Path
+  // EXTENDS PathType
   public static boolean ModelExtends(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelExtends")) return false;
     if (!nextTokenIs(b, EXTENDS)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, EXTENDS);
-    r = r && Path(b, l + 1);
+    r = r && PathType(b, l + 1);
     exit_section_(b, m, MODEL_EXTENDS, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // IS PathType
+  public static boolean ModelIs(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ModelIs")) return false;
+    if (!nextTokenIs(b, IS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IS);
+    r = r && PathType(b, l + 1);
+    exit_section_(b, m, MODEL_IS, r);
     return r;
   }
 
@@ -436,7 +465,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* MODEL Identifier ModelExtends? ModelPropertiesBlock
+  // Decorator* MODEL Identifier (ModelExtends | ModelIs)? ModelPropertiesBlock
   public static boolean ModelStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelStatement")) return false;
     if (!nextTokenIs(b, "<model statement>", AT, MODEL)) return false;
@@ -462,11 +491,20 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // ModelExtends?
+  // (ModelExtends | ModelIs)?
   private static boolean ModelStatement_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelStatement_3")) return false;
-    ModelExtends(b, l + 1);
+    ModelStatement_3_0(b, l + 1);
     return true;
+  }
+
+  // ModelExtends | ModelIs
+  private static boolean ModelStatement_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ModelStatement_3_0")) return false;
+    boolean r;
+    r = ModelExtends(b, l + 1);
+    if (!r) r = ModelIs(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */
@@ -795,6 +833,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   //     | ModelStatement
   //     | InterfaceStatement
   //     | OperationStatement
+  //     | AliasStatement
   static boolean Statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Statement")) return false;
     boolean r;
@@ -806,6 +845,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     if (!r) r = ModelStatement(b, l + 1);
     if (!r) r = InterfaceStatement(b, l + 1);
     if (!r) r = OperationStatement(b, l + 1);
+    if (!r) r = AliasStatement(b, l + 1);
     return r;
   }
 
@@ -836,7 +876,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* Identifier COLON Path
+  // Decorator* Identifier COLON PathType
   public static boolean UnionVariant(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UnionVariant")) return false;
     if (!nextTokenIs(b, "<union variant>", AT, IDENTIFIER)) return false;
@@ -845,7 +885,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = UnionVariant_0(b, l + 1);
     r = r && Identifier(b, l + 1);
     r = r && consumeToken(b, COLON);
-    r = r && Path(b, l + 1);
+    r = r && PathType(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

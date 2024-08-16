@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecNamespaceStatement extends TypeSpecElement {
 
   @NotNull
+  List<TypeSpecAliasStatement> getAliasStatementList();
+
+  @NotNull
   List<TypeSpecDecorator> getDecoratorList();
 
   @NotNull

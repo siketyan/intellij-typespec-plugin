@@ -8,6 +8,7 @@ import jp.s6n.idea.typespec.lang.psi.impl.*;
 
 public interface TypeSpecElementTypes {
 
+  IElementType ALIAS_STATEMENT = new TypeSpecElementType("ALIAS_STATEMENT");
   IElementType ARGUMENTS_LIST = new TypeSpecElementType("ARGUMENTS_LIST");
   IElementType ARRAY_TYPE = new TypeSpecElementType("ARRAY_TYPE");
   IElementType DECORATOR = new TypeSpecElementType("DECORATOR");
@@ -20,6 +21,7 @@ public interface TypeSpecElementTypes {
   IElementType LITERAL_EXPRESSION = new TypeSpecElementType("LITERAL_EXPRESSION");
   IElementType LITERAL_TYPE = new TypeSpecElementType("LITERAL_TYPE");
   IElementType MODEL_EXTENDS = new TypeSpecElementType("MODEL_EXTENDS");
+  IElementType MODEL_IS = new TypeSpecElementType("MODEL_IS");
   IElementType MODEL_PROPERTY = new TypeSpecElementType("MODEL_PROPERTY");
   IElementType MODEL_STATEMENT = new TypeSpecElementType("MODEL_STATEMENT");
   IElementType NAMED_ARGUMENT = new TypeSpecElementType("NAMED_ARGUMENT");
@@ -40,6 +42,7 @@ public interface TypeSpecElementTypes {
   IElementType USING_STATEMENT = new TypeSpecElementType("USING_STATEMENT");
   IElementType VARIADIC_ARGUMENT = new TypeSpecElementType("VARIADIC_ARGUMENT");
 
+  IElementType ALIAS = new TypeSpecTokenType("alias");
   IElementType AT = new TypeSpecTokenType("@");
   IElementType BLOCK_COMMENT = new TypeSpecTokenType("BLOCK_COMMENT");
   IElementType COLON = new TypeSpecTokenType(":");
@@ -49,11 +52,11 @@ public interface TypeSpecElementTypes {
   IElementType DOTDOTDOT = new TypeSpecTokenType("...");
   IElementType ENUM = new TypeSpecTokenType("enum");
   IElementType EQ = new TypeSpecTokenType("=");
-  IElementType EXCL = new TypeSpecTokenType("!");
   IElementType EXTENDS = new TypeSpecTokenType("extends");
   IElementType IDENTIFIER = new TypeSpecTokenType("IDENTIFIER");
   IElementType IMPORT = new TypeSpecTokenType("import");
   IElementType INTERFACE = new TypeSpecTokenType("interface");
+  IElementType IS = new TypeSpecTokenType("is");
   IElementType LBRACE = new TypeSpecTokenType("{");
   IElementType LBRACKET = new TypeSpecTokenType("[");
   IElementType LINE_COMMENT = new TypeSpecTokenType("LINE_COMMENT");
@@ -75,7 +78,10 @@ public interface TypeSpecElementTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ARGUMENTS_LIST) {
+      if (type == ALIAS_STATEMENT) {
+        return new TypeSpecAliasStatementImpl(node);
+      }
+      else if (type == ARGUMENTS_LIST) {
         return new TypeSpecArgumentsListImpl(node);
       }
       else if (type == ARRAY_TYPE) {
@@ -107,6 +113,9 @@ public interface TypeSpecElementTypes {
       }
       else if (type == MODEL_EXTENDS) {
         return new TypeSpecModelExtendsImpl(node);
+      }
+      else if (type == MODEL_IS) {
+        return new TypeSpecModelIsImpl(node);
       }
       else if (type == MODEL_PROPERTY) {
         return new TypeSpecModelPropertyImpl(node);

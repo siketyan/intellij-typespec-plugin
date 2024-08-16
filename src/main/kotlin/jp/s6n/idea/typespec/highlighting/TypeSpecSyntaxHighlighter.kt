@@ -26,7 +26,6 @@ private val ATTRIBUTES = buildMap<IElementType, TextAttributesKey> {
     put(TypeSpecElementTypes.EQ, TypeSpecColors.OPERATION_SIGN)
     put(TypeSpecElementTypes.COLON, TypeSpecColors.OPERATION_SIGN)
     put(TypeSpecElementTypes.QUEST, TypeSpecColors.OPERATION_SIGN)
-    put(TypeSpecElementTypes.EXCL, TypeSpecColors.OPERATION_SIGN)
     put(TypeSpecElementTypes.AT, TypeSpecColors.DECORATOR)
 
     SyntaxHighlighterBase.fillMap(this, TYPESPEC_KEYWORDS, TypeSpecColors.KEYWORD)

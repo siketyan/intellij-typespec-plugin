@@ -45,7 +45,9 @@ LINE_COMMENT="//".*
   "model"                 { return MODEL; }
   "interface"             { return INTERFACE; }
   "extends"               { return EXTENDS; }
+  "is"                    { return IS; }
   "op"                    { return OP; }
+  "alias"                 { return ALIAS; }
   "{"                     { return LBRACE; }
   "}"                     { return RBRACE; }
   "("                     { return LPAREN; }
@@ -58,7 +60,6 @@ LINE_COMMENT="//".*
   ":"                     { return COLON; }
   ";"                     { return SEMICOLON; }
   "?"                     { return QUEST; }
-  "!"                     { return EXCL; }
   "@"                     { return AT; }
   ","                     { return COMMA; }
   "|"                     { return PIPE; }

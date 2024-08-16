@@ -28,6 +28,12 @@ public class TypeSpecNamespaceStatementImpl extends TypeSpecElementImpl implemen
 
   @Override
   @NotNull
+  public List<TypeSpecAliasStatement> getAliasStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecAliasStatement.class);
+  }
+
+  @Override
+  @NotNull
   public List<TypeSpecDecorator> getDecoratorList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecorator.class);
   }

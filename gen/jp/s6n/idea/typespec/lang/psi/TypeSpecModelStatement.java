@@ -13,6 +13,9 @@ public interface TypeSpecModelStatement extends TypeSpecElement {
   @Nullable
   TypeSpecModelExtends getModelExtends();
 
+  @Nullable
+  TypeSpecModelIs getModelIs();
+
   @NotNull
   List<TypeSpecModelProperty> getModelPropertyList();
 

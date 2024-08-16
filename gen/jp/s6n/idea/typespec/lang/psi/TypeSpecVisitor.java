@@ -6,6 +6,10 @@ import com.intellij.psi.PsiElementVisitor;
 
 public class TypeSpecVisitor extends PsiElementVisitor {
 
+  public void visitAliasStatement(@NotNull TypeSpecAliasStatement o) {
+    visitElement(o);
+  }
+
   public void visitArgumentsList(@NotNull TypeSpecArgumentsList o) {
     visitElement(o);
   }
@@ -51,6 +55,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitModelExtends(@NotNull TypeSpecModelExtends o) {
+    visitElement(o);
+  }
+
+  public void visitModelIs(@NotNull TypeSpecModelIs o) {
     visitElement(o);
   }
 

@@ -11,7 +11,7 @@ public interface TypeSpecUnionVariant extends TypeSpecElement {
   List<TypeSpecDecorator> getDecoratorList();
 
   @NotNull
-  TypeSpecPath getPath();
+  TypeSpecPathType getPathType();
 
   @NotNull
   PsiElement getIdentifier();
