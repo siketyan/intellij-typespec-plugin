@@ -10,15 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecOperationStatementImpl extends TypeSpecStatementImpl implements TypeSpecOperationStatement {
+public class TypeSpecUnionVariantsBlockImpl extends TypeSpecElementImpl implements TypeSpecUnionVariantsBlock {
 
-  public TypeSpecOperationStatementImpl(@NotNull ASTNode node) {
+  public TypeSpecUnionVariantsBlockImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitOperationStatement(this);
+    visitor.visitUnionVariantsBlock(this);
   }
 
   @Override
@@ -29,14 +28,8 @@ public class TypeSpecOperationStatementImpl extends TypeSpecStatementImpl implem
 
   @Override
   @NotNull
-  public List<TypeSpecDecorator> getDecoratorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecorator.class);
-  }
-
-  @Override
-  @NotNull
-  public TypeSpecOperation getOperation() {
-    return findNotNullChildByClass(TypeSpecOperation.class);
+  public List<TypeSpecUnionVariant> getUnionVariantList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecUnionVariant.class);
   }
 
 }

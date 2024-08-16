@@ -14,14 +14,17 @@ public interface TypeSpecElementTypes {
   IElementType DECORATOR = new TypeSpecElementType("DECORATOR");
   IElementType ENUM_STATEMENT = new TypeSpecElementType("ENUM_STATEMENT");
   IElementType ENUM_VARIANT = new TypeSpecElementType("ENUM_VARIANT");
+  IElementType ENUM_VARIANTS_BLOCK = new TypeSpecElementType("ENUM_VARIANTS_BLOCK");
   IElementType EXPRESSION = new TypeSpecElementType("EXPRESSION");
   IElementType IMPORT_STATEMENT = new TypeSpecElementType("IMPORT_STATEMENT");
   IElementType INTERFACE_OPERATION = new TypeSpecElementType("INTERFACE_OPERATION");
+  IElementType INTERFACE_OPERATIONS_BLOCK = new TypeSpecElementType("INTERFACE_OPERATIONS_BLOCK");
   IElementType INTERFACE_STATEMENT = new TypeSpecElementType("INTERFACE_STATEMENT");
   IElementType LITERAL_EXPRESSION = new TypeSpecElementType("LITERAL_EXPRESSION");
   IElementType LITERAL_TYPE = new TypeSpecElementType("LITERAL_TYPE");
   IElementType MODEL_EXTENDS = new TypeSpecElementType("MODEL_EXTENDS");
   IElementType MODEL_IS = new TypeSpecElementType("MODEL_IS");
+  IElementType MODEL_PROPERTIES_BLOCK = new TypeSpecElementType("MODEL_PROPERTIES_BLOCK");
   IElementType MODEL_PROPERTY = new TypeSpecElementType("MODEL_PROPERTY");
   IElementType MODEL_STATEMENT = new TypeSpecElementType("MODEL_STATEMENT");
   IElementType NAMED_ARGUMENT = new TypeSpecElementType("NAMED_ARGUMENT");
@@ -35,10 +38,12 @@ public interface TypeSpecElementTypes {
   IElementType PATH = new TypeSpecElementType("PATH");
   IElementType PATH_EXPRESSION = new TypeSpecElementType("PATH_EXPRESSION");
   IElementType PATH_TYPE = new TypeSpecElementType("PATH_TYPE");
+  IElementType STATEMENT = new TypeSpecElementType("STATEMENT");
   IElementType TYPE = new TypeSpecElementType("TYPE");
   IElementType UNION_STATEMENT = new TypeSpecElementType("UNION_STATEMENT");
   IElementType UNION_TYPE = new TypeSpecElementType("UNION_TYPE");
   IElementType UNION_VARIANT = new TypeSpecElementType("UNION_VARIANT");
+  IElementType UNION_VARIANTS_BLOCK = new TypeSpecElementType("UNION_VARIANTS_BLOCK");
   IElementType USING_STATEMENT = new TypeSpecElementType("USING_STATEMENT");
   IElementType VARIADIC_ARGUMENT = new TypeSpecElementType("VARIADIC_ARGUMENT");
 
@@ -96,11 +101,17 @@ public interface TypeSpecElementTypes {
       else if (type == ENUM_VARIANT) {
         return new TypeSpecEnumVariantImpl(node);
       }
+      else if (type == ENUM_VARIANTS_BLOCK) {
+        return new TypeSpecEnumVariantsBlockImpl(node);
+      }
       else if (type == IMPORT_STATEMENT) {
         return new TypeSpecImportStatementImpl(node);
       }
       else if (type == INTERFACE_OPERATION) {
         return new TypeSpecInterfaceOperationImpl(node);
+      }
+      else if (type == INTERFACE_OPERATIONS_BLOCK) {
+        return new TypeSpecInterfaceOperationsBlockImpl(node);
       }
       else if (type == INTERFACE_STATEMENT) {
         return new TypeSpecInterfaceStatementImpl(node);
@@ -116,6 +127,9 @@ public interface TypeSpecElementTypes {
       }
       else if (type == MODEL_IS) {
         return new TypeSpecModelIsImpl(node);
+      }
+      else if (type == MODEL_PROPERTIES_BLOCK) {
+        return new TypeSpecModelPropertiesBlockImpl(node);
       }
       else if (type == MODEL_PROPERTY) {
         return new TypeSpecModelPropertyImpl(node);
@@ -164,6 +178,9 @@ public interface TypeSpecElementTypes {
       }
       else if (type == UNION_VARIANT) {
         return new TypeSpecUnionVariantImpl(node);
+      }
+      else if (type == UNION_VARIANTS_BLOCK) {
+        return new TypeSpecUnionVariantsBlockImpl(node);
       }
       else if (type == USING_STATEMENT) {
         return new TypeSpecUsingStatementImpl(node);

@@ -10,12 +10,13 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecUnionStatementImpl extends TypeSpecElementImpl implements TypeSpecUnionStatement {
+public class TypeSpecUnionStatementImpl extends TypeSpecStatementImpl implements TypeSpecUnionStatement {
 
   public TypeSpecUnionStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
     visitor.visitUnionStatement(this);
   }
@@ -34,8 +35,8 @@ public class TypeSpecUnionStatementImpl extends TypeSpecElementImpl implements T
 
   @Override
   @NotNull
-  public List<TypeSpecUnionVariant> getUnionVariantList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecUnionVariant.class);
+  public TypeSpecUnionVariantsBlock getUnionVariantsBlock() {
+    return findNotNullChildByClass(TypeSpecUnionVariantsBlock.class);
   }
 
   @Override

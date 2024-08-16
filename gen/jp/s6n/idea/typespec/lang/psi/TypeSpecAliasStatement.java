@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecAliasStatement extends TypeSpecElement {
+public interface TypeSpecAliasStatement extends TypeSpecStatement {
 
   @NotNull
   TypeSpecType getType();

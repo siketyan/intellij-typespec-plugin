@@ -10,12 +10,13 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecModelStatementImpl extends TypeSpecElementImpl implements TypeSpecModelStatement {
+public class TypeSpecModelStatementImpl extends TypeSpecStatementImpl implements TypeSpecModelStatement {
 
   public TypeSpecModelStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
     visitor.visitModelStatement(this);
   }
@@ -46,8 +47,8 @@ public class TypeSpecModelStatementImpl extends TypeSpecElementImpl implements T
 
   @Override
   @NotNull
-  public List<TypeSpecModelProperty> getModelPropertyList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecModelProperty.class);
+  public TypeSpecModelPropertiesBlock getModelPropertiesBlock() {
+    return findNotNullChildByClass(TypeSpecModelPropertiesBlock.class);
   }
 
   @Override

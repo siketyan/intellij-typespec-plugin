@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecUsingStatement extends TypeSpecElement {
+public interface TypeSpecUsingStatement extends TypeSpecStatement {
 
   @NotNull
   TypeSpecPath getPath();

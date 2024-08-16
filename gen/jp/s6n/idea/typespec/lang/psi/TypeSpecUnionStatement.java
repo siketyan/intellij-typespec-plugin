@@ -5,13 +5,13 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecUnionStatement extends TypeSpecElement {
+public interface TypeSpecUnionStatement extends TypeSpecStatement {
 
   @NotNull
   List<TypeSpecDecorator> getDecoratorList();
 
   @NotNull
-  List<TypeSpecUnionVariant> getUnionVariantList();
+  TypeSpecUnionVariantsBlock getUnionVariantsBlock();
 
   @NotNull
   PsiElement getIdentifier();

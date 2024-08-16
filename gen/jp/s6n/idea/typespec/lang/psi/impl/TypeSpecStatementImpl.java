@@ -10,33 +10,20 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecOperationStatementImpl extends TypeSpecStatementImpl implements TypeSpecOperationStatement {
+public abstract class TypeSpecStatementImpl extends TypeSpecElementImpl implements TypeSpecStatement {
 
-  public TypeSpecOperationStatementImpl(@NotNull ASTNode node) {
+  public TypeSpecStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitOperationStatement(this);
+    visitor.visitStatement(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TypeSpecVisitor) accept((TypeSpecVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<TypeSpecDecorator> getDecoratorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecorator.class);
-  }
-
-  @Override
-  @NotNull
-  public TypeSpecOperation getOperation() {
-    return findNotNullChildByClass(TypeSpecOperation.class);
   }
 
 }

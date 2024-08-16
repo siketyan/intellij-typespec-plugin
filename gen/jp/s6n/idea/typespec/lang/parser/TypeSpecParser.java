@@ -39,6 +39,9 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     create_token_set_(EXPRESSION, LITERAL_EXPRESSION, OBJECT_EXPRESSION, PATH_EXPRESSION),
     create_token_set_(ARRAY_TYPE, LITERAL_TYPE, PATH_TYPE, TYPE,
       UNION_TYPE),
+    create_token_set_(ALIAS_STATEMENT, ENUM_STATEMENT, IMPORT_STATEMENT, INTERFACE_STATEMENT,
+      MODEL_STATEMENT, NAMESPACE_STATEMENT, OPERATION_STATEMENT, STATEMENT,
+      UNION_STATEMENT, USING_STATEMENT),
   };
 
   /* ********************************************************** */
@@ -184,7 +187,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // LBRACE [EnumVariant (COMMA EnumVariant)* COMMA?] RBRACE
-  static boolean EnumVariantsBlock(PsiBuilder b, int l) {
+  public static boolean EnumVariantsBlock(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "EnumVariantsBlock")) return false;
     if (!nextTokenIs(b, LBRACE)) return false;
     boolean r;
@@ -192,7 +195,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, LBRACE);
     r = r && EnumVariantsBlock_1(b, l + 1);
     r = r && consumeToken(b, RBRACE);
-    exit_section_(b, m, null, r);
+    exit_section_(b, m, ENUM_VARIANTS_BLOCK, r);
     return r;
   }
 
@@ -316,7 +319,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // LBRACE InterfaceOperation* RBRACE
-  static boolean InterfaceOperationsBlock(PsiBuilder b, int l) {
+  public static boolean InterfaceOperationsBlock(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "InterfaceOperationsBlock")) return false;
     if (!nextTokenIs(b, LBRACE)) return false;
     boolean r;
@@ -324,7 +327,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, LBRACE);
     r = r && InterfaceOperationsBlock_1(b, l + 1);
     r = r && consumeToken(b, RBRACE);
-    exit_section_(b, m, null, r);
+    exit_section_(b, m, INTERFACE_OPERATIONS_BLOCK, r);
     return r;
   }
 
@@ -406,7 +409,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // LBRACE ModelProperty* RBRACE
-  static boolean ModelPropertiesBlock(PsiBuilder b, int l) {
+  public static boolean ModelPropertiesBlock(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelPropertiesBlock")) return false;
     if (!nextTokenIs(b, LBRACE)) return false;
     boolean r;
@@ -414,7 +417,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, LBRACE);
     r = r && ModelPropertiesBlock_1(b, l + 1);
     r = r && consumeToken(b, RBRACE);
-    exit_section_(b, m, null, r);
+    exit_section_(b, m, MODEL_PROPERTIES_BLOCK, r);
     return r;
   }
 
@@ -834,9 +837,10 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   //     | InterfaceStatement
   //     | OperationStatement
   //     | AliasStatement
-  static boolean Statement(PsiBuilder b, int l) {
+  public static boolean Statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Statement")) return false;
     boolean r;
+    Marker m = enter_section_(b, l, _COLLAPSE_, STATEMENT, "<statement>");
     r = ImportStatement(b, l + 1);
     if (!r) r = UsingStatement(b, l + 1);
     if (!r) r = NamespaceStatement(b, l + 1);
@@ -846,6 +850,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     if (!r) r = InterfaceStatement(b, l + 1);
     if (!r) r = OperationStatement(b, l + 1);
     if (!r) r = AliasStatement(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -903,7 +908,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
-  static boolean UnionVariantsBlock(PsiBuilder b, int l) {
+  public static boolean UnionVariantsBlock(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UnionVariantsBlock")) return false;
     if (!nextTokenIs(b, LBRACE)) return false;
     boolean r;
@@ -911,7 +916,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, LBRACE);
     r = r && UnionVariantsBlock_1(b, l + 1);
     r = r && consumeToken(b, RBRACE);
-    exit_section_(b, m, null, r);
+    exit_section_(b, m, UNION_VARIANTS_BLOCK, r);
     return r;
   }
 

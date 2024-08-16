@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecModelStatement extends TypeSpecElement {
+public interface TypeSpecModelStatement extends TypeSpecStatement {
 
   @NotNull
   List<TypeSpecDecorator> getDecoratorList();
@@ -17,7 +17,7 @@ public interface TypeSpecModelStatement extends TypeSpecElement {
   TypeSpecModelIs getModelIs();
 
   @NotNull
-  List<TypeSpecModelProperty> getModelPropertyList();
+  TypeSpecModelPropertiesBlock getModelPropertiesBlock();
 
   @NotNull
   PsiElement getIdentifier();

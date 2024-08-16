@@ -5,13 +5,13 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecInterfaceStatement extends TypeSpecElement {
+public interface TypeSpecInterfaceStatement extends TypeSpecStatement {
 
   @NotNull
   List<TypeSpecDecorator> getDecoratorList();
 
   @NotNull
-  List<TypeSpecInterfaceOperation> getInterfaceOperationList();
+  TypeSpecInterfaceOperationsBlock getInterfaceOperationsBlock();
 
   @NotNull
   PsiElement getIdentifier();

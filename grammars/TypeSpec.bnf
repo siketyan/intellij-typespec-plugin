@@ -56,7 +56,7 @@
 
 File ::= Statement*
 
-private Statement ::=
+Statement ::=
     ImportStatement
     | UsingStatement
     | NamespaceStatement
@@ -67,43 +67,43 @@ private Statement ::=
     | OperationStatement
     | AliasStatement
 
-ImportStatement ::= IMPORT STRING_LITERAL SEMICOLON
+ImportStatement ::= IMPORT STRING_LITERAL SEMICOLON {extends=Statement}
 
-UsingStatement ::= USING Path SEMICOLON
+UsingStatement ::= USING Path SEMICOLON {extends=Statement}
 
-NamespaceStatement ::= Decorator* NAMESPACE Path (SEMICOLON | LBRACE Statement* RBRACE)
+NamespaceStatement ::= Decorator* NAMESPACE Path (SEMICOLON | LBRACE Statement* RBRACE) {extends=Statement}
 
-EnumStatement ::= Decorator* ENUM Identifier EnumVariantsBlock
+EnumStatement ::= Decorator* ENUM Identifier EnumVariantsBlock {extends=Statement}
 
-private EnumVariantsBlock ::= LBRACE [EnumVariant (COMMA EnumVariant)* COMMA?] RBRACE
+EnumVariantsBlock ::= LBRACE [EnumVariant (COMMA EnumVariant)* COMMA?] RBRACE
 
 EnumVariant ::= Decorator* Identifier
 
-UnionStatement ::= Decorator* UNION Identifier UnionVariantsBlock
+UnionStatement ::= Decorator* UNION Identifier UnionVariantsBlock {extends=Statement}
 
-private UnionVariantsBlock ::= LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
+UnionVariantsBlock ::= LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
 
 UnionVariant ::= Decorator* Identifier COLON PathType
 
-ModelStatement ::= Decorator* MODEL Identifier (ModelExtends | ModelIs)? ModelPropertiesBlock
+ModelStatement ::= Decorator* MODEL Identifier (ModelExtends | ModelIs)? ModelPropertiesBlock {extends=Statement}
 
 ModelExtends ::= EXTENDS PathType
 
 ModelIs ::= IS PathType
 
-private ModelPropertiesBlock ::= LBRACE ModelProperty* RBRACE
+ModelPropertiesBlock ::= LBRACE ModelProperty* RBRACE
 
 ModelProperty ::= Decorator* Identifier QUEST? COLON Type SEMICOLON
 
-InterfaceStatement ::= Decorator* INTERFACE Identifier InterfaceOperationsBlock
+InterfaceStatement ::= Decorator* INTERFACE Identifier InterfaceOperationsBlock {extends=Statement}
 
-private InterfaceOperationsBlock ::= LBRACE InterfaceOperation* RBRACE
+InterfaceOperationsBlock ::= LBRACE InterfaceOperation* RBRACE
 
 InterfaceOperation ::= Decorator* Operation SEMICOLON
 
-OperationStatement ::= Decorator* OP Operation SEMICOLON
+OperationStatement ::= Decorator* OP Operation SEMICOLON {extends=Statement}
 
-AliasStatement ::= ALIAS Identifier EQ Type SEMICOLON
+AliasStatement ::= ALIAS Identifier EQ Type SEMICOLON {extends=Statement}
 
 Operation ::= Identifier OperationArgumentList COLON Type
 

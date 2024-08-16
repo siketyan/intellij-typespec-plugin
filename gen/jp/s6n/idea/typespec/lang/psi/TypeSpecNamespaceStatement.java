@@ -5,39 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecNamespaceStatement extends TypeSpecElement {
-
-  @NotNull
-  List<TypeSpecAliasStatement> getAliasStatementList();
+public interface TypeSpecNamespaceStatement extends TypeSpecStatement {
 
   @NotNull
   List<TypeSpecDecorator> getDecoratorList();
 
   @NotNull
-  List<TypeSpecEnumStatement> getEnumStatementList();
-
-  @NotNull
-  List<TypeSpecImportStatement> getImportStatementList();
-
-  @NotNull
-  List<TypeSpecInterfaceStatement> getInterfaceStatementList();
-
-  @NotNull
-  List<TypeSpecModelStatement> getModelStatementList();
-
-  @NotNull
-  List<TypeSpecNamespaceStatement> getNamespaceStatementList();
-
-  @NotNull
-  List<TypeSpecOperationStatement> getOperationStatementList();
-
-  @NotNull
   TypeSpecPath getPath();
 
   @NotNull
-  List<TypeSpecUnionStatement> getUnionStatementList();
-
-  @NotNull
-  List<TypeSpecUsingStatement> getUsingStatementList();
+  List<TypeSpecStatement> getStatementList();
 
 }

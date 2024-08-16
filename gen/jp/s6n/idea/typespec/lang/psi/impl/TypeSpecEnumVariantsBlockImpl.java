@@ -10,15 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecOperationStatementImpl extends TypeSpecStatementImpl implements TypeSpecOperationStatement {
+public class TypeSpecEnumVariantsBlockImpl extends TypeSpecElementImpl implements TypeSpecEnumVariantsBlock {
 
-  public TypeSpecOperationStatementImpl(@NotNull ASTNode node) {
+  public TypeSpecEnumVariantsBlockImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitOperationStatement(this);
+    visitor.visitEnumVariantsBlock(this);
   }
 
   @Override
@@ -29,14 +28,8 @@ public class TypeSpecOperationStatementImpl extends TypeSpecStatementImpl implem
 
   @Override
   @NotNull
-  public List<TypeSpecDecorator> getDecoratorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecorator.class);
-  }
-
-  @Override
-  @NotNull
-  public TypeSpecOperation getOperation() {
-    return findNotNullChildByClass(TypeSpecOperation.class);
+  public List<TypeSpecEnumVariant> getEnumVariantList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecEnumVariant.class);
   }
 
 }

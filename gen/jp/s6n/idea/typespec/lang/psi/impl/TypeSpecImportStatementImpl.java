@@ -10,12 +10,13 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecImportStatementImpl extends TypeSpecElementImpl implements TypeSpecImportStatement {
+public class TypeSpecImportStatementImpl extends TypeSpecStatementImpl implements TypeSpecImportStatement {
 
   public TypeSpecImportStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
     visitor.visitImportStatement(this);
   }

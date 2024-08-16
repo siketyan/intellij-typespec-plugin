@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElementVisitor;
 public class TypeSpecVisitor extends PsiElementVisitor {
 
   public void visitAliasStatement(@NotNull TypeSpecAliasStatement o) {
-    visitElement(o);
+    visitStatement(o);
   }
 
   public void visitArgumentsList(@NotNull TypeSpecArgumentsList o) {
@@ -23,10 +23,14 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitEnumStatement(@NotNull TypeSpecEnumStatement o) {
-    visitElement(o);
+    visitStatement(o);
   }
 
   public void visitEnumVariant(@NotNull TypeSpecEnumVariant o) {
+    visitElement(o);
+  }
+
+  public void visitEnumVariantsBlock(@NotNull TypeSpecEnumVariantsBlock o) {
     visitElement(o);
   }
 
@@ -35,15 +39,19 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitImportStatement(@NotNull TypeSpecImportStatement o) {
-    visitElement(o);
+    visitStatement(o);
   }
 
   public void visitInterfaceOperation(@NotNull TypeSpecInterfaceOperation o) {
     visitElement(o);
   }
 
-  public void visitInterfaceStatement(@NotNull TypeSpecInterfaceStatement o) {
+  public void visitInterfaceOperationsBlock(@NotNull TypeSpecInterfaceOperationsBlock o) {
     visitElement(o);
+  }
+
+  public void visitInterfaceStatement(@NotNull TypeSpecInterfaceStatement o) {
+    visitStatement(o);
   }
 
   public void visitLiteralExpression(@NotNull TypeSpecLiteralExpression o) {
@@ -62,12 +70,16 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitElement(o);
   }
 
+  public void visitModelPropertiesBlock(@NotNull TypeSpecModelPropertiesBlock o) {
+    visitElement(o);
+  }
+
   public void visitModelProperty(@NotNull TypeSpecModelProperty o) {
     visitElement(o);
   }
 
   public void visitModelStatement(@NotNull TypeSpecModelStatement o) {
-    visitElement(o);
+    visitStatement(o);
   }
 
   public void visitNamedArgument(@NotNull TypeSpecNamedArgument o) {
@@ -75,7 +87,7 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitNamespaceStatement(@NotNull TypeSpecNamespaceStatement o) {
-    visitElement(o);
+    visitStatement(o);
   }
 
   public void visitObjectExpression(@NotNull TypeSpecObjectExpression o) {
@@ -99,7 +111,7 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitOperationStatement(@NotNull TypeSpecOperationStatement o) {
-    visitElement(o);
+    visitStatement(o);
   }
 
   public void visitPath(@NotNull TypeSpecPath o) {
@@ -114,12 +126,16 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitType(o);
   }
 
+  public void visitStatement(@NotNull TypeSpecStatement o) {
+    visitElement(o);
+  }
+
   public void visitType(@NotNull TypeSpecType o) {
     visitElement(o);
   }
 
   public void visitUnionStatement(@NotNull TypeSpecUnionStatement o) {
-    visitElement(o);
+    visitStatement(o);
   }
 
   public void visitUnionType(@NotNull TypeSpecUnionType o) {
@@ -130,8 +146,12 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitElement(o);
   }
 
-  public void visitUsingStatement(@NotNull TypeSpecUsingStatement o) {
+  public void visitUnionVariantsBlock(@NotNull TypeSpecUnionVariantsBlock o) {
     visitElement(o);
+  }
+
+  public void visitUsingStatement(@NotNull TypeSpecUsingStatement o) {
+    visitStatement(o);
   }
 
   public void visitVariadicArgument(@NotNull TypeSpecVariadicArgument o) {

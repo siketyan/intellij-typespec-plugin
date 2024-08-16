@@ -10,12 +10,13 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecInterfaceStatementImpl extends TypeSpecElementImpl implements TypeSpecInterfaceStatement {
+public class TypeSpecInterfaceStatementImpl extends TypeSpecStatementImpl implements TypeSpecInterfaceStatement {
 
   public TypeSpecInterfaceStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
     visitor.visitInterfaceStatement(this);
   }
@@ -34,8 +35,8 @@ public class TypeSpecInterfaceStatementImpl extends TypeSpecElementImpl implemen
 
   @Override
   @NotNull
-  public List<TypeSpecInterfaceOperation> getInterfaceOperationList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecInterfaceOperation.class);
+  public TypeSpecInterfaceOperationsBlock getInterfaceOperationsBlock() {
+    return findNotNullChildByClass(TypeSpecInterfaceOperationsBlock.class);
   }
 
   @Override

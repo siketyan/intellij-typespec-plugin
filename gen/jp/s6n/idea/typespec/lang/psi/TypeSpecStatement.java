@@ -5,9 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecImportStatement extends TypeSpecStatement {
-
-  @NotNull
-  PsiElement getStringLiteral();
+public interface TypeSpecStatement extends TypeSpecElement {
 
 }

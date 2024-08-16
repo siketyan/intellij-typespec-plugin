@@ -30,6 +30,7 @@
     <!-- Language -->
     <lang.parserDefinition language="TypeSpec" implementationClass="jp.s6n.idea.typespec.lang.parser.TypeSpecParserDefinition" />
     <lang.syntaxHighlighterFactory language="TypeSpec" implementationClass="jp.s6n.idea.typespec.highlighting.TypeSpecSyntaxHighlighterFactory" />
+    <lang.foldingBuilder language="TypeSpec" implementationClass="jp.s6n.idea.typespec.folding.TypeSpecFoldingBuilder" />
 
     <!-- Annotation -->
     <annotator language="TypeSpec" implementationClass="jp.s6n.idea.typespec.highlighting.TypeSpecHighlightingAnnotator" />

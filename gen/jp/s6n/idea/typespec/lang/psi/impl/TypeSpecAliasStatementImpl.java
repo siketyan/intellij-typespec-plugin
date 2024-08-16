@@ -10,12 +10,13 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecAliasStatementImpl extends TypeSpecElementImpl implements TypeSpecAliasStatement {
+public class TypeSpecAliasStatementImpl extends TypeSpecStatementImpl implements TypeSpecAliasStatement {
 
   public TypeSpecAliasStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
     visitor.visitAliasStatement(this);
   }
