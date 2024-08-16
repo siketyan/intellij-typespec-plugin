@@ -20,8 +20,18 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    instrumentationTools()
     webstorm("2024.2")
+
+    instrumentationTools()
+    pluginVerifier()
+  }
+}
+
+intellijPlatform {
+  pluginVerification {
+    ides {
+      recommended()
+    }
   }
 }
 
