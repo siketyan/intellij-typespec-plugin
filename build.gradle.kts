@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
   id("java")
   id("org.jetbrains.kotlin.jvm") version "2.0.10"
@@ -9,6 +6,10 @@ plugins {
 
 group = "jp.s6n.idea"
 version = "1.0-SNAPSHOT"
+
+kotlin {
+  jvmToolchain(21)
+}
 
 repositories {
   mavenCentral()
@@ -28,39 +29,28 @@ dependencies {
 }
 
 intellijPlatform {
+  pluginConfiguration {
+    ideaVersion {
+      sinceBuild = "242"
+      untilBuild = "242.*"
+    }
+  }
+
   pluginVerification {
     ides {
       recommended()
     }
   }
+
+  signing {
+    certificateChain = providers.environmentVariable("CERTIFICATE_CHAIN")
+    privateKey = providers.environmentVariable("PRIVATE_KEY")
+    password = providers.environmentVariable("PRIVATE_KEY_PASSWORD")
+  }
+
+  publishing {
+    token = providers.environmentVariable("PUBLISH_TOKEN")
+  }
 }
 
 sourceSets["main"].java.srcDirs("gen")
-
-tasks {
-  withType<JavaCompile> {
-    sourceCompatibility = "21"
-    targetCompatibility = "21"
-  }
-
-  withType<KotlinCompile> {
-    compilerOptions {
-      jvmTarget.set(JvmTarget.JVM_21)
-    }
-  }
-
-  patchPluginXml {
-    sinceBuild.set("242")
-    untilBuild.set("242.*")
-  }
-
-  signPlugin {
-    certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-    privateKey.set(System.getenv("PRIVATE_KEY"))
-    password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
-  }
-
-  publishPlugin {
-    token.set(System.getenv("PUBLISH_TOKEN"))
-  }
-}
