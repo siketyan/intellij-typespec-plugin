@@ -13,6 +13,7 @@
   psiImplClassSuffix='Impl'
   psiPackage='jp.s6n.idea.typespec.lang.psi'
   psiImplPackage='jp.s6n.idea.typespec.lang.psi.impl'
+  psiImplUtilClass='jp.s6n.idea.typespec.lang.psi.impl.TypeSpecImplUtil'
 
   tokens=[
     IMPORT          = 'import'
@@ -73,19 +74,28 @@ UsingStatement ::= USING Path SEMICOLON {extends=Statement}
 
 NamespaceStatement ::= Decorator* NAMESPACE Path (SEMICOLON | LBRACE Statement* RBRACE) {extends=Statement}
 
-EnumStatement ::= Decorator* ENUM Identifier EnumVariantsBlock {extends=Statement}
+EnumStatement ::= Decorator* ENUM Identifier EnumVariantsBlock {
+    extends=Statement
+    methods=[getPresentation]
+}
 
 EnumVariantsBlock ::= LBRACE [EnumVariant (COMMA EnumVariant)* COMMA?] RBRACE
 
 EnumVariant ::= Decorator* Identifier
 
-UnionStatement ::= Decorator* UNION Identifier UnionVariantsBlock {extends=Statement}
+UnionStatement ::= Decorator* UNION Identifier UnionVariantsBlock {
+    extends=Statement
+    methods=[getPresentation]
+}
 
 UnionVariantsBlock ::= LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
 
 UnionVariant ::= Decorator* Identifier COLON PathType
 
-ModelStatement ::= Decorator* MODEL Identifier (ModelExtends | ModelIs)? ModelPropertiesBlock {extends=Statement}
+ModelStatement ::= Decorator* MODEL Identifier (ModelExtends | ModelIs)? ModelPropertiesBlock {
+    extends=Statement
+    methods=[getPresentation]
+}
 
 ModelExtends ::= EXTENDS PathType
 
@@ -95,15 +105,24 @@ ModelPropertiesBlock ::= LBRACE ModelProperty* RBRACE
 
 ModelProperty ::= Decorator* Identifier QUEST? COLON Type SEMICOLON
 
-InterfaceStatement ::= Decorator* INTERFACE Identifier InterfaceOperationsBlock {extends=Statement}
+InterfaceStatement ::= Decorator* INTERFACE Identifier InterfaceOperationsBlock {
+    extends=Statement
+    methods=[getPresentation]
+}
 
 InterfaceOperationsBlock ::= LBRACE InterfaceOperation* RBRACE
 
 InterfaceOperation ::= Decorator* Operation SEMICOLON
 
-OperationStatement ::= Decorator* OP Operation SEMICOLON {extends=Statement}
+OperationStatement ::= Decorator* OP Operation SEMICOLON {
+    extends=Statement
+    methods=[getPresentation]
+}
 
-AliasStatement ::= ALIAS Identifier EQ Type SEMICOLON {extends=Statement}
+AliasStatement ::= ALIAS Identifier EQ Type SEMICOLON {
+    extends=Statement
+    methods=[getPresentation]
+}
 
 Operation ::= Identifier OperationArgumentList COLON Type
 
