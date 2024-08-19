@@ -20,6 +20,7 @@ public interface TypeSpecElementTypes {
   IElementType EXPRESSION = new TypeSpecElementType("EXPRESSION");
   IElementType EXTERN_DECORATOR_STATEMENT = new TypeSpecElementType("EXTERN_DECORATOR_STATEMENT");
   IElementType IMPORT_STATEMENT = new TypeSpecElementType("IMPORT_STATEMENT");
+  IElementType INTERFACE_EXTENDS = new TypeSpecElementType("INTERFACE_EXTENDS");
   IElementType INTERFACE_OPERATION = new TypeSpecElementType("INTERFACE_OPERATION");
   IElementType INTERFACE_OPERATIONS_BLOCK = new TypeSpecElementType("INTERFACE_OPERATIONS_BLOCK");
   IElementType INTERFACE_STATEMENT = new TypeSpecElementType("INTERFACE_STATEMENT");
@@ -121,6 +122,9 @@ public interface TypeSpecElementTypes {
       else if (type == IMPORT_STATEMENT) {
         return new TypeSpecImportStatementImpl(node);
       }
+      else if (type == INTERFACE_EXTENDS) {
+        return new TypeSpecInterfaceExtendsImpl(node);
+      }
       else if (type == INTERFACE_OPERATION) {
         return new TypeSpecInterfaceOperationImpl(node);
       }
@@ -177,9 +181,6 @@ public interface TypeSpecElementTypes {
       }
       else if (type == PATH_TYPE) {
         return new TypeSpecPathTypeImpl(node);
-      }
-      else if (type == STATEMENT) {
-        return new TypeSpecStatementImpl(node);
       }
       else if (type == UNION_STATEMENT) {
         return new TypeSpecUnionStatementImpl(node);

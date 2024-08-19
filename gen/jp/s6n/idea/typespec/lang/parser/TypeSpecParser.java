@@ -39,9 +39,9 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     create_token_set_(EXPRESSION, LITERAL_EXPRESSION, OBJECT_EXPRESSION, PATH_EXPRESSION),
     create_token_set_(ARRAY_TYPE, LITERAL_TYPE, PATH_TYPE, TYPE,
       UNION_TYPE, VALUE_OF_TYPE),
-    create_token_set_(ALIAS_STATEMENT, ENUM_STATEMENT, IMPORT_STATEMENT, INTERFACE_STATEMENT,
-      MODEL_STATEMENT, NAMESPACE_STATEMENT, OPERATION_STATEMENT, STATEMENT,
-      UNION_STATEMENT, USING_STATEMENT),
+    create_token_set_(ALIAS_STATEMENT, ENUM_STATEMENT, EXTERN_DECORATOR_STATEMENT, IMPORT_STATEMENT,
+      INTERFACE_STATEMENT, MODEL_STATEMENT, NAMESPACE_STATEMENT, OPERATION_STATEMENT,
+      STATEMENT, UNION_STATEMENT, USING_STATEMENT),
   };
 
   /* ********************************************************** */
@@ -375,6 +375,19 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // EXTENDS PathType
+  public static boolean InterfaceExtends(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "InterfaceExtends")) return false;
+    if (!nextTokenIs(b, EXTENDS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, EXTENDS);
+    r = r && PathType(b, l + 1);
+    exit_section_(b, m, INTERFACE_EXTENDS, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // Decorator* Operation SEMICOLON
   public static boolean InterfaceOperation(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "InterfaceOperation")) return false;
@@ -425,7 +438,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* INTERFACE Identifier InterfaceOperationsBlock
+  // Decorator* INTERFACE Identifier InterfaceExtends? InterfaceOperationsBlock
   public static boolean InterfaceStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "InterfaceStatement")) return false;
     if (!nextTokenIs(b, "<interface statement>", AT, INTERFACE)) return false;
@@ -434,6 +447,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = InterfaceStatement_0(b, l + 1);
     r = r && consumeToken(b, INTERFACE);
     r = r && Identifier(b, l + 1);
+    r = r && InterfaceStatement_3(b, l + 1);
     r = r && InterfaceOperationsBlock(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -447,6 +461,13 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
       if (!Decorator(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "InterfaceStatement_0", c)) break;
     }
+    return true;
+  }
+
+  // InterfaceExtends?
+  private static boolean InterfaceStatement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "InterfaceStatement_3")) return false;
+    InterfaceExtends(b, l + 1);
     return true;
   }
 
@@ -550,7 +571,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* MODEL Identifier (ModelExtends | ModelIs)? ModelPropertiesBlock
+  // Decorator* MODEL Identifier (ModelExtends | ModelIs)? (SEMICOLON | ModelPropertiesBlock)
   public static boolean ModelStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelStatement")) return false;
     if (!nextTokenIs(b, "<model statement>", AT, MODEL)) return false;
@@ -560,7 +581,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = r && consumeToken(b, MODEL);
     r = r && Identifier(b, l + 1);
     r = r && ModelStatement_3(b, l + 1);
-    r = r && ModelPropertiesBlock(b, l + 1);
+    r = r && ModelStatement_4(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -589,6 +610,15 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     boolean r;
     r = ModelExtends(b, l + 1);
     if (!r) r = ModelIs(b, l + 1);
+    return r;
+  }
+
+  // SEMICOLON | ModelPropertiesBlock
+  private static boolean ModelStatement_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ModelStatement_4")) return false;
+    boolean r;
+    r = consumeToken(b, SEMICOLON);
+    if (!r) r = ModelPropertiesBlock(b, l + 1);
     return r;
   }
 

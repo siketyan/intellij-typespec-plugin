@@ -47,9 +47,9 @@ public class TypeSpecModelStatementImpl extends TypeSpecStatementImpl implements
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecModelPropertiesBlock getModelPropertiesBlock() {
-    return findNotNullChildByClass(TypeSpecModelPropertiesBlock.class);
+    return findChildByClass(TypeSpecModelPropertiesBlock.class);
   }
 
   @Override

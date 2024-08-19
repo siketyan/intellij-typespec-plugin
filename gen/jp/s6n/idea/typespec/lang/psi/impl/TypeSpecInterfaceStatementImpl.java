@@ -35,6 +35,12 @@ public class TypeSpecInterfaceStatementImpl extends TypeSpecStatementImpl implem
   }
 
   @Override
+  @Nullable
+  public TypeSpecInterfaceExtends getInterfaceExtends() {
+    return findChildByClass(TypeSpecInterfaceExtends.class);
+  }
+
+  @Override
   @NotNull
   public TypeSpecInterfaceOperationsBlock getInterfaceOperationsBlock() {
     return findNotNullChildByClass(TypeSpecInterfaceOperationsBlock.class);

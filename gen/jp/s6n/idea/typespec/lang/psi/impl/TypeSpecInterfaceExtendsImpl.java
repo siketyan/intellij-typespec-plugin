@@ -9,17 +9,15 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
-import com.intellij.navigation.ItemPresentation;
 
-public class TypeSpecExternDecoratorStatementImpl extends TypeSpecStatementImpl implements TypeSpecExternDecoratorStatement {
+public class TypeSpecInterfaceExtendsImpl extends TypeSpecElementImpl implements TypeSpecInterfaceExtends {
 
-  public TypeSpecExternDecoratorStatementImpl(@NotNull ASTNode node) {
+  public TypeSpecInterfaceExtendsImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitExternDecoratorStatement(this);
+    visitor.visitInterfaceExtends(this);
   }
 
   @Override
@@ -30,20 +28,8 @@ public class TypeSpecExternDecoratorStatementImpl extends TypeSpecStatementImpl 
 
   @Override
   @NotNull
-  public TypeSpecArgumentList getArgumentList() {
-    return findNotNullChildByClass(TypeSpecArgumentList.class);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
-  }
-
-  @Override
-  @Nullable
-  public ItemPresentation getPresentation() {
-    return TypeSpecImplUtil.getPresentation(this);
+  public TypeSpecPathType getPathType() {
+    return findNotNullChildByClass(TypeSpecPathType.class);
   }
 
 }

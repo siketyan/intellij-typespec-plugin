@@ -47,11 +47,15 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitExternDecoratorStatement(@NotNull TypeSpecExternDecoratorStatement o) {
-    visitElement(o);
+    visitStatement(o);
   }
 
   public void visitImportStatement(@NotNull TypeSpecImportStatement o) {
     visitStatement(o);
+  }
+
+  public void visitInterfaceExtends(@NotNull TypeSpecInterfaceExtends o) {
+    visitElement(o);
   }
 
   public void visitInterfaceOperation(@NotNull TypeSpecInterfaceOperation o) {

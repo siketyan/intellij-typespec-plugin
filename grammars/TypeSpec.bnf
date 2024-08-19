@@ -96,7 +96,7 @@ UnionVariantsBlock ::= LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
 
 UnionVariant ::= Decorator* Identifier COLON PathType
 
-ModelStatement ::= Decorator* MODEL Identifier (ModelExtends | ModelIs)? ModelPropertiesBlock {
+ModelStatement ::= Decorator* MODEL Identifier (ModelExtends | ModelIs)? (SEMICOLON | ModelPropertiesBlock) {
     extends=Statement
     methods=[getPresentation]
 }
@@ -109,10 +109,12 @@ ModelPropertiesBlock ::= LBRACE ModelProperty* RBRACE
 
 ModelProperty ::= Decorator* Identifier QUEST? COLON Type SEMICOLON
 
-InterfaceStatement ::= Decorator* INTERFACE Identifier InterfaceOperationsBlock {
+InterfaceStatement ::= Decorator* INTERFACE Identifier InterfaceExtends? InterfaceOperationsBlock {
     extends=Statement
     methods=[getPresentation]
 }
+
+InterfaceExtends ::= EXTENDS PathType
 
 InterfaceOperationsBlock ::= LBRACE InterfaceOperation* RBRACE
 
@@ -128,7 +130,10 @@ AliasStatement ::= ALIAS Identifier EQ Type SEMICOLON {
     methods=[getPresentation]
 }
 
-ExternDecoratorStatement ::= EXTERN DEC Identifier ArgumentList SEMICOLON
+ExternDecoratorStatement ::= EXTERN DEC Identifier ArgumentList SEMICOLON {
+    extends=Statement
+    methods=[getPresentation]
+}
 
 Operation ::= Identifier ArgumentList COLON Type
 

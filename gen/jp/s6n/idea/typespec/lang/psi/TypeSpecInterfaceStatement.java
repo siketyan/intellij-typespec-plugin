@@ -11,6 +11,9 @@ public interface TypeSpecInterfaceStatement extends TypeSpecStatement {
   @NotNull
   List<TypeSpecDecorator> getDecoratorList();
 
+  @Nullable
+  TypeSpecInterfaceExtends getInterfaceExtends();
+
   @NotNull
   TypeSpecInterfaceOperationsBlock getInterfaceOperationsBlock();
 
