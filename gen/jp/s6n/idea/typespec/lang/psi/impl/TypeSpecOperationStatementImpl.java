@@ -9,6 +9,7 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
+import com.intellij.navigation.ItemPresentation;
 
 public class TypeSpecOperationStatementImpl extends TypeSpecStatementImpl implements TypeSpecOperationStatement {
 
@@ -37,6 +38,12 @@ public class TypeSpecOperationStatementImpl extends TypeSpecStatementImpl implem
   @NotNull
   public TypeSpecOperation getOperation() {
     return findNotNullChildByClass(TypeSpecOperation.class);
+  }
+
+  @Override
+  @Nullable
+  public ItemPresentation getPresentation() {
+    return TypeSpecImplUtil.getPresentation(this);
   }
 
 }

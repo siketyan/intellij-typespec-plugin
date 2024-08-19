@@ -593,7 +593,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* Identifier COLON Type
+  // Decorator* Identifier QUEST? COLON Type
   public static boolean NamedArgument(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamedArgument")) return false;
     if (!nextTokenIs(b, "<named argument>", AT, IDENTIFIER)) return false;
@@ -601,6 +601,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, NAMED_ARGUMENT, "<named argument>");
     r = NamedArgument_0(b, l + 1);
     r = r && Identifier(b, l + 1);
+    r = r && NamedArgument_2(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && Type(b, l + 1, -1);
     exit_section_(b, l, m, r, false, null);
@@ -615,6 +616,13 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
       if (!Decorator(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "NamedArgument_0", c)) break;
     }
+    return true;
+  }
+
+  // QUEST?
+  private static boolean NamedArgument_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "NamedArgument_2")) return false;
+    consumeToken(b, QUEST);
     return true;
   }
 

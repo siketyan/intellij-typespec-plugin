@@ -138,7 +138,7 @@ Argument ::=
     NamedArgument
     | VariadicArgument
 
-NamedArgument ::= Decorator* Identifier COLON Type
+NamedArgument ::= Decorator* Identifier QUEST? COLON Type
 
 VariadicArgument ::= DOTDOTDOT Identifier
 
