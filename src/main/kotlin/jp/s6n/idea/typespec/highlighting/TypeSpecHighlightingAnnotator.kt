@@ -18,6 +18,7 @@ class TypeSpecHighlightingAnnotator : Annotator {
             is TypeSpecInterfaceStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecOperationStatement -> newAnnotation(element.operation.identifier, holder, TypeSpecColors.OPERATION)
             is TypeSpecAliasStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
+            is TypeSpecExternDecoratorStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.DECORATOR)
         }
     }
 

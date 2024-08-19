@@ -9,7 +9,6 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
-import com.intellij.navigation.ItemPresentation;
 
 public class TypeSpecUnionStatementImpl extends TypeSpecStatementImpl implements TypeSpecUnionStatement {
 
@@ -44,12 +43,6 @@ public class TypeSpecUnionStatementImpl extends TypeSpecStatementImpl implements
   @NotNull
   public PsiElement getIdentifier() {
     return findNotNullChildByType(IDENTIFIER);
-  }
-
-  @Override
-  @Nullable
-  public ItemPresentation getPresentation() {
-    return TypeSpecImplUtil.getPresentation(this);
   }
 
 }

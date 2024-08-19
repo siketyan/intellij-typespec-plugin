@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecSimpleType extends TypeSpecElement {
+public interface TypeSpecValueOfType extends TypeSpecType {
 
   @Nullable
-  TypeSpecLiteralType getLiteralType();
-
-  @Nullable
-  TypeSpecPathType getPathType();
+  TypeSpecType getType();
 
 }

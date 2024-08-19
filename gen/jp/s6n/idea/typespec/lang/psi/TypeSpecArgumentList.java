@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecOperation extends TypeSpecElement {
+public interface TypeSpecArgumentList extends TypeSpecElement {
 
   @NotNull
-  TypeSpecArgumentList getArgumentList();
-
-  @NotNull
-  TypeSpecType getType();
-
-  @NotNull
-  PsiElement getIdentifier();
+  List<TypeSpecArgument> getArgumentList();
 
 }

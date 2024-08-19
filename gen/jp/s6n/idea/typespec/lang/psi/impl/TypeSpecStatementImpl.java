@@ -10,7 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public abstract class TypeSpecStatementImpl extends TypeSpecElementImpl implements TypeSpecStatement {
+public class TypeSpecStatementImpl extends TypeSpecElementImpl implements TypeSpecStatement {
 
   public TypeSpecStatementImpl(@NotNull ASTNode node) {
     super(node);
@@ -24,6 +24,12 @@ public abstract class TypeSpecStatementImpl extends TypeSpecElementImpl implemen
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TypeSpecVisitor) accept((TypeSpecVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @Nullable
+  public TypeSpecExternDecoratorStatement getExternDecoratorStatement() {
+    return findChildByClass(TypeSpecExternDecoratorStatement.class);
   }
 
 }

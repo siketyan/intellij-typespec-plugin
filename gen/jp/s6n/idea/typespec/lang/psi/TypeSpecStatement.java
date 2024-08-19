@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface TypeSpecStatement extends TypeSpecElement {
 
+  @Nullable
+  TypeSpecExternDecoratorStatement getExternDecoratorStatement();
+
 }

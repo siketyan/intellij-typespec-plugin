@@ -48,6 +48,9 @@ LINE_COMMENT="//".*
   "is"                    { return IS; }
   "op"                    { return OP; }
   "alias"                 { return ALIAS; }
+  "extern"                { return EXTERN; }
+  "dec"                   { return DEC; }
+  "valueof"               { return VALUEOF; }
   "{"                     { return LBRACE; }
   "}"                     { return RBRACE; }
   "("                     { return LPAREN; }

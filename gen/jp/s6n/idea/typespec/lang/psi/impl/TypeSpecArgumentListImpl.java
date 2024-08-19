@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecOperationArgumentListImpl extends TypeSpecElementImpl implements TypeSpecOperationArgumentList {
+public class TypeSpecArgumentListImpl extends TypeSpecElementImpl implements TypeSpecArgumentList {
 
-  public TypeSpecOperationArgumentListImpl(@NotNull ASTNode node) {
+  public TypeSpecArgumentListImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitOperationArgumentList(this);
+    visitor.visitArgumentList(this);
   }
 
   @Override
@@ -28,8 +28,8 @@ public class TypeSpecOperationArgumentListImpl extends TypeSpecElementImpl imple
 
   @Override
   @NotNull
-  public List<TypeSpecOperationArgument> getOperationArgumentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecOperationArgument.class);
+  public List<TypeSpecArgument> getArgumentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecArgument.class);
   }
 
 }

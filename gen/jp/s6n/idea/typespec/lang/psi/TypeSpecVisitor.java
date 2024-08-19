@@ -10,6 +10,14 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitStatement(o);
   }
 
+  public void visitArgument(@NotNull TypeSpecArgument o) {
+    visitElement(o);
+  }
+
+  public void visitArgumentList(@NotNull TypeSpecArgumentList o) {
+    visitElement(o);
+  }
+
   public void visitArgumentsList(@NotNull TypeSpecArgumentsList o) {
     visitElement(o);
   }
@@ -35,6 +43,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitExpression(@NotNull TypeSpecExpression o) {
+    visitElement(o);
+  }
+
+  public void visitExternDecoratorStatement(@NotNull TypeSpecExternDecoratorStatement o) {
     visitElement(o);
   }
 
@@ -102,14 +114,6 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitElement(o);
   }
 
-  public void visitOperationArgument(@NotNull TypeSpecOperationArgument o) {
-    visitElement(o);
-  }
-
-  public void visitOperationArgumentList(@NotNull TypeSpecOperationArgumentList o) {
-    visitElement(o);
-  }
-
   public void visitOperationStatement(@NotNull TypeSpecOperationStatement o) {
     visitStatement(o);
   }
@@ -152,6 +156,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
 
   public void visitUsingStatement(@NotNull TypeSpecUsingStatement o) {
     visitStatement(o);
+  }
+
+  public void visitValueOfType(@NotNull TypeSpecValueOfType o) {
+    visitType(o);
   }
 
   public void visitVariadicArgument(@NotNull TypeSpecVariadicArgument o) {

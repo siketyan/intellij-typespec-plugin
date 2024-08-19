@@ -38,7 +38,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
     create_token_set_(EXPRESSION, LITERAL_EXPRESSION, OBJECT_EXPRESSION, PATH_EXPRESSION),
     create_token_set_(ARRAY_TYPE, LITERAL_TYPE, PATH_TYPE, TYPE,
-      UNION_TYPE),
+      UNION_TYPE, VALUE_OF_TYPE),
     create_token_set_(ALIAS_STATEMENT, ENUM_STATEMENT, IMPORT_STATEMENT, INTERFACE_STATEMENT,
       MODEL_STATEMENT, NAMESPACE_STATEMENT, OPERATION_STATEMENT, STATEMENT,
       UNION_STATEMENT, USING_STATEMENT),
@@ -57,6 +57,73 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = r && Type(b, l + 1, -1);
     r = r && consumeToken(b, SEMICOLON);
     exit_section_(b, m, ALIAS_STATEMENT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // NamedArgument
+  //     | VariadicArgument
+  public static boolean Argument(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Argument")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ARGUMENT, "<argument>");
+    r = NamedArgument(b, l + 1);
+    if (!r) r = VariadicArgument(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // LPAREN [Argument (COMMA Argument)*] RPAREN
+  public static boolean ArgumentList(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ArgumentList")) return false;
+    if (!nextTokenIs(b, LPAREN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LPAREN);
+    r = r && ArgumentList_1(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, ARGUMENT_LIST, r);
+    return r;
+  }
+
+  // [Argument (COMMA Argument)*]
+  private static boolean ArgumentList_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ArgumentList_1")) return false;
+    ArgumentList_1_0(b, l + 1);
+    return true;
+  }
+
+  // Argument (COMMA Argument)*
+  private static boolean ArgumentList_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ArgumentList_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Argument(b, l + 1);
+    r = r && ArgumentList_1_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (COMMA Argument)*
+  private static boolean ArgumentList_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ArgumentList_1_0_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!ArgumentList_1_0_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "ArgumentList_1_0_1", c)) break;
+    }
+    return true;
+  }
+
+  // COMMA Argument
+  private static boolean ArgumentList_1_0_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ArgumentList_1_0_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMA);
+    r = r && Argument(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -259,6 +326,21 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     if (!r) r = PathExpression(b, l + 1);
     if (!r) r = LiteralExpression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // EXTERN DEC Identifier ArgumentList SEMICOLON
+  public static boolean ExternDecoratorStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ExternDecoratorStatement")) return false;
+    if (!nextTokenIs(b, EXTERN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, EXTERN, DEC);
+    r = r && Identifier(b, l + 1);
+    r = r && ArgumentList(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
+    exit_section_(b, m, EXTERN_DECORATOR_STATEMENT, r);
     return r;
   }
 
@@ -673,84 +755,17 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Identifier OperationArgumentList COLON Type
+  // Identifier ArgumentList COLON Type
   public static boolean Operation(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Operation")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = Identifier(b, l + 1);
-    r = r && OperationArgumentList(b, l + 1);
+    r = r && ArgumentList(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && Type(b, l + 1, -1);
     exit_section_(b, m, OPERATION, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // NamedArgument
-  //     | VariadicArgument
-  public static boolean OperationArgument(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "OperationArgument")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, OPERATION_ARGUMENT, "<operation argument>");
-    r = NamedArgument(b, l + 1);
-    if (!r) r = VariadicArgument(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // LPAREN [OperationArgument (COMMA OperationArgument)*] RPAREN
-  public static boolean OperationArgumentList(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "OperationArgumentList")) return false;
-    if (!nextTokenIs(b, LPAREN)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LPAREN);
-    r = r && OperationArgumentList_1(b, l + 1);
-    r = r && consumeToken(b, RPAREN);
-    exit_section_(b, m, OPERATION_ARGUMENT_LIST, r);
-    return r;
-  }
-
-  // [OperationArgument (COMMA OperationArgument)*]
-  private static boolean OperationArgumentList_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "OperationArgumentList_1")) return false;
-    OperationArgumentList_1_0(b, l + 1);
-    return true;
-  }
-
-  // OperationArgument (COMMA OperationArgument)*
-  private static boolean OperationArgumentList_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "OperationArgumentList_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = OperationArgument(b, l + 1);
-    r = r && OperationArgumentList_1_0_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (COMMA OperationArgument)*
-  private static boolean OperationArgumentList_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "OperationArgumentList_1_0_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!OperationArgumentList_1_0_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "OperationArgumentList_1_0_1", c)) break;
-    }
-    return true;
-  }
-
-  // COMMA OperationArgument
-  private static boolean OperationArgumentList_1_0_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "OperationArgumentList_1_0_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, COMMA);
-    r = r && OperationArgument(b, l + 1);
-    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -837,6 +852,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   //     | InterfaceStatement
   //     | OperationStatement
   //     | AliasStatement
+  //     | ExternDecoratorStatement
   public static boolean Statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Statement")) return false;
     boolean r;
@@ -850,6 +866,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     if (!r) r = InterfaceStatement(b, l + 1);
     if (!r) r = OperationStatement(b, l + 1);
     if (!r) r = AliasStatement(b, l + 1);
+    if (!r) r = ExternDecoratorStatement(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -999,15 +1016,17 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   // Expression root: Type
   // Operator priority table:
   // 0: N_ARY(UnionType)
-  // 1: POSTFIX(ArrayType)
-  // 2: ATOM(PathType)
-  // 3: ATOM(LiteralType)
+  // 1: PREFIX(ValueOfType)
+  // 2: POSTFIX(ArrayType)
+  // 3: ATOM(PathType)
+  // 4: ATOM(LiteralType)
   public static boolean Type(PsiBuilder b, int l, int g) {
     if (!recursion_guard_(b, l, "Type")) return false;
     addVariant(b, "<type>");
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, "<type>");
-    r = PathType(b, l + 1);
+    r = ValueOfType(b, l + 1);
+    if (!r) r = PathType(b, l + 1);
     if (!r) r = LiteralType(b, l + 1);
     p = r;
     r = r && Type_0(b, l + 1, g);
@@ -1027,7 +1046,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
         }
         exit_section_(b, l, m, UNION_TYPE, r, true, null);
       }
-      else if (g < 1 && parseTokensSmart(b, 0, LBRACKET, RBRACKET)) {
+      else if (g < 2 && parseTokensSmart(b, 0, LBRACKET, RBRACKET)) {
         r = true;
         exit_section_(b, l, m, ARRAY_TYPE, r, true, null);
       }
@@ -1037,6 +1056,18 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
       }
     }
     return r;
+  }
+
+  public static boolean ValueOfType(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ValueOfType")) return false;
+    if (!nextTokenIsSmart(b, VALUEOF)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, null);
+    r = consumeTokenSmart(b, VALUEOF);
+    p = r;
+    r = p && Type(b, l, 1);
+    exit_section_(b, l, m, VALUE_OF_TYPE, r, p, null);
+    return r || p;
   }
 
   // Path

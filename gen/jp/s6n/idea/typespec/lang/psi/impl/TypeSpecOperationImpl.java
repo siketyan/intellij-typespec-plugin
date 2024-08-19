@@ -28,8 +28,8 @@ public class TypeSpecOperationImpl extends TypeSpecElementImpl implements TypeSp
 
   @Override
   @NotNull
-  public TypeSpecOperationArgumentList getOperationArgumentList() {
-    return findNotNullChildByClass(TypeSpecOperationArgumentList.class);
+  public TypeSpecArgumentList getArgumentList() {
+    return findNotNullChildByClass(TypeSpecArgumentList.class);
   }
 
   @Override

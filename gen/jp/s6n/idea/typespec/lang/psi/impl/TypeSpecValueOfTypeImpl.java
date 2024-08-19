@@ -10,14 +10,15 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecOperationArgumentImpl extends TypeSpecElementImpl implements TypeSpecOperationArgument {
+public class TypeSpecValueOfTypeImpl extends TypeSpecTypeImpl implements TypeSpecValueOfType {
 
-  public TypeSpecOperationArgumentImpl(@NotNull ASTNode node) {
+  public TypeSpecValueOfTypeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitOperationArgument(this);
+    visitor.visitValueOfType(this);
   }
 
   @Override
@@ -28,14 +29,8 @@ public class TypeSpecOperationArgumentImpl extends TypeSpecElementImpl implement
 
   @Override
   @Nullable
-  public TypeSpecNamedArgument getNamedArgument() {
-    return findChildByClass(TypeSpecNamedArgument.class);
-  }
-
-  @Override
-  @Nullable
-  public TypeSpecVariadicArgument getVariadicArgument() {
-    return findChildByClass(TypeSpecVariadicArgument.class);
+  public TypeSpecType getType() {
+    return findChildByClass(TypeSpecType.class);
   }
 
 }

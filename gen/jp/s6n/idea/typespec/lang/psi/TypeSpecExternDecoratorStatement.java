@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecOperationArgument extends TypeSpecElement {
+public interface TypeSpecExternDecoratorStatement extends TypeSpecElement {
 
-  @Nullable
-  TypeSpecNamedArgument getNamedArgument();
+  @NotNull
+  TypeSpecArgumentList getArgumentList();
 
-  @Nullable
-  TypeSpecVariadicArgument getVariadicArgument();
+  @NotNull
+  PsiElement getIdentifier();
 
 }

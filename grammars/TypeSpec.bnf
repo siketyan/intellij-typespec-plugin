@@ -27,6 +27,9 @@
     IS              = 'is'
     OP              = 'op'
     ALIAS           = 'alias'
+    EXTERN          = 'extern'
+    DEC             = 'dec'
+    VALUEOF         = 'valueof'
 
     LBRACE          = '{'
     RBRACE          = '}'
@@ -67,6 +70,7 @@ Statement ::=
     | InterfaceStatement
     | OperationStatement
     | AliasStatement
+    | ExternDecoratorStatement
 
 ImportStatement ::= IMPORT STRING_LITERAL SEMICOLON {extends=Statement}
 
@@ -124,11 +128,13 @@ AliasStatement ::= ALIAS Identifier EQ Type SEMICOLON {
     methods=[getPresentation]
 }
 
-Operation ::= Identifier OperationArgumentList COLON Type
+ExternDecoratorStatement ::= EXTERN DEC Identifier ArgumentList SEMICOLON
 
-OperationArgumentList ::= LPAREN [OperationArgument (COMMA OperationArgument)*] RPAREN
+Operation ::= Identifier ArgumentList COLON Type
 
-OperationArgument ::=
+ArgumentList ::= LPAREN [Argument (COMMA Argument)*] RPAREN
+
+Argument ::=
     NamedArgument
     | VariadicArgument
 
@@ -155,9 +161,12 @@ LiteralExpression ::= STRING_LITERAL | NUMERIC_LITERAL {extends=Expression}
 
 Type ::=
     UnionType
+    | ValueOfType
     | ArrayType
     | PathType
     | LiteralType
+
+ValueOfType ::= VALUEOF Type {extends=Type}
 
 UnionType ::= Type (PIPE Type)+ {extends=Type}
 
