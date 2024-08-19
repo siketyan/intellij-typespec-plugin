@@ -42,8 +42,8 @@ public class TypeSpecEnumStatementImpl extends TypeSpecStatementImpl implements 
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override

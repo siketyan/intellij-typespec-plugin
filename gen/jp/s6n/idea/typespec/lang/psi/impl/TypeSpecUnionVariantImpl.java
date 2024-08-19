@@ -34,14 +34,14 @@ public class TypeSpecUnionVariantImpl extends TypeSpecElementImpl implements Typ
 
   @Override
   @NotNull
-  public TypeSpecPathType getPathType() {
-    return findNotNullChildByClass(TypeSpecPathType.class);
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public TypeSpecPathType getPathType() {
+    return findNotNullChildByClass(TypeSpecPathType.class);
   }
 
 }

@@ -11,6 +11,6 @@ public interface TypeSpecEnumVariant extends TypeSpecElement {
   List<TypeSpecDecorator> getDecoratorList();
 
   @NotNull
-  PsiElement getIdentifier();
+  TypeSpecIdentifier getIdentifier();
 
 }

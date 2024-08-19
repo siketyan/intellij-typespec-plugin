@@ -9,10 +9,10 @@ import com.intellij.navigation.ItemPresentation;
 public interface TypeSpecExternDecoratorStatement extends TypeSpecStatement {
 
   @NotNull
-  TypeSpecArgumentList getArgumentList();
+  TypeSpecIdentifier getIdentifier();
 
   @NotNull
-  PsiElement getIdentifier();
+  TypeSpecParameterList getParameterList();
 
   @Nullable
   ItemPresentation getPresentation();

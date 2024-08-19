@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecNamedArgument extends TypeSpecElement {
+public interface TypeSpecParameterList extends TypeSpecElement {
 
   @NotNull
-  List<TypeSpecDecorator> getDecoratorList();
-
-  @NotNull
-  TypeSpecType getType();
-
-  @NotNull
-  PsiElement getIdentifier();
+  List<TypeSpecParameter> getParameterList();
 
 }

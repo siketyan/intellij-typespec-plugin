@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecPath extends TypeSpecElement {
-
-  @NotNull
-  List<TypeSpecIdentifier> getIdentifierList();
+public interface TypeSpecParameter extends TypeSpecElement {
 
   @Nullable
-  TypeSpecTypeArgumentList getTypeArgumentList();
+  TypeSpecNamedParameter getNamedParameter();
+
+  @Nullable
+  TypeSpecVariadicParameter getVariadicParameter();
 
 }

@@ -11,6 +11,6 @@ public interface TypeSpecObjectExpressionProperty extends TypeSpecElement {
   TypeSpecExpression getExpression();
 
   @NotNull
-  PsiElement getIdentifier();
+  TypeSpecIdentifier getIdentifier();
 
 }

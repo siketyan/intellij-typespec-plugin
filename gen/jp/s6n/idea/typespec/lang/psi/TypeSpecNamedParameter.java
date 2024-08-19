@@ -5,9 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecVariadicArgument extends TypeSpecElement {
+public interface TypeSpecNamedParameter extends TypeSpecElement {
 
   @NotNull
-  PsiElement getIdentifier();
+  List<TypeSpecDecorator> getDecoratorList();
+
+  @NotNull
+  TypeSpecIdentifier getIdentifier();
+
+  @NotNull
+  TypeSpecType getType();
 
 }

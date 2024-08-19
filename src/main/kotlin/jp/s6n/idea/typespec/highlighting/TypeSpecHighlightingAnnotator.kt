@@ -10,7 +10,7 @@ import jp.s6n.idea.typespec.lang.psi.*
 class TypeSpecHighlightingAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         when (element) {
-            is TypeSpecPathType -> newAnnotation(element.path.lastChild, holder, TypeSpecColors.TYPE_REFERENCE)
+            is TypeSpecPathType -> newAnnotation(element.path.identifierList.last(), holder, TypeSpecColors.TYPE_REFERENCE)
             is TypeSpecDecorator -> newAnnotation(element.pathExpression, holder, TypeSpecColors.DECORATOR)
             is TypeSpecEnumStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecUnionStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
@@ -19,6 +19,7 @@ class TypeSpecHighlightingAnnotator : Annotator {
             is TypeSpecOperationStatement -> newAnnotation(element.operation.identifier, holder, TypeSpecColors.OPERATION)
             is TypeSpecAliasStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecExternDecoratorStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.DECORATOR)
+            is TypeSpecTypeParameterList -> element.identifierList.forEach { newAnnotation(it, holder, TypeSpecColors.TYPE) }
         }
     }
 

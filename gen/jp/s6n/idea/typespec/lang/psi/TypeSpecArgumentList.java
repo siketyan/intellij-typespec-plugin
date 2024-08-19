@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecArgumentList extends TypeSpecElement {
 
   @NotNull
-  List<TypeSpecArgument> getArgumentList();
+  List<TypeSpecExpression> getExpressionList();
 
 }

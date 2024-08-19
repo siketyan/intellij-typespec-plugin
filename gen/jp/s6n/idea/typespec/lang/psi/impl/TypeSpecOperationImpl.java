@@ -28,20 +28,20 @@ public class TypeSpecOperationImpl extends TypeSpecElementImpl implements TypeSp
 
   @Override
   @NotNull
-  public TypeSpecArgumentList getArgumentList() {
-    return findNotNullChildByClass(TypeSpecArgumentList.class);
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override
-  @NotNull
-  public TypeSpecType getType() {
-    return findNotNullChildByClass(TypeSpecType.class);
+  @Nullable
+  public TypeSpecOperationIs getOperationIs() {
+    return findChildByClass(TypeSpecOperationIs.class);
   }
 
   @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  @Nullable
+  public TypeSpecOperationSignature getOperationSignature() {
+    return findChildByClass(TypeSpecOperationSignature.class);
   }
 
 }

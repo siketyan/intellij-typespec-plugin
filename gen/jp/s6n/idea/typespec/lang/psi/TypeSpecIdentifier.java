@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecPath extends TypeSpecElement {
+public interface TypeSpecIdentifier extends TypeSpecElement {
 
   @NotNull
-  List<TypeSpecIdentifier> getIdentifierList();
-
-  @Nullable
-  TypeSpecTypeArgumentList getTypeArgumentList();
+  PsiElement getIdent();
 
 }

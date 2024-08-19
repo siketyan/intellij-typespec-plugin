@@ -11,6 +11,9 @@ public interface TypeSpecModelStatement extends TypeSpecStatement {
   @NotNull
   List<TypeSpecDecorator> getDecoratorList();
 
+  @NotNull
+  TypeSpecIdentifier getIdentifier();
+
   @Nullable
   TypeSpecModelExtends getModelExtends();
 
@@ -20,8 +23,8 @@ public interface TypeSpecModelStatement extends TypeSpecStatement {
   @Nullable
   TypeSpecModelPropertiesBlock getModelPropertiesBlock();
 
-  @NotNull
-  PsiElement getIdentifier();
+  @Nullable
+  TypeSpecTypeParameterList getTypeParameterList();
 
   @Nullable
   ItemPresentation getPresentation();

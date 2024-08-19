@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecDecorator extends TypeSpecElement {
 
   @Nullable
-  TypeSpecArgumentsList getArgumentsList();
+  TypeSpecArgumentList getArgumentList();
 
   @NotNull
   TypeSpecPathExpression getPathExpression();

@@ -28,8 +28,8 @@ public class TypeSpecArgumentListImpl extends TypeSpecElementImpl implements Typ
 
   @Override
   @NotNull
-  public List<TypeSpecArgument> getArgumentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecArgument.class);
+  public List<TypeSpecExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecExpression.class);
   }
 
 }

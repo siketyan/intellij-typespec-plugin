@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecArgumentsList extends TypeSpecElement {
+public interface TypeSpecVariadicParameter extends TypeSpecElement {
 
   @NotNull
-  List<TypeSpecExpression> getExpressionList();
+  TypeSpecIdentifier getIdentifier();
 
 }

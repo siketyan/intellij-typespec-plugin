@@ -35,6 +35,12 @@ public class TypeSpecModelStatementImpl extends TypeSpecStatementImpl implements
   }
 
   @Override
+  @NotNull
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
+  }
+
+  @Override
   @Nullable
   public TypeSpecModelExtends getModelExtends() {
     return findChildByClass(TypeSpecModelExtends.class);
@@ -53,9 +59,9 @@ public class TypeSpecModelStatementImpl extends TypeSpecStatementImpl implements
   }
 
   @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  @Nullable
+  public TypeSpecTypeParameterList getTypeParameterList() {
+    return findChildByClass(TypeSpecTypeParameterList.class);
   }
 
   @Override

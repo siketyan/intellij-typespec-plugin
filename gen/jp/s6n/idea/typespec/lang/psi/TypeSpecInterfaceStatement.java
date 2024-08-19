@@ -11,14 +11,17 @@ public interface TypeSpecInterfaceStatement extends TypeSpecStatement {
   @NotNull
   List<TypeSpecDecorator> getDecoratorList();
 
+  @NotNull
+  TypeSpecIdentifier getIdentifier();
+
   @Nullable
   TypeSpecInterfaceExtends getInterfaceExtends();
 
   @NotNull
   TypeSpecInterfaceOperationsBlock getInterfaceOperationsBlock();
 
-  @NotNull
-  PsiElement getIdentifier();
+  @Nullable
+  TypeSpecTypeParameterList getTypeParameterList();
 
   @Nullable
   ItemPresentation getPresentation();

@@ -26,4 +26,16 @@ public class TypeSpecPathImpl extends TypeSpecElementImpl implements TypeSpecPat
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public List<TypeSpecIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecIdentifier.class);
+  }
+
+  @Override
+  @Nullable
+  public TypeSpecTypeArgumentList getTypeArgumentList() {
+    return findChildByClass(TypeSpecTypeArgumentList.class);
+  }
+
 }

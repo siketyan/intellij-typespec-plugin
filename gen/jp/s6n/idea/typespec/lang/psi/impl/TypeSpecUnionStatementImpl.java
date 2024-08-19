@@ -36,14 +36,14 @@ public class TypeSpecUnionStatementImpl extends TypeSpecStatementImpl implements
 
   @Override
   @NotNull
-  public TypeSpecUnionVariantsBlock getUnionVariantsBlock() {
-    return findNotNullChildByClass(TypeSpecUnionVariantsBlock.class);
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public TypeSpecUnionVariantsBlock getUnionVariantsBlock() {
+    return findNotNullChildByClass(TypeSpecUnionVariantsBlock.class);
   }
 
   @Override

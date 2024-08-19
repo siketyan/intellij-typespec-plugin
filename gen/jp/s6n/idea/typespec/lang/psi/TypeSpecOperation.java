@@ -8,12 +8,12 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecOperation extends TypeSpecElement {
 
   @NotNull
-  TypeSpecArgumentList getArgumentList();
+  TypeSpecIdentifier getIdentifier();
 
-  @NotNull
-  TypeSpecType getType();
+  @Nullable
+  TypeSpecOperationIs getOperationIs();
 
-  @NotNull
-  PsiElement getIdentifier();
+  @Nullable
+  TypeSpecOperationSignature getOperationSignature();
 
 }

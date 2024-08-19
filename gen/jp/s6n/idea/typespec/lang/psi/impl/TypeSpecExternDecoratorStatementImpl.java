@@ -30,14 +30,14 @@ public class TypeSpecExternDecoratorStatementImpl extends TypeSpecStatementImpl 
 
   @Override
   @NotNull
-  public TypeSpecArgumentList getArgumentList() {
-    return findNotNullChildByClass(TypeSpecArgumentList.class);
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public TypeSpecParameterList getParameterList() {
+    return findNotNullChildByClass(TypeSpecParameterList.class);
   }
 
   @Override

@@ -10,14 +10,15 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecDecoratorImpl extends TypeSpecElementImpl implements TypeSpecDecorator {
+public class TypeSpecNamedModelPropertyImpl extends TypeSpecModelPropertyImpl implements TypeSpecNamedModelProperty {
 
-  public TypeSpecDecoratorImpl(@NotNull ASTNode node) {
+  public TypeSpecNamedModelPropertyImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitDecorator(this);
+    visitor.visitNamedModelProperty(this);
   }
 
   @Override
@@ -27,15 +28,27 @@ public class TypeSpecDecoratorImpl extends TypeSpecElementImpl implements TypeSp
   }
 
   @Override
+  @NotNull
+  public List<TypeSpecDecorator> getDecoratorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecorator.class);
+  }
+
+  @Override
   @Nullable
-  public TypeSpecArgumentList getArgumentList() {
-    return findChildByClass(TypeSpecArgumentList.class);
+  public TypeSpecExpression getExpression() {
+    return findChildByClass(TypeSpecExpression.class);
   }
 
   @Override
   @NotNull
-  public TypeSpecPathExpression getPathExpression() {
-    return findNotNullChildByClass(TypeSpecPathExpression.class);
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
+  }
+
+  @Override
+  @NotNull
+  public TypeSpecType getType() {
+    return findNotNullChildByClass(TypeSpecType.class);
   }
 
 }

@@ -15,7 +15,7 @@ public interface TypeSpecEnumStatement extends TypeSpecStatement {
   TypeSpecEnumVariantsBlock getEnumVariantsBlock();
 
   @NotNull
-  PsiElement getIdentifier();
+  TypeSpecIdentifier getIdentifier();
 
   @Nullable
   ItemPresentation getPresentation();

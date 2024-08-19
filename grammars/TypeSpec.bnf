@@ -37,6 +37,8 @@
     RPAREN          = ')'
     LBRACKET        = '['
     RBRACKET        = ']'
+    LT              = '<'
+    GT              = '>'
     EQ              = '='
     DOTDOTDOT       = '...'
     DOT             = '.'
@@ -49,7 +51,7 @@
 
     STRING_LITERAL  = 'regexp:"([^\\"\r\n]|\\[^\r\n])*"?'
     NUMERIC_LITERAL = 'regexp:-?\d+(\.\d+)?'
-    IDENTIFIER      = 'regexp:[a-zA-Z][a-zA-Z0-9\-_]*|`(\\`|[^`])+`'
+    IDENT           = 'regexp:[a-zA-Z][a-zA-Z0-9\-_]*|`(\\`|[^`])+`'
     WHITE_SPACE     = 'regexp:\s+'
 
     DOC_COMMENT     = 'regexp:/\*\*([^*]|\*[^/])*\*/'
@@ -96,25 +98,29 @@ UnionVariantsBlock ::= LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
 
 UnionVariant ::= Decorator* Identifier COLON PathType
 
-ModelStatement ::= Decorator* MODEL Identifier (ModelExtends | ModelIs)? (SEMICOLON | ModelPropertiesBlock) {
+ModelStatement ::= Decorator* MODEL Identifier TypeParameterList? (ModelExtends | ModelIs)? (SEMICOLON | ModelPropertiesBlock) {
     extends=Statement
     methods=[getPresentation]
 }
 
-ModelExtends ::= EXTENDS PathType
+ModelExtends ::= EXTENDS [PathType (COMMA PathType)*]
 
 ModelIs ::= IS PathType
 
 ModelPropertiesBlock ::= LBRACE ModelProperty* RBRACE
 
-ModelProperty ::= Decorator* Identifier QUEST? COLON Type SEMICOLON
+ModelProperty ::= NamedModelProperty | SpreadModelProperty
 
-InterfaceStatement ::= Decorator* INTERFACE Identifier InterfaceExtends? InterfaceOperationsBlock {
+NamedModelProperty ::= Decorator* Identifier QUEST? COLON Type (EQ Expression)? SEMICOLON {extends=ModelProperty}
+
+SpreadModelProperty ::= DOTDOTDOT PathType SEMICOLON {extends=ModelProperty}
+
+InterfaceStatement ::= Decorator* INTERFACE Identifier TypeParameterList? InterfaceExtends? InterfaceOperationsBlock {
     extends=Statement
     methods=[getPresentation]
 }
 
-InterfaceExtends ::= EXTENDS PathType
+InterfaceExtends ::= EXTENDS [PathType (COMMA PathType)*]
 
 InterfaceOperationsBlock ::= LBRACE InterfaceOperation* RBRACE
 
@@ -130,26 +136,34 @@ AliasStatement ::= ALIAS Identifier EQ Type SEMICOLON {
     methods=[getPresentation]
 }
 
-ExternDecoratorStatement ::= EXTERN DEC Identifier ArgumentList SEMICOLON {
+ExternDecoratorStatement ::= EXTERN DEC Identifier ParameterList SEMICOLON {
     extends=Statement
     methods=[getPresentation]
 }
 
-Operation ::= Identifier ArgumentList COLON Type
+Operation ::= Identifier (OperationSignature | OperationIs)
 
-ArgumentList ::= LPAREN [Argument (COMMA Argument)*] RPAREN
+OperationSignature ::= TypeParameterList? ParameterList COLON Type
 
-Argument ::=
-    NamedArgument
-    | VariadicArgument
+OperationIs ::= IS Path
 
-NamedArgument ::= Decorator* Identifier QUEST? COLON Type
+TypeParameterList ::= LT [Identifier (COMMA Identifier)*] GT
 
-VariadicArgument ::= DOTDOTDOT Identifier
+TypeArgumentList ::= LT [Type (COMMA Type)*] GT
 
-Decorator ::= AT PathExpression ArgumentsList?
+ParameterList ::= LPAREN [Parameter (COMMA Parameter)*] RPAREN
 
-ArgumentsList ::= LPAREN [Expression (COMMA Expression)*] RPAREN
+Parameter ::=
+    NamedParameter
+    | VariadicParameter
+
+NamedParameter ::= Decorator* Identifier QUEST? COLON Type
+
+VariadicParameter ::= DOTDOTDOT Identifier
+
+Decorator ::= AT PathExpression ArgumentList?
+
+ArgumentList ::= LPAREN [Expression (COMMA Expression)*] RPAREN
 
 Expression ::=
     ObjectExpression
@@ -181,6 +195,6 @@ PathType ::= Path {extends=Type}
 
 LiteralType ::= STRING_LITERAL | NUMERIC_LITERAL {extends=Type}
 
-Path ::= Identifier (DOT Identifier)*
+Path ::= Identifier (DOT Identifier)* TypeArgumentList?
 
-private Identifier ::= IDENTIFIER
+Identifier ::= IDENT

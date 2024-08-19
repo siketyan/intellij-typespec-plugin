@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecArgumentsListImpl extends TypeSpecElementImpl implements TypeSpecArgumentsList {
+public class TypeSpecNamedParameterImpl extends TypeSpecElementImpl implements TypeSpecNamedParameter {
 
-  public TypeSpecArgumentsListImpl(@NotNull ASTNode node) {
+  public TypeSpecNamedParameterImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitArgumentsList(this);
+    visitor.visitNamedParameter(this);
   }
 
   @Override
@@ -28,8 +28,20 @@ public class TypeSpecArgumentsListImpl extends TypeSpecElementImpl implements Ty
 
   @Override
   @NotNull
-  public List<TypeSpecExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecExpression.class);
+  public List<TypeSpecDecorator> getDecoratorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecorator.class);
+  }
+
+  @Override
+  @NotNull
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
+  }
+
+  @Override
+  @NotNull
+  public TypeSpecType getType() {
+    return findNotNullChildByClass(TypeSpecType.class);
   }
 
 }

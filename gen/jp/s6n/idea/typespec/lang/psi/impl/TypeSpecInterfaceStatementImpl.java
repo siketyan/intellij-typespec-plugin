@@ -35,6 +35,12 @@ public class TypeSpecInterfaceStatementImpl extends TypeSpecStatementImpl implem
   }
 
   @Override
+  @NotNull
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
+  }
+
+  @Override
   @Nullable
   public TypeSpecInterfaceExtends getInterfaceExtends() {
     return findChildByClass(TypeSpecInterfaceExtends.class);
@@ -47,9 +53,9 @@ public class TypeSpecInterfaceStatementImpl extends TypeSpecStatementImpl implem
   }
 
   @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  @Nullable
+  public TypeSpecTypeParameterList getTypeParameterList() {
+    return findChildByClass(TypeSpecTypeParameterList.class);
   }
 
   @Override

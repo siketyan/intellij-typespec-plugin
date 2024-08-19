@@ -9,10 +9,10 @@ import com.intellij.navigation.ItemPresentation;
 public interface TypeSpecAliasStatement extends TypeSpecStatement {
 
   @NotNull
-  TypeSpecType getType();
+  TypeSpecIdentifier getIdentifier();
 
   @NotNull
-  PsiElement getIdentifier();
+  TypeSpecType getType();
 
   @Nullable
   ItemPresentation getPresentation();

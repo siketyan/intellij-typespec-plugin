@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecDecoratorImpl extends TypeSpecElementImpl implements TypeSpecDecorator {
+public class TypeSpecOperationIsImpl extends TypeSpecElementImpl implements TypeSpecOperationIs {
 
-  public TypeSpecDecoratorImpl(@NotNull ASTNode node) {
+  public TypeSpecOperationIsImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitDecorator(this);
+    visitor.visitOperationIs(this);
   }
 
   @Override
@@ -27,15 +27,9 @@ public class TypeSpecDecoratorImpl extends TypeSpecElementImpl implements TypeSp
   }
 
   @Override
-  @Nullable
-  public TypeSpecArgumentList getArgumentList() {
-    return findChildByClass(TypeSpecArgumentList.class);
-  }
-
-  @Override
   @NotNull
-  public TypeSpecPathExpression getPathExpression() {
-    return findNotNullChildByClass(TypeSpecPathExpression.class);
+  public TypeSpecPath getPath() {
+    return findNotNullChildByClass(TypeSpecPath.class);
   }
 
 }

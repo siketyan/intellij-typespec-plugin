@@ -27,7 +27,7 @@ WHITE_SPACE=\s+
 
 STRING_LITERAL=\"([^\\\"\r\n]|\\[^\r\n])*\"?
 NUMERIC_LITERAL=-?[0-9]+(\.[0-9]+)?
-IDENTIFIER=[a-zA-Z][a-zA-Z0-9\-_]*|`(\\`|[^`])+`
+IDENT=[a-zA-Z][a-zA-Z0-9\-_]*|`(\\`|[^`])+`
 WHITE_SPACE=[ \t\n\x0B\f\r]+
 DOC_COMMENT="/"\*\*([^*]|\*[^/])*\*"/"
 BLOCK_COMMENT="/"\*([^*]|\*[^/])*\*"/"
@@ -57,6 +57,8 @@ LINE_COMMENT="//".*
   ")"                     { return RPAREN; }
   "["                     { return LBRACKET; }
   "]"                     { return RBRACKET; }
+  "<"                     { return LT; }
+  ">"                     { return GT; }
   "="                     { return EQ; }
   "..."                   { return DOTDOTDOT; }
   "."                     { return DOT; }
@@ -69,7 +71,7 @@ LINE_COMMENT="//".*
 
   {STRING_LITERAL}        { return STRING_LITERAL; }
   {NUMERIC_LITERAL}       { return NUMERIC_LITERAL; }
-  {IDENTIFIER}            { return IDENTIFIER; }
+  {IDENT}                 { return IDENT; }
   {WHITE_SPACE}           { return WHITE_SPACE; }
   {DOC_COMMENT}           { return DOC_COMMENT; }
   {BLOCK_COMMENT}         { return BLOCK_COMMENT; }

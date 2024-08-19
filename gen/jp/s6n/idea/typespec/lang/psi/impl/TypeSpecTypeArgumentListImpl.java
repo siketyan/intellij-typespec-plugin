@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecArgumentImpl extends TypeSpecElementImpl implements TypeSpecArgument {
+public class TypeSpecTypeArgumentListImpl extends TypeSpecElementImpl implements TypeSpecTypeArgumentList {
 
-  public TypeSpecArgumentImpl(@NotNull ASTNode node) {
+  public TypeSpecTypeArgumentListImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitArgument(this);
+    visitor.visitTypeArgumentList(this);
   }
 
   @Override
@@ -27,15 +27,9 @@ public class TypeSpecArgumentImpl extends TypeSpecElementImpl implements TypeSpe
   }
 
   @Override
-  @Nullable
-  public TypeSpecNamedArgument getNamedArgument() {
-    return findChildByClass(TypeSpecNamedArgument.class);
-  }
-
-  @Override
-  @Nullable
-  public TypeSpecVariadicArgument getVariadicArgument() {
-    return findChildByClass(TypeSpecVariadicArgument.class);
+  @NotNull
+  public List<TypeSpecType> getTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecType.class);
   }
 
 }

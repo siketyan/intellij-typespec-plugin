@@ -30,14 +30,14 @@ public class TypeSpecAliasStatementImpl extends TypeSpecStatementImpl implements
 
   @Override
   @NotNull
-  public TypeSpecType getType() {
-    return findNotNullChildByClass(TypeSpecType.class);
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public TypeSpecType getType() {
+    return findNotNullChildByClass(TypeSpecType.class);
   }
 
   @Override

@@ -34,8 +34,8 @@ public class TypeSpecObjectExpressionPropertyImpl extends TypeSpecElementImpl im
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
 }

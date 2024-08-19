@@ -10,15 +10,7 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitStatement(o);
   }
 
-  public void visitArgument(@NotNull TypeSpecArgument o) {
-    visitElement(o);
-  }
-
   public void visitArgumentList(@NotNull TypeSpecArgumentList o) {
-    visitElement(o);
-  }
-
-  public void visitArgumentsList(@NotNull TypeSpecArgumentsList o) {
     visitElement(o);
   }
 
@@ -48,6 +40,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
 
   public void visitExternDecoratorStatement(@NotNull TypeSpecExternDecoratorStatement o) {
     visitStatement(o);
+  }
+
+  public void visitIdentifier(@NotNull TypeSpecIdentifier o) {
+    visitElement(o);
   }
 
   public void visitImportStatement(@NotNull TypeSpecImportStatement o) {
@@ -98,7 +94,11 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitStatement(o);
   }
 
-  public void visitNamedArgument(@NotNull TypeSpecNamedArgument o) {
+  public void visitNamedModelProperty(@NotNull TypeSpecNamedModelProperty o) {
+    visitModelProperty(o);
+  }
+
+  public void visitNamedParameter(@NotNull TypeSpecNamedParameter o) {
     visitElement(o);
   }
 
@@ -118,8 +118,24 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitElement(o);
   }
 
+  public void visitOperationIs(@NotNull TypeSpecOperationIs o) {
+    visitElement(o);
+  }
+
+  public void visitOperationSignature(@NotNull TypeSpecOperationSignature o) {
+    visitElement(o);
+  }
+
   public void visitOperationStatement(@NotNull TypeSpecOperationStatement o) {
     visitStatement(o);
+  }
+
+  public void visitParameter(@NotNull TypeSpecParameter o) {
+    visitElement(o);
+  }
+
+  public void visitParameterList(@NotNull TypeSpecParameterList o) {
+    visitElement(o);
   }
 
   public void visitPath(@NotNull TypeSpecPath o) {
@@ -134,11 +150,23 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitType(o);
   }
 
+  public void visitSpreadModelProperty(@NotNull TypeSpecSpreadModelProperty o) {
+    visitModelProperty(o);
+  }
+
   public void visitStatement(@NotNull TypeSpecStatement o) {
     visitElement(o);
   }
 
   public void visitType(@NotNull TypeSpecType o) {
+    visitElement(o);
+  }
+
+  public void visitTypeArgumentList(@NotNull TypeSpecTypeArgumentList o) {
+    visitElement(o);
+  }
+
+  public void visitTypeParameterList(@NotNull TypeSpecTypeParameterList o) {
     visitElement(o);
   }
 
@@ -166,7 +194,7 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitType(o);
   }
 
-  public void visitVariadicArgument(@NotNull TypeSpecVariadicArgument o) {
+  public void visitVariadicParameter(@NotNull TypeSpecVariadicParameter o) {
     visitElement(o);
   }
 

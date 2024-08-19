@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecArgument extends TypeSpecElement {
+public interface TypeSpecSpreadModelProperty extends TypeSpecModelProperty {
 
-  @Nullable
-  TypeSpecNamedArgument getNamedArgument();
-
-  @Nullable
-  TypeSpecVariadicArgument getVariadicArgument();
+  @NotNull
+  TypeSpecPathType getPathType();
 
 }

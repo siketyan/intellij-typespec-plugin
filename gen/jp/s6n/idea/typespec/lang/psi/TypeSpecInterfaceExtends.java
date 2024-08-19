@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecInterfaceExtends extends TypeSpecElement {
 
   @NotNull
-  TypeSpecPathType getPathType();
+  List<TypeSpecPathType> getPathTypeList();
 
 }

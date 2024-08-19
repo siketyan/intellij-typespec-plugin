@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecDecoratorImpl extends TypeSpecElementImpl implements TypeSpecDecorator {
+public class TypeSpecOperationSignatureImpl extends TypeSpecElementImpl implements TypeSpecOperationSignature {
 
-  public TypeSpecDecoratorImpl(@NotNull ASTNode node) {
+  public TypeSpecOperationSignatureImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitDecorator(this);
+    visitor.visitOperationSignature(this);
   }
 
   @Override
@@ -27,15 +27,21 @@ public class TypeSpecDecoratorImpl extends TypeSpecElementImpl implements TypeSp
   }
 
   @Override
-  @Nullable
-  public TypeSpecArgumentList getArgumentList() {
-    return findChildByClass(TypeSpecArgumentList.class);
+  @NotNull
+  public TypeSpecParameterList getParameterList() {
+    return findNotNullChildByClass(TypeSpecParameterList.class);
   }
 
   @Override
   @NotNull
-  public TypeSpecPathExpression getPathExpression() {
-    return findNotNullChildByClass(TypeSpecPathExpression.class);
+  public TypeSpecType getType() {
+    return findNotNullChildByClass(TypeSpecType.class);
+  }
+
+  @Override
+  @Nullable
+  public TypeSpecTypeParameterList getTypeParameterList() {
+    return findChildByClass(TypeSpecTypeParameterList.class);
   }
 
 }
