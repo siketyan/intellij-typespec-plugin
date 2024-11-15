@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    webstorm("2024.3")
+    intellijIdeaUltimate("2024.3")
 
     instrumentationTools()
     pluginVerifier()

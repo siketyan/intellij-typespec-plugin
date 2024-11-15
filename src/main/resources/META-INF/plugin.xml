@@ -39,6 +39,9 @@
     <!-- Annotation -->
     <annotator language="TypeSpec" implementationClass="jp.s6n.idea.typespec.highlighting.TypeSpecHighlightingAnnotator" />
 
+    <!-- Notification Group -->
+    <notificationGroup id="TypeSpec" displayType="STICKY_BALLOON" />
+
     <!-- LSP -->
     <platform.lsp.serverSupportProvider implementation="jp.s6n.idea.typespec.lsp.TypeSpecLspServerSupportProvider" />
   </extensions>
