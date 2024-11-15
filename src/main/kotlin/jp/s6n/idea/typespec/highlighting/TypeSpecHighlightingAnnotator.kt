@@ -13,6 +13,7 @@ class TypeSpecHighlightingAnnotator : Annotator {
             is TypeSpecTypeReference -> newAnnotation(element.path.identifier ?: element.path.memberExpression?.lastChild!!, holder, TypeSpecColors.TYPE_REFERENCE)
             is TypeSpecDecorator -> newAnnotation(element.path, holder, TypeSpecColors.DECORATOR)
             is TypeSpecDirective -> newAnnotation(element.identifier, holder, TypeSpecColors.DECORATOR)
+            is TypeSpecScalarStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecEnumStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecUnionStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecModelStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
@@ -21,7 +22,7 @@ class TypeSpecHighlightingAnnotator : Annotator {
             is TypeSpecAliasStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecExternDecoratorStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.DECORATOR)
             is TypeSpecAugmentDecoratorStatement -> newAnnotation(element.path, holder, TypeSpecColors.DECORATOR)
-            is TypeSpecTypeParameterList -> element.typeParameterList.forEach { newAnnotation(it, holder, TypeSpecColors.TYPE) }
+            is TypeSpecTypeParameterList -> element.typeParameterList.forEach { newAnnotation(it.identifier, holder, TypeSpecColors.TYPE) }
         }
     }
 
