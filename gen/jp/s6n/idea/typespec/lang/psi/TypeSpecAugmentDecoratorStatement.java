@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecStatement extends TypeSpecElement {
+public interface TypeSpecAugmentDecoratorStatement extends TypeSpecElement {
 
   @Nullable
-  TypeSpecAugmentDecoratorStatement getAugmentDecoratorStatement();
+  TypeSpecArgumentList getArgumentList();
+
+  @NotNull
+  TypeSpecPathExpression getPathExpression();
 
 }

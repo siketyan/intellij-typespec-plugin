@@ -46,6 +46,7 @@
     SEMICOLON       = ';'
     QUEST           = '?'
     AT              = '@'
+    ATAT            = '@@'
     COMMA           = ','
     PIPE            = '|'
 
@@ -73,6 +74,7 @@ Statement ::=
     | OperationStatement
     | AliasStatement
     | ExternDecoratorStatement
+    | AugmentDecoratorStatement
 
 ImportStatement ::= IMPORT STRING_LITERAL SEMICOLON {extends=Statement}
 
@@ -140,6 +142,8 @@ ExternDecoratorStatement ::= EXTERN DEC Identifier ParameterList SEMICOLON {
     extends=Statement
     methods=[getPresentation]
 }
+
+AugmentDecoratorStatement ::= ATAT PathExpression ArgumentList?
 
 Operation ::= Identifier (OperationSignature | OperationIs)
 

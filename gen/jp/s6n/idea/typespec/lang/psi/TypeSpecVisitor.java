@@ -18,6 +18,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitType(o);
   }
 
+  public void visitAugmentDecoratorStatement(@NotNull TypeSpecAugmentDecoratorStatement o) {
+    visitElement(o);
+  }
+
   public void visitDecorator(@NotNull TypeSpecDecorator o) {
     visitElement(o);
   }

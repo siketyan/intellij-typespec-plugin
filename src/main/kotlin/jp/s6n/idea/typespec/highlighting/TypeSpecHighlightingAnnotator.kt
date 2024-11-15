@@ -19,6 +19,7 @@ class TypeSpecHighlightingAnnotator : Annotator {
             is TypeSpecOperationStatement -> newAnnotation(element.operation.identifier, holder, TypeSpecColors.OPERATION)
             is TypeSpecAliasStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecExternDecoratorStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.DECORATOR)
+            is TypeSpecAugmentDecoratorStatement -> newAnnotation(element.pathExpression, holder, TypeSpecColors.DECORATOR)
             is TypeSpecTypeParameterList -> element.identifierList.forEach { newAnnotation(it, holder, TypeSpecColors.TYPE) }
         }
     }

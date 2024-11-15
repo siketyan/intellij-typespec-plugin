@@ -116,6 +116,27 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // ATAT PathExpression ArgumentList?
+  public static boolean AugmentDecoratorStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "AugmentDecoratorStatement")) return false;
+    if (!nextTokenIs(b, ATAT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ATAT);
+    r = r && PathExpression(b, l + 1);
+    r = r && AugmentDecoratorStatement_2(b, l + 1);
+    exit_section_(b, m, AUGMENT_DECORATOR_STATEMENT, r);
+    return r;
+  }
+
+  // ArgumentList?
+  private static boolean AugmentDecoratorStatement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "AugmentDecoratorStatement_2")) return false;
+    ArgumentList(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
   // AT PathExpression ArgumentList?
   public static boolean Decorator(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Decorator")) return false;
@@ -1089,6 +1110,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   //     | OperationStatement
   //     | AliasStatement
   //     | ExternDecoratorStatement
+  //     | AugmentDecoratorStatement
   public static boolean Statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Statement")) return false;
     boolean r;
@@ -1103,6 +1125,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     if (!r) r = OperationStatement(b, l + 1);
     if (!r) r = AliasStatement(b, l + 1);
     if (!r) r = ExternDecoratorStatement(b, l + 1);
+    if (!r) r = AugmentDecoratorStatement(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

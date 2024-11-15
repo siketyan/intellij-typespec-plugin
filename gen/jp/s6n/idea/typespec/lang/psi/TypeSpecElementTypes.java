@@ -11,6 +11,7 @@ public interface TypeSpecElementTypes {
   IElementType ALIAS_STATEMENT = new TypeSpecElementType("ALIAS_STATEMENT");
   IElementType ARGUMENT_LIST = new TypeSpecElementType("ARGUMENT_LIST");
   IElementType ARRAY_TYPE = new TypeSpecElementType("ARRAY_TYPE");
+  IElementType AUGMENT_DECORATOR_STATEMENT = new TypeSpecElementType("AUGMENT_DECORATOR_STATEMENT");
   IElementType DECORATOR = new TypeSpecElementType("DECORATOR");
   IElementType ENUM_STATEMENT = new TypeSpecElementType("ENUM_STATEMENT");
   IElementType ENUM_VARIANT = new TypeSpecElementType("ENUM_VARIANT");
@@ -59,6 +60,7 @@ public interface TypeSpecElementTypes {
 
   IElementType ALIAS = new TypeSpecTokenType("alias");
   IElementType AT = new TypeSpecTokenType("@");
+  IElementType ATAT = new TypeSpecTokenType("@@");
   IElementType BLOCK_COMMENT = new TypeSpecTokenType("BLOCK_COMMENT");
   IElementType COLON = new TypeSpecTokenType(":");
   IElementType COMMA = new TypeSpecTokenType(",");
@@ -106,6 +108,9 @@ public interface TypeSpecElementTypes {
       }
       else if (type == ARRAY_TYPE) {
         return new TypeSpecArrayTypeImpl(node);
+      }
+      else if (type == AUGMENT_DECORATOR_STATEMENT) {
+        return new TypeSpecAugmentDecoratorStatementImpl(node);
       }
       else if (type == DECORATOR) {
         return new TypeSpecDecoratorImpl(node);
@@ -202,6 +207,9 @@ public interface TypeSpecElementTypes {
       }
       else if (type == SPREAD_MODEL_PROPERTY) {
         return new TypeSpecSpreadModelPropertyImpl(node);
+      }
+      else if (type == STATEMENT) {
+        return new TypeSpecStatementImpl(node);
       }
       else if (type == TYPE_ARGUMENT_LIST) {
         return new TypeSpecTypeArgumentListImpl(node);

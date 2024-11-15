@@ -66,6 +66,7 @@ LINE_COMMENT="//".*
   ";"                     { return SEMICOLON; }
   "?"                     { return QUEST; }
   "@"                     { return AT; }
+  "@@"                    { return ATAT; }
   ","                     { return COMMA; }
   "|"                     { return PIPE; }
 
