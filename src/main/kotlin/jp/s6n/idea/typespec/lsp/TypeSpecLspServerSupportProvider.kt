@@ -16,33 +16,22 @@ class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
     ) {
         if (file.fileType != TypeSpecFileType) return
 
-        val packageJson = findNearestPackageJson(file) ?: return Notifications.Bus.notify(
-            Notification(
-                "TypeSpec",
-                "Missing package.json",
-                "Could not find package.json in the project.",
-                NotificationType.WARNING
-            ), project
-        )
-
-        val packageDir = packageJson.parent ?: return
-        val tspServer = findTspServer(packageJson.parent) ?: return Notifications.Bus.notify(
+        val descriptor = findTspServer(project, file.parent ?: return) ?: return Notifications.Bus.notify(
             Notification(
                 "TypeSpec",
                 "TypeSpec is not installed",
-                "Could not find @typespec/compiler in the current package.",
+                "Could not find @typespec/compiler in the current directory.",
                 NotificationType.WARNING
             )
         )
 
-        serverStarter.ensureServerStarted(TypeSpecLspServerDescriptor(project, packageDir, tspServer))
+        serverStarter.ensureServerStarted(descriptor)
     }
 
-    private fun findNearestPackageJson(file: VirtualFile): VirtualFile? {
-        val directory = file.parent ?: return null
-        return directory.findChild("package.json") ?: findNearestPackageJson(directory)
-    }
+    private fun findTspServer(project: Project, directory: VirtualFile): TypeSpecLspServerDescriptor? {
+        val tspServerFile = directory.findFile("node_modules/@typespec/compiler/cmd/tsp-server.js")
+            ?: return findTspServer(project, directory.parent ?: return null)
 
-    private fun findTspServer(directory: VirtualFile): VirtualFile? =
-        directory.findFile("node_modules/@typespec/compiler/cmd/tsp-server.js")
+        return TypeSpecLspServerDescriptor(project, directory, tspServerFile)
+    }
 }
