@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecStatementImpl extends TypeSpecElementImpl implements TypeSpecStatement {
+public class TypeSpecScalarConstructorImpl extends TypeSpecElementImpl implements TypeSpecScalarConstructor {
 
-  public TypeSpecStatementImpl(@NotNull ASTNode node) {
+  public TypeSpecScalarConstructorImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitStatement(this);
+    visitor.visitScalarConstructor(this);
   }
 
   @Override
@@ -27,15 +27,15 @@ public class TypeSpecStatementImpl extends TypeSpecElementImpl implements TypeSp
   }
 
   @Override
-  @Nullable
-  public TypeSpecAugmentDecoratorStatement getAugmentDecoratorStatement() {
-    return findChildByClass(TypeSpecAugmentDecoratorStatement.class);
+  @NotNull
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override
   @Nullable
-  public TypeSpecScalarStatement getScalarStatement() {
-    return findChildByClass(TypeSpecScalarStatement.class);
+  public TypeSpecParameterList getParameterList() {
+    return findChildByClass(TypeSpecParameterList.class);
   }
 
 }

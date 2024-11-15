@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecStatement extends TypeSpecElement {
+public interface TypeSpecScalarConstructor extends TypeSpecElement {
+
+  @NotNull
+  TypeSpecIdentifier getIdentifier();
 
   @Nullable
-  TypeSpecAugmentDecoratorStatement getAugmentDecoratorStatement();
-
-  @Nullable
-  TypeSpecScalarStatement getScalarStatement();
+  TypeSpecParameterList getParameterList();
 
 }

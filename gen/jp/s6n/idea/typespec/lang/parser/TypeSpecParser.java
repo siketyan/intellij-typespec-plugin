@@ -706,7 +706,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DecoratorLike* Identifier QUEST? COLON Expression
+  // DecoratorLike* Identifier QUEST? (COLON Expression)?
   public static boolean NamedParameter(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamedParameter")) return false;
     boolean r;
@@ -714,8 +714,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = NamedParameter_0(b, l + 1);
     r = r && Identifier(b, l + 1);
     r = r && NamedParameter_2(b, l + 1);
-    r = r && consumeToken(b, COLON);
-    r = r && Expression(b, l + 1, -1);
+    r = r && NamedParameter_3(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -736,6 +735,24 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "NamedParameter_2")) return false;
     consumeToken(b, QUEST);
     return true;
+  }
+
+  // (COLON Expression)?
+  private static boolean NamedParameter_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "NamedParameter_3")) return false;
+    NamedParameter_3_0(b, l + 1);
+    return true;
+  }
+
+  // COLON Expression
+  private static boolean NamedParameter_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "NamedParameter_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COLON);
+    r = r && Expression(b, l + 1, -1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -997,6 +1014,116 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // INIT Identifier ParameterList? SEMICOLON
+  public static boolean ScalarConstructor(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ScalarConstructor")) return false;
+    if (!nextTokenIs(b, INIT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, INIT);
+    r = r && Identifier(b, l + 1);
+    r = r && ScalarConstructor_2(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
+    exit_section_(b, m, SCALAR_CONSTRUCTOR, r);
+    return r;
+  }
+
+  // ParameterList?
+  private static boolean ScalarConstructor_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ScalarConstructor_2")) return false;
+    ParameterList(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // LBRACE ScalarConstructor* RBRACE
+  public static boolean ScalarConstructorList(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ScalarConstructorList")) return false;
+    if (!nextTokenIs(b, LBRACE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LBRACE);
+    r = r && ScalarConstructorList_1(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, SCALAR_CONSTRUCTOR_LIST, r);
+    return r;
+  }
+
+  // ScalarConstructor*
+  private static boolean ScalarConstructorList_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ScalarConstructorList_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!ScalarConstructor(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "ScalarConstructorList_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // EXTENDS TypeReference
+  public static boolean ScalarExtends(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ScalarExtends")) return false;
+    if (!nextTokenIs(b, EXTENDS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, EXTENDS);
+    r = r && TypeReference(b, l + 1);
+    exit_section_(b, m, SCALAR_EXTENDS, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // DecoratorLike* SCALAR Identifier TypeParameterList? ScalarExtends? (SEMICOLON | ScalarConstructorList)
+  public static boolean ScalarStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ScalarStatement")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, SCALAR_STATEMENT, "<scalar statement>");
+    r = ScalarStatement_0(b, l + 1);
+    r = r && consumeToken(b, SCALAR);
+    r = r && Identifier(b, l + 1);
+    r = r && ScalarStatement_3(b, l + 1);
+    r = r && ScalarStatement_4(b, l + 1);
+    r = r && ScalarStatement_5(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // DecoratorLike*
+  private static boolean ScalarStatement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ScalarStatement_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!DecoratorLike(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "ScalarStatement_0", c)) break;
+    }
+    return true;
+  }
+
+  // TypeParameterList?
+  private static boolean ScalarStatement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ScalarStatement_3")) return false;
+    TypeParameterList(b, l + 1);
+    return true;
+  }
+
+  // ScalarExtends?
+  private static boolean ScalarStatement_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ScalarStatement_4")) return false;
+    ScalarExtends(b, l + 1);
+    return true;
+  }
+
+  // SEMICOLON | ScalarConstructorList
+  private static boolean ScalarStatement_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ScalarStatement_5")) return false;
+    boolean r;
+    r = consumeToken(b, SEMICOLON);
+    if (!r) r = ScalarConstructorList(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
   // DOTDOTDOT Expression (COMMA | SEMICOLON)
   public static boolean SpreadModelProperty(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "SpreadModelProperty")) return false;
@@ -1036,6 +1163,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   // ImportStatement
   //     | UsingStatement
   //     | NamespaceStatement
+  //     | ScalarStatement
   //     | EnumStatement
   //     | UnionStatement
   //     | ModelStatement
@@ -1051,6 +1179,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = ImportStatement(b, l + 1);
     if (!r) r = UsingStatement(b, l + 1);
     if (!r) r = NamespaceStatement(b, l + 1);
+    if (!r) r = ScalarStatement(b, l + 1);
     if (!r) r = EnumStatement(b, l + 1);
     if (!r) r = UnionStatement(b, l + 1);
     if (!r) r = ModelStatement(b, l + 1);

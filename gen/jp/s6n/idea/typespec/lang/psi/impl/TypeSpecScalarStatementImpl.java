@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecNamedParameterImpl extends TypeSpecElementImpl implements TypeSpecNamedParameter {
+public class TypeSpecScalarStatementImpl extends TypeSpecElementImpl implements TypeSpecScalarStatement {
 
-  public TypeSpecNamedParameterImpl(@NotNull ASTNode node) {
+  public TypeSpecScalarStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitNamedParameter(this);
+    visitor.visitScalarStatement(this);
   }
 
   @Override
@@ -33,15 +33,27 @@ public class TypeSpecNamedParameterImpl extends TypeSpecElementImpl implements T
   }
 
   @Override
-  @Nullable
-  public TypeSpecExpression getExpression() {
-    return findChildByClass(TypeSpecExpression.class);
-  }
-
-  @Override
   @NotNull
   public TypeSpecIdentifier getIdentifier() {
     return findNotNullChildByClass(TypeSpecIdentifier.class);
+  }
+
+  @Override
+  @Nullable
+  public TypeSpecScalarConstructorList getScalarConstructorList() {
+    return findChildByClass(TypeSpecScalarConstructorList.class);
+  }
+
+  @Override
+  @Nullable
+  public TypeSpecScalarExtends getScalarExtends() {
+    return findChildByClass(TypeSpecScalarExtends.class);
+  }
+
+  @Override
+  @Nullable
+  public TypeSpecTypeParameterList getTypeParameterList() {
+    return findChildByClass(TypeSpecTypeParameterList.class);
   }
 
 }

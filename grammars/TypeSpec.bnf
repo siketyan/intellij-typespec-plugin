@@ -19,6 +19,8 @@
     IMPORT          = 'import'
     USING           = 'using'
     NAMESPACE       = 'namespace'
+    SCALAR          = 'scalar'
+    INIT            = 'init'
     ENUM            = 'enum'
     UNION           = 'union'
     MODEL           = 'model'
@@ -78,6 +80,7 @@ Statement ::=
     ImportStatement
     | UsingStatement
     | NamespaceStatement
+    | ScalarStatement
     | EnumStatement
     | UnionStatement
     | ModelStatement
@@ -92,6 +95,14 @@ ImportStatement ::= IMPORT STRING_LITERAL SEMICOLON {extends=Statement}
 UsingStatement ::= USING Path SEMICOLON {extends=Statement}
 
 NamespaceStatement ::= DecoratorLike* NAMESPACE Path (SEMICOLON | LBRACE Statement* RBRACE) {extends=Statement}
+
+ScalarStatement ::= DecoratorLike* SCALAR Identifier TypeParameterList? ScalarExtends? (SEMICOLON | ScalarConstructorList)
+
+ScalarExtends ::= EXTENDS TypeReference
+
+ScalarConstructorList ::= LBRACE ScalarConstructor* RBRACE
+
+ScalarConstructor ::= INIT Identifier ParameterList? SEMICOLON
 
 EnumStatement ::= DecoratorLike* ENUM Identifier EnumVariantsBlock {
     extends=Statement
@@ -176,7 +187,7 @@ Parameter ::=
     NamedParameter
     | VariadicParameter
 
-NamedParameter ::= DecoratorLike* Identifier QUEST? COLON Expression
+NamedParameter ::= DecoratorLike* Identifier QUEST? (COLON Expression)?
 
 VariadicParameter ::= DOTDOTDOT Expression
 

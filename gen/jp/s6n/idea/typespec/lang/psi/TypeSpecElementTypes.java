@@ -50,6 +50,10 @@ public interface TypeSpecElementTypes {
   IElementType PARAMETER = new TypeSpecElementType("PARAMETER");
   IElementType PARAMETER_LIST = new TypeSpecElementType("PARAMETER_LIST");
   IElementType PATH = new TypeSpecElementType("PATH");
+  IElementType SCALAR_CONSTRUCTOR = new TypeSpecElementType("SCALAR_CONSTRUCTOR");
+  IElementType SCALAR_CONSTRUCTOR_LIST = new TypeSpecElementType("SCALAR_CONSTRUCTOR_LIST");
+  IElementType SCALAR_EXTENDS = new TypeSpecElementType("SCALAR_EXTENDS");
+  IElementType SCALAR_STATEMENT = new TypeSpecElementType("SCALAR_STATEMENT");
   IElementType SPREAD_MODEL_PROPERTY = new TypeSpecElementType("SPREAD_MODEL_PROPERTY");
   IElementType SPREAD_OBJECT_LITERAL_PROPERTY = new TypeSpecElementType("SPREAD_OBJECT_LITERAL_PROPERTY");
   IElementType STATEMENT = new TypeSpecElementType("STATEMENT");
@@ -91,6 +95,7 @@ public interface TypeSpecElementTypes {
   IElementType HASHLBRACKET = new TypeSpecTokenType("#[");
   IElementType IDENT = new TypeSpecTokenType("IDENT");
   IElementType IMPORT = new TypeSpecTokenType("import");
+  IElementType INIT = new TypeSpecTokenType("init");
   IElementType INTERFACE = new TypeSpecTokenType("interface");
   IElementType IS = new TypeSpecTokenType("is");
   IElementType LBRACE = new TypeSpecTokenType("{");
@@ -108,6 +113,7 @@ public interface TypeSpecElementTypes {
   IElementType RBRACE = new TypeSpecTokenType("}");
   IElementType RBRACKET = new TypeSpecTokenType("]");
   IElementType RPAREN = new TypeSpecTokenType(")");
+  IElementType SCALAR = new TypeSpecTokenType("scalar");
   IElementType SEMICOLON = new TypeSpecTokenType(";");
   IElementType STRING_LITERAL = new TypeSpecTokenType("STRING_LITERAL");
   IElementType TRUE = new TypeSpecTokenType("true");
@@ -239,6 +245,18 @@ public interface TypeSpecElementTypes {
       }
       else if (type == PATH) {
         return new TypeSpecPathImpl(node);
+      }
+      else if (type == SCALAR_CONSTRUCTOR) {
+        return new TypeSpecScalarConstructorImpl(node);
+      }
+      else if (type == SCALAR_CONSTRUCTOR_LIST) {
+        return new TypeSpecScalarConstructorListImpl(node);
+      }
+      else if (type == SCALAR_EXTENDS) {
+        return new TypeSpecScalarExtendsImpl(node);
+      }
+      else if (type == SCALAR_STATEMENT) {
+        return new TypeSpecScalarStatementImpl(node);
       }
       else if (type == SPREAD_MODEL_PROPERTY) {
         return new TypeSpecSpreadModelPropertyImpl(node);

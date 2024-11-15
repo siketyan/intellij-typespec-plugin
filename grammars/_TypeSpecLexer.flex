@@ -40,6 +40,8 @@ LINE_COMMENT="//".*
   "import"                { return IMPORT; }
   "using"                 { return USING; }
   "namespace"             { return NAMESPACE; }
+  "scalar"                { return SCALAR; }
+  "init"                  { return INIT; }
   "enum"                  { return ENUM; }
   "union"                 { return UNION; }
   "model"                 { return MODEL; }

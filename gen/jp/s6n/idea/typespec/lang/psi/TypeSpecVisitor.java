@@ -174,6 +174,22 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitElement(o);
   }
 
+  public void visitScalarConstructor(@NotNull TypeSpecScalarConstructor o) {
+    visitElement(o);
+  }
+
+  public void visitScalarConstructorList(@NotNull TypeSpecScalarConstructorList o) {
+    visitElement(o);
+  }
+
+  public void visitScalarExtends(@NotNull TypeSpecScalarExtends o) {
+    visitElement(o);
+  }
+
+  public void visitScalarStatement(@NotNull TypeSpecScalarStatement o) {
+    visitElement(o);
+  }
+
   public void visitSpreadModelProperty(@NotNull TypeSpecSpreadModelProperty o) {
     visitModelPropertyLike(o);
   }
