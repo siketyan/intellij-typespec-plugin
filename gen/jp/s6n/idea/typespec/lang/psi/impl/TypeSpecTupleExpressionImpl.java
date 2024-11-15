@@ -10,7 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecTupleExpressionImpl extends TypeSpecExpressionImpl implements TypeSpecTupleExpression {
+public class TypeSpecTupleExpressionImpl extends TypeSpecNonArrayExpressionImpl implements TypeSpecTupleExpression {
 
   public TypeSpecTupleExpressionImpl(@NotNull ASTNode node) {
     super(node);

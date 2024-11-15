@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecCallExpression extends TypeSpecExpression {
+public interface TypeSpecCallExpression extends TypeSpecOperatorExpression {
 
   @NotNull
   TypeSpecArgumentList getArgumentList();
 
   @NotNull
-  TypeSpecMemberExpression getMemberExpression();
+  TypeSpecNonArrayExpression getNonArrayExpression();
 
 }

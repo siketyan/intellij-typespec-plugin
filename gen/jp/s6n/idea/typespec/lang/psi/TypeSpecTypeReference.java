@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecTypeReference extends TypeSpecExpression {
+public interface TypeSpecTypeReference extends TypeSpecNonArrayExpression {
 
   @NotNull
   TypeSpecPath getPath();

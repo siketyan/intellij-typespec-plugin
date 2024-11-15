@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecArrayExpression extends TypeSpecExpression {
+public interface TypeSpecArrayExpression extends TypeSpecOperatorExpression {
 
   @NotNull
-  TypeSpecExpression getExpression();
+  List<TypeSpecArrayExpression> getArrayExpressionList();
+
+  @NotNull
+  List<TypeSpecNonArrayExpression> getNonArrayExpressionList();
 
 }

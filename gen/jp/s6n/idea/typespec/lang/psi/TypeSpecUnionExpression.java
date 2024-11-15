@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecUnionExpression extends TypeSpecExpression {
 
   @NotNull
-  List<TypeSpecExpression> getExpressionList();
+  List<TypeSpecIntersectionExpression> getIntersectionExpressionList();
 
 }

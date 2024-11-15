@@ -10,7 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecObjectLiteralImpl extends TypeSpecExpressionImpl implements TypeSpecObjectLiteral {
+public class TypeSpecObjectLiteralImpl extends TypeSpecNonArrayExpressionImpl implements TypeSpecObjectLiteral {
 
   public TypeSpecObjectLiteralImpl(@NotNull ASTNode node) {
     super(node);

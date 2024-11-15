@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecIntersectionExpression extends TypeSpecExpression {
+public interface TypeSpecIntersectionExpression extends TypeSpecUnionExpression {
 
   @NotNull
-  List<TypeSpecExpression> getExpressionList();
+  List<TypeSpecOperatorExpression> getOperatorExpressionList();
 
 }

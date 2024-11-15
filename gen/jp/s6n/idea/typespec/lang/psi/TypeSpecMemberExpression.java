@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecMemberExpression extends TypeSpecExpression {
+public interface TypeSpecMemberExpression extends TypeSpecNonArrayExpression {
 
   @NotNull
   List<TypeSpecIdentifier> getIdentifierList();

@@ -5,6 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecKeywordExpression extends TypeSpecExpression {
+public interface TypeSpecKeywordExpression extends TypeSpecNonArrayExpression {
 
 }

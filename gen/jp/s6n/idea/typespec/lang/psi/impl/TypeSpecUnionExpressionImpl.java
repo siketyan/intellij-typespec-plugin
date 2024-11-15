@@ -29,8 +29,8 @@ public class TypeSpecUnionExpressionImpl extends TypeSpecExpressionImpl implemen
 
   @Override
   @NotNull
-  public List<TypeSpecExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecExpression.class);
+  public List<TypeSpecIntersectionExpression> getIntersectionExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecIntersectionExpression.class);
   }
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecArrayLiteral extends TypeSpecExpression {
+public interface TypeSpecArrayLiteral extends TypeSpecNonArrayExpression {
 
   @NotNull
   List<TypeSpecExpression> getExpressionList();

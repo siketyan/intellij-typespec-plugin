@@ -40,6 +40,7 @@ public interface TypeSpecElementTypes {
   IElementType MODEL_STATEMENT = new TypeSpecElementType("MODEL_STATEMENT");
   IElementType NAMED_PARAMETER = new TypeSpecElementType("NAMED_PARAMETER");
   IElementType NAMESPACE_STATEMENT = new TypeSpecElementType("NAMESPACE_STATEMENT");
+  IElementType NON_ARRAY_EXPRESSION = new TypeSpecElementType("NON_ARRAY_EXPRESSION");
   IElementType OBJECT_LITERAL = new TypeSpecElementType("OBJECT_LITERAL");
   IElementType OBJECT_LITERAL_PROPERTY = new TypeSpecElementType("OBJECT_LITERAL_PROPERTY");
   IElementType OPERATION = new TypeSpecElementType("OPERATION");
@@ -47,6 +48,7 @@ public interface TypeSpecElementTypes {
   IElementType OPERATION_SIGNATURE_DECLARATION_NODE = new TypeSpecElementType("OPERATION_SIGNATURE_DECLARATION_NODE");
   IElementType OPERATION_SIGNATURE_REFERENCE_NODE = new TypeSpecElementType("OPERATION_SIGNATURE_REFERENCE_NODE");
   IElementType OPERATION_STATEMENT = new TypeSpecElementType("OPERATION_STATEMENT");
+  IElementType OPERATOR_EXPRESSION = new TypeSpecElementType("OPERATOR_EXPRESSION");
   IElementType PARAMETER = new TypeSpecElementType("PARAMETER");
   IElementType PARAMETER_LIST = new TypeSpecElementType("PARAMETER_LIST");
   IElementType PATH = new TypeSpecElementType("PATH");
@@ -216,6 +218,9 @@ public interface TypeSpecElementTypes {
       else if (type == NAMESPACE_STATEMENT) {
         return new TypeSpecNamespaceStatementImpl(node);
       }
+      else if (type == NON_ARRAY_EXPRESSION) {
+        return new TypeSpecNonArrayExpressionImpl(node);
+      }
       else if (type == OBJECT_LITERAL) {
         return new TypeSpecObjectLiteralImpl(node);
       }
@@ -236,6 +241,9 @@ public interface TypeSpecElementTypes {
       }
       else if (type == OPERATION_STATEMENT) {
         return new TypeSpecOperationStatementImpl(node);
+      }
+      else if (type == OPERATOR_EXPRESSION) {
+        return new TypeSpecOperatorExpressionImpl(node);
       }
       else if (type == PARAMETER) {
         return new TypeSpecParameterImpl(node);

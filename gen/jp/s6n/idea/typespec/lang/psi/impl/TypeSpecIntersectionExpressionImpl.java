@@ -10,7 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecIntersectionExpressionImpl extends TypeSpecExpressionImpl implements TypeSpecIntersectionExpression {
+public class TypeSpecIntersectionExpressionImpl extends TypeSpecUnionExpressionImpl implements TypeSpecIntersectionExpression {
 
   public TypeSpecIntersectionExpressionImpl(@NotNull ASTNode node) {
     super(node);
@@ -29,8 +29,8 @@ public class TypeSpecIntersectionExpressionImpl extends TypeSpecExpressionImpl i
 
   @Override
   @NotNull
-  public List<TypeSpecExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecExpression.class);
+  public List<TypeSpecOperatorExpression> getOperatorExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecOperatorExpression.class);
   }
 
 }

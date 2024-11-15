@@ -10,15 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecTypeReferenceImpl extends TypeSpecNonArrayExpressionImpl implements TypeSpecTypeReference {
+public class TypeSpecNonArrayExpressionImpl extends TypeSpecElementImpl implements TypeSpecNonArrayExpression {
 
-  public TypeSpecTypeReferenceImpl(@NotNull ASTNode node) {
+  public TypeSpecNonArrayExpressionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitTypeReference(this);
+    visitor.visitNonArrayExpression(this);
   }
 
   @Override
@@ -28,15 +27,9 @@ public class TypeSpecTypeReferenceImpl extends TypeSpecNonArrayExpressionImpl im
   }
 
   @Override
-  @NotNull
-  public TypeSpecPath getPath() {
-    return findNotNullChildByClass(TypeSpecPath.class);
-  }
-
-  @Override
   @Nullable
-  public TypeSpecTypeArgumentList getTypeArgumentList() {
-    return findChildByClass(TypeSpecTypeArgumentList.class);
+  public TypeSpecModelExpression getModelExpression() {
+    return findChildByClass(TypeSpecModelExpression.class);
   }
 
 }

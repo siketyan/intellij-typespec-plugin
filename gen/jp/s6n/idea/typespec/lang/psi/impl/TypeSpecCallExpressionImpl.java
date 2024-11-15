@@ -10,7 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecCallExpressionImpl extends TypeSpecExpressionImpl implements TypeSpecCallExpression {
+public class TypeSpecCallExpressionImpl extends TypeSpecOperatorExpressionImpl implements TypeSpecCallExpression {
 
   public TypeSpecCallExpressionImpl(@NotNull ASTNode node) {
     super(node);
@@ -35,8 +35,8 @@ public class TypeSpecCallExpressionImpl extends TypeSpecExpressionImpl implement
 
   @Override
   @NotNull
-  public TypeSpecMemberExpression getMemberExpression() {
-    return findNotNullChildByClass(TypeSpecMemberExpression.class);
+  public TypeSpecNonArrayExpression getNonArrayExpression() {
+    return findNotNullChildByClass(TypeSpecNonArrayExpression.class);
   }
 
 }

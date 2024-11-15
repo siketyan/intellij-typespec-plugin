@@ -203,27 +203,47 @@ Path ::= MemberExpression | Identifier
 
 Expression ::=
     UnionExpression
-    | IntersectionExpression
-    | TupleExpression
-    | ArrayExpression
-    | ValueOfExpression
+
+UnionExpression ::=
+    PIPE? [IntersectionExpression (PIPE IntersectionExpression)*]
+    {extends=Expression}
+
+IntersectionExpression ::=
+    AMP? [OperatorExpression (AMP OperatorExpression)*]
+    {extends=UnionExpression}
+
+OperatorExpression ::=
+    ValueOfExpression
     | TypeOfExpression
-    | TypeReference
-    | MemberExpression
-    | ModelExpression
-    | ObjectLiteral
-    | ArrayLiteral
     | CallExpression
+    | ArrayExpression
+    | NonArrayExpression
+
+ValueOfExpression ::= VALUEOF OperatorExpression {extends=OperatorExpression}
+
+TypeOfExpression ::= TYPEOF OperatorExpression {extends=OperatorExpression}
+
+CallExpression ::= NonArrayExpression ArgumentList {extends=OperatorExpression}
+
+ArrayExpression ::= [NonArrayExpression (NonArrayExpression | ArrayExpression)*] LBRACKET RBRACKET {extends=OperatorExpression}
+
+NonArrayExpression ::=
+    TypeReference
+    | MemberExpression
+    | TupleExpression
+    | ModelExpression
+    | ArrayLiteral
+    | ObjectLiteral
     | LiteralExpression
     | KeywordExpression
 
-ArrayExpression ::= Expression LBRACKET RBRACKET {extends=Expression}
-
-MemberExpression ::= Identifier ((DOT | COLONCOLON) Identifier)+ {extends=Expression}
+TupleExpression ::= LBRACKET [(Expression COMMA)* Expression?] RBRACKET {extends=NonArrayExpression}
 
 ModelExpression ::= LBRACE ModelPropertyLike* RBRACE {extends=Expression}
 
-ObjectLiteral ::= HASHLBRACE [(ObjectLiteralPropertyLike COMMA)* ObjectLiteralPropertyLike?] RBRACE {extends=Expression}
+ArrayLiteral ::= HASHLBRACKET [(Expression COMMA)* Expression?] RBRACKET {extends=NonArrayExpression}
+
+ObjectLiteral ::= HASHLBRACE [(ObjectLiteralPropertyLike COMMA)* ObjectLiteralPropertyLike?] RBRACE {extends=NonArrayExpression}
 
 private ObjectLiteralPropertyLike ::= ObjectLiteralProperty | SpreadObjectLiteralProperty
 
@@ -231,24 +251,12 @@ ObjectLiteralProperty ::= Identifier COLON Expression
 
 SpreadObjectLiteralProperty ::= DOTDOTDOT Expression
 
-ArrayLiteral ::= HASHLBRACKET [(Expression COMMA)* Expression?] RBRACKET {extends=Expression}
+MemberExpression ::= Identifier ((DOT | COLONCOLON) Identifier)+ {extends=NonArrayExpression}
 
-TupleExpression ::= LBRACKET [(Expression COMMA)* Expression?] RBRACKET {extends=Expression}
+TypeReference ::= Path TypeArgumentList? {extends=NonArrayExpression}
 
-UnionExpression ::= Expression (PIPE Expression)+ {extends=Expression}
+LiteralExpression ::= STRING_LITERAL | NUMERIC_LITERAL | TRUE | FALSE {extends=NonArrayExpression}
 
-IntersectionExpression ::= Expression (AMP Expression)+ {extends=Expression}
-
-TypeReference ::= Path TypeArgumentList? {extends=Expression}
-
-ValueOfExpression ::= VALUEOF Expression {extends=Expression}
-
-TypeOfExpression ::= TYPEOF Expression {extends=Expression}
-
-CallExpression ::= MemberExpression ArgumentList {extends=Expression}
-
-LiteralExpression ::= STRING_LITERAL | NUMERIC_LITERAL | TRUE | FALSE {extends=Expression}
-
-KeywordExpression ::= VOID | NEVER | ANY {extends=Expression}
+KeywordExpression ::= VOID | NEVER | ANY {extends=NonArrayExpression}
 
 Identifier ::= IDENT

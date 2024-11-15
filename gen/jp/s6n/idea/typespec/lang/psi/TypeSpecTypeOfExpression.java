@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecTypeOfExpression extends TypeSpecExpression {
+public interface TypeSpecTypeOfExpression extends TypeSpecOperatorExpression {
 
-  @Nullable
-  TypeSpecExpression getExpression();
+  @NotNull
+  TypeSpecOperatorExpression getOperatorExpression();
 
 }

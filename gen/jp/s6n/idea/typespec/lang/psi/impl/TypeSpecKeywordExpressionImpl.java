@@ -10,7 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecKeywordExpressionImpl extends TypeSpecExpressionImpl implements TypeSpecKeywordExpression {
+public class TypeSpecKeywordExpressionImpl extends TypeSpecNonArrayExpressionImpl implements TypeSpecKeywordExpression {
 
   public TypeSpecKeywordExpressionImpl(@NotNull ASTNode node) {
     super(node);

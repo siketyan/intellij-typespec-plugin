@@ -15,11 +15,11 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitArrayExpression(@NotNull TypeSpecArrayExpression o) {
-    visitExpression(o);
+    visitOperatorExpression(o);
   }
 
   public void visitArrayLiteral(@NotNull TypeSpecArrayLiteral o) {
-    visitExpression(o);
+    visitNonArrayExpression(o);
   }
 
   public void visitAugmentDecoratorStatement(@NotNull TypeSpecAugmentDecoratorStatement o) {
@@ -27,7 +27,7 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitCallExpression(@NotNull TypeSpecCallExpression o) {
-    visitExpression(o);
+    visitOperatorExpression(o);
   }
 
   public void visitDecorator(@NotNull TypeSpecDecorator o) {
@@ -87,19 +87,19 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitIntersectionExpression(@NotNull TypeSpecIntersectionExpression o) {
-    visitExpression(o);
+    visitUnionExpression(o);
   }
 
   public void visitKeywordExpression(@NotNull TypeSpecKeywordExpression o) {
-    visitExpression(o);
+    visitNonArrayExpression(o);
   }
 
   public void visitLiteralExpression(@NotNull TypeSpecLiteralExpression o) {
-    visitExpression(o);
+    visitNonArrayExpression(o);
   }
 
   public void visitMemberExpression(@NotNull TypeSpecMemberExpression o) {
-    visitExpression(o);
+    visitNonArrayExpression(o);
   }
 
   public void visitModelExpression(@NotNull TypeSpecModelExpression o) {
@@ -134,8 +134,12 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitStatement(o);
   }
 
+  public void visitNonArrayExpression(@NotNull TypeSpecNonArrayExpression o) {
+    visitElement(o);
+  }
+
   public void visitObjectLiteral(@NotNull TypeSpecObjectLiteral o) {
-    visitExpression(o);
+    visitNonArrayExpression(o);
   }
 
   public void visitObjectLiteralProperty(@NotNull TypeSpecObjectLiteralProperty o) {
@@ -160,6 +164,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
 
   public void visitOperationStatement(@NotNull TypeSpecOperationStatement o) {
     visitStatement(o);
+  }
+
+  public void visitOperatorExpression(@NotNull TypeSpecOperatorExpression o) {
+    visitElement(o);
   }
 
   public void visitParameter(@NotNull TypeSpecParameter o) {
@@ -203,7 +211,7 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitTupleExpression(@NotNull TypeSpecTupleExpression o) {
-    visitExpression(o);
+    visitNonArrayExpression(o);
   }
 
   public void visitTypeArgumentList(@NotNull TypeSpecTypeArgumentList o) {
@@ -211,7 +219,7 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitTypeOfExpression(@NotNull TypeSpecTypeOfExpression o) {
-    visitExpression(o);
+    visitOperatorExpression(o);
   }
 
   public void visitTypeParameter(@NotNull TypeSpecTypeParameter o) {
@@ -223,7 +231,7 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitTypeReference(@NotNull TypeSpecTypeReference o) {
-    visitExpression(o);
+    visitNonArrayExpression(o);
   }
 
   public void visitUnionExpression(@NotNull TypeSpecUnionExpression o) {
@@ -247,7 +255,7 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitValueOfExpression(@NotNull TypeSpecValueOfExpression o) {
-    visitExpression(o);
+    visitOperatorExpression(o);
   }
 
   public void visitVariadicParameter(@NotNull TypeSpecVariadicParameter o) {

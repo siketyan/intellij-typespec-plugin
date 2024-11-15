@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecLiteralExpression extends TypeSpecNonArrayExpression {
+public interface TypeSpecNonArrayExpression extends TypeSpecElement {
 
   @Nullable
-  PsiElement getNumericLiteral();
-
-  @Nullable
-  PsiElement getStringLiteral();
+  TypeSpecModelExpression getModelExpression();
 
 }
