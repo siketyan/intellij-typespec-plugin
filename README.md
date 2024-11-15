@@ -1,3 +1,5 @@
+<img src="./src/main/resources/META-INF/pluginIcon.svg" width="128" height="128" alt="TypeSpec Logo" />
+
 # TypeSpec Language Support Plugin for IntelliJ Platform
 
 > [!WARNING]
