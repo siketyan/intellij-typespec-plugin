@@ -38,6 +38,7 @@ public interface TypeSpecElementTypes {
   IElementType NAMESPACE_STATEMENT = new TypeSpecElementType("NAMESPACE_STATEMENT");
   IElementType OBJECT_EXPRESSION = new TypeSpecElementType("OBJECT_EXPRESSION");
   IElementType OBJECT_EXPRESSION_PROPERTY = new TypeSpecElementType("OBJECT_EXPRESSION_PROPERTY");
+  IElementType OBJECT_TYPE = new TypeSpecElementType("OBJECT_TYPE");
   IElementType OPERATION = new TypeSpecElementType("OPERATION");
   IElementType OPERATION_IS = new TypeSpecElementType("OPERATION_IS");
   IElementType OPERATION_SIGNATURE = new TypeSpecElementType("OPERATION_SIGNATURE");
@@ -47,6 +48,7 @@ public interface TypeSpecElementTypes {
   IElementType PATH = new TypeSpecElementType("PATH");
   IElementType PATH_EXPRESSION = new TypeSpecElementType("PATH_EXPRESSION");
   IElementType PATH_TYPE = new TypeSpecElementType("PATH_TYPE");
+  IElementType PROPERTY = new TypeSpecElementType("PROPERTY");
   IElementType SPREAD_MODEL_PROPERTY = new TypeSpecElementType("SPREAD_MODEL_PROPERTY");
   IElementType STATEMENT = new TypeSpecElementType("STATEMENT");
   IElementType TYPE = new TypeSpecElementType("TYPE");
@@ -187,6 +189,9 @@ public interface TypeSpecElementTypes {
       else if (type == OBJECT_EXPRESSION_PROPERTY) {
         return new TypeSpecObjectExpressionPropertyImpl(node);
       }
+      else if (type == OBJECT_TYPE) {
+        return new TypeSpecObjectTypeImpl(node);
+      }
       else if (type == OPERATION) {
         return new TypeSpecOperationImpl(node);
       }
@@ -213,6 +218,9 @@ public interface TypeSpecElementTypes {
       }
       else if (type == PATH_TYPE) {
         return new TypeSpecPathTypeImpl(node);
+      }
+      else if (type == PROPERTY) {
+        return new TypeSpecPropertyImpl(node);
       }
       else if (type == SPREAD_MODEL_PROPERTY) {
         return new TypeSpecSpreadModelPropertyImpl(node);

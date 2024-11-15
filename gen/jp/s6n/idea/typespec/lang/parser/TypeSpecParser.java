@@ -38,8 +38,8 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
     create_token_set_(MODEL_PROPERTY, NAMED_MODEL_PROPERTY, SPREAD_MODEL_PROPERTY),
     create_token_set_(EXPRESSION, LITERAL_EXPRESSION, OBJECT_EXPRESSION, PATH_EXPRESSION),
-    create_token_set_(ARRAY_TYPE, LITERAL_TYPE, PATH_TYPE, TYPE,
-      UNION_TYPE, VALUE_OF_TYPE),
+    create_token_set_(ARRAY_TYPE, LITERAL_TYPE, OBJECT_TYPE, PATH_TYPE,
+      TYPE, UNION_TYPE, VALUE_OF_TYPE),
     create_token_set_(ALIAS_STATEMENT, ENUM_STATEMENT, EXTERN_DECORATOR_STATEMENT, IMPORT_STATEMENT,
       INTERFACE_STATEMENT, MODEL_STATEMENT, NAMESPACE_STATEMENT, OPERATION_STATEMENT,
       STATEMENT, UNION_STATEMENT, USING_STATEMENT),
@@ -1134,6 +1134,20 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // Identifier COLON Type
+  public static boolean Property(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Property")) return false;
+    if (!nextTokenIs(b, IDENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Identifier(b, l + 1);
+    r = r && consumeToken(b, COLON);
+    r = r && Type(b, l + 1, -1);
+    exit_section_(b, m, PROPERTY, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // DOTDOTDOT PathType SEMICOLON
   public static boolean SpreadModelProperty(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "SpreadModelProperty")) return false;
@@ -1447,15 +1461,17 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   // Operator priority table:
   // 0: N_ARY(UnionType)
   // 1: PREFIX(ValueOfType)
-  // 2: POSTFIX(ArrayType)
-  // 3: ATOM(PathType)
-  // 4: ATOM(LiteralType)
+  // 2: ATOM(ObjectType)
+  // 3: POSTFIX(ArrayType)
+  // 4: ATOM(PathType)
+  // 5: ATOM(LiteralType)
   public static boolean Type(PsiBuilder b, int l, int g) {
     if (!recursion_guard_(b, l, "Type")) return false;
     addVariant(b, "<type>");
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, "<type>");
     r = ValueOfType(b, l + 1);
+    if (!r) r = ObjectType(b, l + 1);
     if (!r) r = PathType(b, l + 1);
     if (!r) r = LiteralType(b, l + 1);
     p = r;
@@ -1476,7 +1492,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
         }
         exit_section_(b, l, m, UNION_TYPE, r, true, null);
       }
-      else if (g < 2 && parseTokensSmart(b, 0, LBRACKET, RBRACKET)) {
+      else if (g < 3 && parseTokensSmart(b, 0, LBRACKET, RBRACKET)) {
         r = true;
         exit_section_(b, l, m, ARRAY_TYPE, r, true, null);
       }
@@ -1498,6 +1514,66 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = p && Type(b, l, 1);
     exit_section_(b, l, m, VALUE_OF_TYPE, r, p, null);
     return r || p;
+  }
+
+  // LBRACE [(Property COMMA)* Property?] RBRACE
+  public static boolean ObjectType(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectType")) return false;
+    if (!nextTokenIsSmart(b, LBRACE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokenSmart(b, LBRACE);
+    r = r && ObjectType_1(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, OBJECT_TYPE, r);
+    return r;
+  }
+
+  // [(Property COMMA)* Property?]
+  private static boolean ObjectType_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectType_1")) return false;
+    ObjectType_1_0(b, l + 1);
+    return true;
+  }
+
+  // (Property COMMA)* Property?
+  private static boolean ObjectType_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectType_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = ObjectType_1_0_0(b, l + 1);
+    r = r && ObjectType_1_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (Property COMMA)*
+  private static boolean ObjectType_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectType_1_0_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!ObjectType_1_0_0_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "ObjectType_1_0_0", c)) break;
+    }
+    return true;
+  }
+
+  // Property COMMA
+  private static boolean ObjectType_1_0_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectType_1_0_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Property(b, l + 1);
+    r = r && consumeToken(b, COMMA);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // Property?
+  private static boolean ObjectType_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectType_1_0_1")) return false;
+    Property(b, l + 1);
+    return true;
   }
 
   // Path

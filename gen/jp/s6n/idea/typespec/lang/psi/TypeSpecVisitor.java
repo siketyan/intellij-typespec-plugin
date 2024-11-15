@@ -126,6 +126,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitElement(o);
   }
 
+  public void visitObjectType(@NotNull TypeSpecObjectType o) {
+    visitType(o);
+  }
+
   public void visitOperation(@NotNull TypeSpecOperation o) {
     visitElement(o);
   }
@@ -160,6 +164,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
 
   public void visitPathType(@NotNull TypeSpecPathType o) {
     visitType(o);
+  }
+
+  public void visitProperty(@NotNull TypeSpecProperty o) {
+    visitElement(o);
   }
 
   public void visitSpreadModelProperty(@NotNull TypeSpecSpreadModelProperty o) {

@@ -190,6 +190,7 @@ LiteralExpression ::= STRING_LITERAL | NUMERIC_LITERAL {extends=Expression}
 Type ::=
     UnionType
     | ValueOfType
+    | ObjectType
     | ArrayType
     | PathType
     | LiteralType
@@ -198,11 +199,15 @@ ValueOfType ::= VALUEOF Type {extends=Type}
 
 UnionType ::= Type (PIPE Type)+ {extends=Type}
 
+ObjectType ::= LBRACE [(Property COMMA)* Property?] RBRACE {extends=Type}
+
 ArrayType ::= Type LBRACKET RBRACKET {extends=Type}
 
 PathType ::= Path {extends=Type}
 
 LiteralType ::= STRING_LITERAL | NUMERIC_LITERAL {extends=Type}
+
+Property ::= Identifier COLON Type;
 
 Path ::= Identifier (DOT Identifier)* TypeArgumentList?
 
