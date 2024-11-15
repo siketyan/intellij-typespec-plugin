@@ -20,22 +20,17 @@ class TypeSpecFoldingBuilder : FoldingBuilderEx() {
     private fun findRegions(element: PsiElement): List<FoldingDescriptor> {
         return when (element) {
             is TypeSpecNamespaceStatement -> element.statementList.flatMap { findRegions(it) }
-            is TypeSpecEnumStatement -> listOf(foldBlock(element.enumVariantsBlock))
-            is TypeSpecUnionStatement -> listOf(foldBlock(element.unionVariantsBlock))
-            is TypeSpecModelStatement -> if (element.modelPropertiesBlock != null) {
-                listOf(foldBlock(element.modelPropertiesBlock!!))
-            } else {
-                emptyList()
-            }
-            is TypeSpecInterfaceStatement -> listOf(foldBlock(element.interfaceOperationsBlock))
+            is TypeSpecEnumStatement -> foldBlock(element.enumVariantsBlock)
+            is TypeSpecUnionStatement -> foldBlock(element.unionVariantsBlock)
+            is TypeSpecModelStatement -> foldBlock(element.modelPropertiesBlock ?: return emptyList())
+            is TypeSpecInterfaceStatement -> foldBlock(element.interfaceOperationsBlock)
             else -> emptyList()
         }
     }
 
-    private fun foldBlock(block: PsiElement): FoldingDescriptor {
-        return FoldingDescriptor(
-            block.node,
-            TextRange(block.textRange.startOffset + 1, block.textRange.endOffset - 1),
-        )
+    private fun foldBlock(block: PsiElement): List<FoldingDescriptor> {
+        val textRange = TextRange(block.textRange.startOffset + 1, block.textRange.endOffset - 1)
+        if (textRange.length == 0) return emptyList()
+        return listOf(FoldingDescriptor(block.node, textRange))
     }
 }
