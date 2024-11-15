@@ -89,7 +89,7 @@ EnumStatement ::= Decorator* ENUM Identifier EnumVariantsBlock {
 
 EnumVariantsBlock ::= LBRACE [EnumVariant (COMMA EnumVariant)* COMMA?] RBRACE
 
-EnumVariant ::= Decorator* Identifier
+EnumVariant ::= DecoratorLike* Identifier (COLON LiteralExpression)?
 
 UnionStatement ::= Decorator* UNION Identifier UnionVariantsBlock {
     extends=Statement

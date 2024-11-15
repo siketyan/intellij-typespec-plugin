@@ -184,7 +184,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* Identifier
+  // Decorator* Identifier (COLON LiteralExpression)?
   public static boolean EnumVariant(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "EnumVariant")) return false;
     if (!nextTokenIs(b, "<enum variant>", AT, IDENT)) return false;
@@ -192,6 +192,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, ENUM_VARIANT, "<enum variant>");
     r = EnumVariant_0(b, l + 1);
     r = r && Identifier(b, l + 1);
+    r = r && EnumVariant_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -205,6 +206,24 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "EnumVariant_0", c)) break;
     }
     return true;
+  }
+
+  // (COLON LiteralExpression)?
+  private static boolean EnumVariant_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumVariant_2")) return false;
+    EnumVariant_2_0(b, l + 1);
+    return true;
+  }
+
+  // COLON LiteralExpression
+  private static boolean EnumVariant_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "EnumVariant_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COLON);
+    r = r && LiteralExpression(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */

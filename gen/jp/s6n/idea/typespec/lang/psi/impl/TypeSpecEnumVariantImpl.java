@@ -38,4 +38,10 @@ public class TypeSpecEnumVariantImpl extends TypeSpecElementImpl implements Type
     return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
+  @Override
+  @Nullable
+  public TypeSpecLiteralExpression getLiteralExpression() {
+    return findChildByClass(TypeSpecLiteralExpression.class);
+  }
+
 }

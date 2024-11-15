@@ -13,4 +13,7 @@ public interface TypeSpecEnumVariant extends TypeSpecElement {
   @NotNull
   TypeSpecIdentifier getIdentifier();
 
+  @Nullable
+  TypeSpecLiteralExpression getLiteralExpression();
+
 }
