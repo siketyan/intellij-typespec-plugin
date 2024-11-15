@@ -49,6 +49,7 @@
     ATAT            = '@@'
     COMMA           = ','
     PIPE            = '|'
+    AMP             = '&'
     HASH            = '#'
 
     STRING_LITERAL  = 'regexp:"([^\\"\r\n]|\\[^\r\n])*"?'
@@ -144,7 +145,7 @@ ExternDecoratorStatement ::= EXTERN DEC Identifier ParameterList SEMICOLON {
     methods=[getPresentation]
 }
 
-AugmentDecoratorStatement ::= ATAT PathExpression ArgumentList?
+AugmentDecoratorStatement ::= ATAT PathExpression ArgumentList? SEMICOLON
 
 Operation ::= Identifier (OperationSignature | OperationIs)
 
@@ -154,11 +155,11 @@ OperationIs ::= IS Path
 
 TypeParameterList ::= LT [(TypeParameter COMMA)* TypeParameter?] GT
 
-TypeParameter ::= Identifier (EXTENDS Type)?
+TypeParameter ::= Identifier (EXTENDS Type)? (EQ Type)?
 
 TypeArgumentList ::= LT [(Type COMMA)* Type?] GT
 
-ParameterList ::= LPAREN [Parameter (COMMA Parameter)*] RPAREN
+ParameterList ::= LPAREN [(Parameter COMMA)* Parameter?] RPAREN
 
 Parameter ::=
     NamedParameter
@@ -166,7 +167,7 @@ Parameter ::=
 
 NamedParameter ::= DecoratorLike* Identifier QUEST? COLON Type
 
-VariadicParameter ::= DOTDOTDOT Identifier
+VariadicParameter ::= DOTDOTDOT PathType
 
 DecoratorLike ::= Decorator | Directive
 
@@ -191,6 +192,7 @@ LiteralExpression ::= STRING_LITERAL | NUMERIC_LITERAL {extends=Expression}
 
 Type ::=
     UnionType
+    | IntersectionType
     | ValueOfType
     | ObjectType
     | ArrayType
@@ -201,11 +203,13 @@ ValueOfType ::= VALUEOF Type {extends=Type}
 
 UnionType ::= Type (PIPE Type)+ {extends=Type}
 
+IntersectionType ::= Type (AMP Type)+ {extends=Type}
+
 ObjectType ::= LBRACE Property* RBRACE {extends=Type}
 
 ArrayType ::= Type LBRACKET RBRACKET {extends=Type}
 
-PathType ::= Path {extends=Type}
+PathType ::= Path TypeArgumentList? {extends=Type}
 
 LiteralType ::= STRING_LITERAL | NUMERIC_LITERAL {extends=Type}
 

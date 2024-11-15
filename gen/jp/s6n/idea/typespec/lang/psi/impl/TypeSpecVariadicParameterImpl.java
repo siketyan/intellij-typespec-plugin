@@ -28,8 +28,8 @@ public class TypeSpecVariadicParameterImpl extends TypeSpecElementImpl implement
 
   @Override
   @NotNull
-  public TypeSpecIdentifier getIdentifier() {
-    return findNotNullChildByClass(TypeSpecIdentifier.class);
+  public TypeSpecPathType getPathType() {
+    return findNotNullChildByClass(TypeSpecPathType.class);
   }
 
 }

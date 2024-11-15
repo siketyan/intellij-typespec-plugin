@@ -10,4 +10,7 @@ public interface TypeSpecPathType extends TypeSpecType {
   @NotNull
   TypeSpecPath getPath();
 
+  @Nullable
+  TypeSpecTypeArgumentList getTypeArgumentList();
+
 }

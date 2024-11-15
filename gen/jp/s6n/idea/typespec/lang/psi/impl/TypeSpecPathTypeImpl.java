@@ -33,4 +33,10 @@ public class TypeSpecPathTypeImpl extends TypeSpecTypeImpl implements TypeSpecPa
     return findNotNullChildByClass(TypeSpecPath.class);
   }
 
+  @Override
+  @Nullable
+  public TypeSpecTypeArgumentList getTypeArgumentList() {
+    return findChildByClass(TypeSpecTypeArgumentList.class);
+  }
+
 }

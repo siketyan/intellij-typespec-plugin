@@ -78,6 +78,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitStatement(o);
   }
 
+  public void visitIntersectionType(@NotNull TypeSpecIntersectionType o) {
+    visitType(o);
+  }
+
   public void visitLiteralExpression(@NotNull TypeSpecLiteralExpression o) {
     visitExpression(o);
   }

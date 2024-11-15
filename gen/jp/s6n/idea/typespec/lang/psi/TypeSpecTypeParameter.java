@@ -10,7 +10,7 @@ public interface TypeSpecTypeParameter extends TypeSpecElement {
   @NotNull
   TypeSpecIdentifier getIdentifier();
 
-  @Nullable
-  TypeSpecType getType();
+  @NotNull
+  List<TypeSpecType> getTypeList();
 
 }

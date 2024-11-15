@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecVariadicParameter extends TypeSpecElement {
+public interface TypeSpecIntersectionType extends TypeSpecType {
 
   @NotNull
-  TypeSpecPathType getPathType();
+  List<TypeSpecType> getTypeList();
 
 }

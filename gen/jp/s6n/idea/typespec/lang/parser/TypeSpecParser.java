@@ -38,8 +38,8 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
     create_token_set_(MODEL_PROPERTY, NAMED_MODEL_PROPERTY, SPREAD_MODEL_PROPERTY),
     create_token_set_(EXPRESSION, LITERAL_EXPRESSION, OBJECT_EXPRESSION, PATH_EXPRESSION),
-    create_token_set_(ARRAY_TYPE, LITERAL_TYPE, OBJECT_TYPE, PATH_TYPE,
-      TYPE, UNION_TYPE, VALUE_OF_TYPE),
+    create_token_set_(ARRAY_TYPE, INTERSECTION_TYPE, LITERAL_TYPE, OBJECT_TYPE,
+      PATH_TYPE, TYPE, UNION_TYPE, VALUE_OF_TYPE),
     create_token_set_(ALIAS_STATEMENT, ENUM_STATEMENT, EXTERN_DECORATOR_STATEMENT, IMPORT_STATEMENT,
       INTERFACE_STATEMENT, MODEL_STATEMENT, NAMESPACE_STATEMENT, OPERATION_STATEMENT,
       STATEMENT, UNION_STATEMENT, USING_STATEMENT),
@@ -135,7 +135,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ATAT PathExpression ArgumentList?
+  // ATAT PathExpression ArgumentList? SEMICOLON
   public static boolean AugmentDecoratorStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "AugmentDecoratorStatement")) return false;
     if (!nextTokenIs(b, ATAT)) return false;
@@ -144,6 +144,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, ATAT);
     r = r && PathExpression(b, l + 1);
     r = r && AugmentDecoratorStatement_2(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
     exit_section_(b, m, AUGMENT_DECORATOR_STATEMENT, r);
     return r;
   }
@@ -1044,7 +1045,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LPAREN [Parameter (COMMA Parameter)*] RPAREN
+  // LPAREN [(Parameter COMMA)* Parameter?] RPAREN
   public static boolean ParameterList(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ParameterList")) return false;
     if (!nextTokenIs(b, LPAREN)) return false;
@@ -1057,44 +1058,51 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // [Parameter (COMMA Parameter)*]
+  // [(Parameter COMMA)* Parameter?]
   private static boolean ParameterList_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ParameterList_1")) return false;
     ParameterList_1_0(b, l + 1);
     return true;
   }
 
-  // Parameter (COMMA Parameter)*
+  // (Parameter COMMA)* Parameter?
   private static boolean ParameterList_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ParameterList_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = Parameter(b, l + 1);
+    r = ParameterList_1_0_0(b, l + 1);
     r = r && ParameterList_1_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // (COMMA Parameter)*
-  private static boolean ParameterList_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ParameterList_1_0_1")) return false;
+  // (Parameter COMMA)*
+  private static boolean ParameterList_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ParameterList_1_0_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!ParameterList_1_0_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "ParameterList_1_0_1", c)) break;
+      if (!ParameterList_1_0_0_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "ParameterList_1_0_0", c)) break;
     }
     return true;
   }
 
-  // COMMA Parameter
-  private static boolean ParameterList_1_0_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ParameterList_1_0_1_0")) return false;
+  // Parameter COMMA
+  private static boolean ParameterList_1_0_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ParameterList_1_0_0_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, COMMA);
-    r = r && Parameter(b, l + 1);
+    r = Parameter(b, l + 1);
+    r = r && consumeToken(b, COMMA);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // Parameter?
+  private static boolean ParameterList_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ParameterList_1_0_1")) return false;
+    Parameter(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1293,7 +1301,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Identifier (EXTENDS Type)?
+  // Identifier (EXTENDS Type)? (EQ Type)?
   public static boolean TypeParameter(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TypeParameter")) return false;
     if (!nextTokenIs(b, IDENT)) return false;
@@ -1301,6 +1309,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = Identifier(b, l + 1);
     r = r && TypeParameter_1(b, l + 1);
+    r = r && TypeParameter_2(b, l + 1);
     exit_section_(b, m, TYPE_PARAMETER, r);
     return r;
   }
@@ -1318,6 +1327,24 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, EXTENDS);
+    r = r && Type(b, l + 1, -1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (EQ Type)?
+  private static boolean TypeParameter_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypeParameter_2")) return false;
+    TypeParameter_2_0(b, l + 1);
+    return true;
+  }
+
+  // EQ Type
+  private static boolean TypeParameter_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypeParameter_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, EQ);
     r = r && Type(b, l + 1, -1);
     exit_section_(b, m, null, r);
     return r;
@@ -1528,14 +1555,14 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOTDOTDOT Identifier
+  // DOTDOTDOT PathType
   public static boolean VariadicParameter(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "VariadicParameter")) return false;
     if (!nextTokenIs(b, DOTDOTDOT)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, DOTDOTDOT);
-    r = r && Identifier(b, l + 1);
+    r = r && PathType(b, l + 1);
     exit_section_(b, m, VARIADIC_PARAMETER, r);
     return r;
   }
@@ -1544,11 +1571,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   // Expression root: Type
   // Operator priority table:
   // 0: N_ARY(UnionType)
-  // 1: PREFIX(ValueOfType)
-  // 2: ATOM(ObjectType)
-  // 3: POSTFIX(ArrayType)
-  // 4: ATOM(PathType)
-  // 5: ATOM(LiteralType)
+  // 1: N_ARY(IntersectionType)
+  // 2: PREFIX(ValueOfType)
+  // 3: ATOM(ObjectType)
+  // 4: POSTFIX(ArrayType)
+  // 5: ATOM(PathType)
+  // 6: ATOM(LiteralType)
   public static boolean Type(PsiBuilder b, int l, int g) {
     if (!recursion_guard_(b, l, "Type")) return false;
     addVariant(b, "<type>");
@@ -1576,7 +1604,14 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
         }
         exit_section_(b, l, m, UNION_TYPE, r, true, null);
       }
-      else if (g < 3 && parseTokensSmart(b, 0, LBRACKET, RBRACKET)) {
+      else if (g < 1 && consumeTokenSmart(b, AMP)) {
+        while (true) {
+          r = report_error_(b, Type(b, l, 1));
+          if (!consumeTokenSmart(b, AMP)) break;
+        }
+        exit_section_(b, l, m, INTERSECTION_TYPE, r, true, null);
+      }
+      else if (g < 4 && parseTokensSmart(b, 0, LBRACKET, RBRACKET)) {
         r = true;
         exit_section_(b, l, m, ARRAY_TYPE, r, true, null);
       }
@@ -1595,7 +1630,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, null);
     r = consumeTokenSmart(b, VALUEOF);
     p = r;
-    r = p && Type(b, l, 1);
+    r = p && Type(b, l, 2);
     exit_section_(b, l, m, VALUE_OF_TYPE, r, p, null);
     return r || p;
   }
@@ -1624,15 +1659,23 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // Path
+  // Path TypeArgumentList?
   public static boolean PathType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PathType")) return false;
     if (!nextTokenIsSmart(b, IDENT)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = Path(b, l + 1);
+    r = r && PathType_1(b, l + 1);
     exit_section_(b, m, PATH_TYPE, r);
     return r;
+  }
+
+  // TypeArgumentList?
+  private static boolean PathType_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "PathType_1")) return false;
+    TypeArgumentList(b, l + 1);
+    return true;
   }
 
   // STRING_LITERAL | NUMERIC_LITERAL

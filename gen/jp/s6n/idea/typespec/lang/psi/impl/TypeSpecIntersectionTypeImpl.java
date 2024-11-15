@@ -10,26 +10,21 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecTypeParameterImpl extends TypeSpecElementImpl implements TypeSpecTypeParameter {
+public class TypeSpecIntersectionTypeImpl extends TypeSpecTypeImpl implements TypeSpecIntersectionType {
 
-  public TypeSpecTypeParameterImpl(@NotNull ASTNode node) {
+  public TypeSpecIntersectionTypeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitTypeParameter(this);
+    visitor.visitIntersectionType(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TypeSpecVisitor) accept((TypeSpecVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public TypeSpecIdentifier getIdentifier() {
-    return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override

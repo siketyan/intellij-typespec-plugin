@@ -26,6 +26,7 @@ public interface TypeSpecElementTypes {
   IElementType INTERFACE_OPERATION = new TypeSpecElementType("INTERFACE_OPERATION");
   IElementType INTERFACE_OPERATIONS_BLOCK = new TypeSpecElementType("INTERFACE_OPERATIONS_BLOCK");
   IElementType INTERFACE_STATEMENT = new TypeSpecElementType("INTERFACE_STATEMENT");
+  IElementType INTERSECTION_TYPE = new TypeSpecElementType("INTERSECTION_TYPE");
   IElementType LITERAL_EXPRESSION = new TypeSpecElementType("LITERAL_EXPRESSION");
   IElementType LITERAL_TYPE = new TypeSpecElementType("LITERAL_TYPE");
   IElementType MODEL_EXTENDS = new TypeSpecElementType("MODEL_EXTENDS");
@@ -64,6 +65,7 @@ public interface TypeSpecElementTypes {
   IElementType VARIADIC_PARAMETER = new TypeSpecElementType("VARIADIC_PARAMETER");
 
   IElementType ALIAS = new TypeSpecTokenType("alias");
+  IElementType AMP = new TypeSpecTokenType("&");
   IElementType AT = new TypeSpecTokenType("@");
   IElementType ATAT = new TypeSpecTokenType("@@");
   IElementType BLOCK_COMMENT = new TypeSpecTokenType("BLOCK_COMMENT");
@@ -156,6 +158,9 @@ public interface TypeSpecElementTypes {
       }
       else if (type == INTERFACE_STATEMENT) {
         return new TypeSpecInterfaceStatementImpl(node);
+      }
+      else if (type == INTERSECTION_TYPE) {
+        return new TypeSpecIntersectionTypeImpl(node);
       }
       else if (type == LITERAL_EXPRESSION) {
         return new TypeSpecLiteralExpressionImpl(node);
