@@ -29,8 +29,8 @@ public class TypeSpecNamespaceStatementImpl extends TypeSpecStatementImpl implem
 
   @Override
   @NotNull
-  public List<TypeSpecDecorator> getDecoratorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecorator.class);
+  public List<TypeSpecDecoratorLike> getDecoratorLikeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecoratorLike.class);
   }
 
   @Override

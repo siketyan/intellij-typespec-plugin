@@ -9,17 +9,15 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
-import com.intellij.navigation.ItemPresentation;
 
-public class TypeSpecUnionStatementImpl extends TypeSpecStatementImpl implements TypeSpecUnionStatement {
+public class TypeSpecDirectiveImpl extends TypeSpecElementImpl implements TypeSpecDirective {
 
-  public TypeSpecUnionStatementImpl(@NotNull ASTNode node) {
+  public TypeSpecDirectiveImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitUnionStatement(this);
+    visitor.visitDirective(this);
   }
 
   @Override
@@ -30,26 +28,14 @@ public class TypeSpecUnionStatementImpl extends TypeSpecStatementImpl implements
 
   @Override
   @NotNull
-  public List<TypeSpecDecoratorLike> getDecoratorLikeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecoratorLike.class);
-  }
-
-  @Override
-  @NotNull
   public TypeSpecIdentifier getIdentifier() {
     return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override
   @NotNull
-  public TypeSpecUnionVariantsBlock getUnionVariantsBlock() {
-    return findNotNullChildByClass(TypeSpecUnionVariantsBlock.class);
-  }
-
-  @Override
-  @Nullable
-  public ItemPresentation getPresentation() {
-    return TypeSpecImplUtil.getPresentation(this);
+  public List<TypeSpecLiteralExpression> getLiteralExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecLiteralExpression.class);
   }
 
 }

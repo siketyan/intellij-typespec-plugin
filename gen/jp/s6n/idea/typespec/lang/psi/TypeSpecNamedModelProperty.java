@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecNamedModelProperty extends TypeSpecModelProperty {
 
   @NotNull
-  List<TypeSpecDecorator> getDecoratorList();
+  List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
   @Nullable
   TypeSpecExpression getExpression();

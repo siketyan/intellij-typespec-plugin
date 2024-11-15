@@ -9,7 +9,7 @@ import com.intellij.navigation.ItemPresentation;
 public interface TypeSpecModelStatement extends TypeSpecStatement {
 
   @NotNull
-  List<TypeSpecDecorator> getDecoratorList();
+  List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
   @NotNull
   TypeSpecIdentifier getIdentifier();

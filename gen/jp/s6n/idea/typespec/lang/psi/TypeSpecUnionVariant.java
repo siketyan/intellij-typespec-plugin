@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecUnionVariant extends TypeSpecElement {
 
   @NotNull
-  List<TypeSpecDecorator> getDecoratorList();
+  List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
   @NotNull
   TypeSpecIdentifier getIdentifier();

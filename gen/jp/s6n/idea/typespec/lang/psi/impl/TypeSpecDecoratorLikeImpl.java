@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecInterfaceOperationImpl extends TypeSpecElementImpl implements TypeSpecInterfaceOperation {
+public class TypeSpecDecoratorLikeImpl extends TypeSpecElementImpl implements TypeSpecDecoratorLike {
 
-  public TypeSpecInterfaceOperationImpl(@NotNull ASTNode node) {
+  public TypeSpecDecoratorLikeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitInterfaceOperation(this);
+    visitor.visitDecoratorLike(this);
   }
 
   @Override
@@ -27,15 +27,15 @@ public class TypeSpecInterfaceOperationImpl extends TypeSpecElementImpl implemen
   }
 
   @Override
-  @NotNull
-  public List<TypeSpecDecoratorLike> getDecoratorLikeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecoratorLike.class);
+  @Nullable
+  public TypeSpecDecorator getDecorator() {
+    return findChildByClass(TypeSpecDecorator.class);
   }
 
   @Override
-  @NotNull
-  public TypeSpecOperation getOperation() {
-    return findNotNullChildByClass(TypeSpecOperation.class);
+  @Nullable
+  public TypeSpecDirective getDirective() {
+    return findChildByClass(TypeSpecDirective.class);
   }
 
 }

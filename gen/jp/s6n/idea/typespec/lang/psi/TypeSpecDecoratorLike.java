@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecInterfaceOperation extends TypeSpecElement {
+public interface TypeSpecDecoratorLike extends TypeSpecElement {
 
-  @NotNull
-  List<TypeSpecDecoratorLike> getDecoratorLikeList();
+  @Nullable
+  TypeSpecDecorator getDecorator();
 
-  @NotNull
-  TypeSpecOperation getOperation();
+  @Nullable
+  TypeSpecDirective getDirective();
 
 }

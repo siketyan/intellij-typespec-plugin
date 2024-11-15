@@ -13,6 +13,8 @@ public interface TypeSpecElementTypes {
   IElementType ARRAY_TYPE = new TypeSpecElementType("ARRAY_TYPE");
   IElementType AUGMENT_DECORATOR_STATEMENT = new TypeSpecElementType("AUGMENT_DECORATOR_STATEMENT");
   IElementType DECORATOR = new TypeSpecElementType("DECORATOR");
+  IElementType DECORATOR_LIKE = new TypeSpecElementType("DECORATOR_LIKE");
+  IElementType DIRECTIVE = new TypeSpecElementType("DIRECTIVE");
   IElementType ENUM_STATEMENT = new TypeSpecElementType("ENUM_STATEMENT");
   IElementType ENUM_VARIANT = new TypeSpecElementType("ENUM_VARIANT");
   IElementType ENUM_VARIANTS_BLOCK = new TypeSpecElementType("ENUM_VARIANTS_BLOCK");
@@ -73,6 +75,7 @@ public interface TypeSpecElementTypes {
   IElementType EXTENDS = new TypeSpecTokenType("extends");
   IElementType EXTERN = new TypeSpecTokenType("extern");
   IElementType GT = new TypeSpecTokenType(">");
+  IElementType HASH = new TypeSpecTokenType("#");
   IElementType IDENT = new TypeSpecTokenType("IDENT");
   IElementType IMPORT = new TypeSpecTokenType("import");
   IElementType INTERFACE = new TypeSpecTokenType("interface");
@@ -114,6 +117,12 @@ public interface TypeSpecElementTypes {
       }
       else if (type == DECORATOR) {
         return new TypeSpecDecoratorImpl(node);
+      }
+      else if (type == DECORATOR_LIKE) {
+        return new TypeSpecDecoratorLikeImpl(node);
+      }
+      else if (type == DIRECTIVE) {
+        return new TypeSpecDirectiveImpl(node);
       }
       else if (type == ENUM_STATEMENT) {
         return new TypeSpecEnumStatementImpl(node);

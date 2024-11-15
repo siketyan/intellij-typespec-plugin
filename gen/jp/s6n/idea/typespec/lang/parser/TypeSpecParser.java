@@ -158,10 +158,47 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* ENUM Identifier EnumVariantsBlock
+  // Decorator | Directive
+  public static boolean DecoratorLike(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "DecoratorLike")) return false;
+    if (!nextTokenIs(b, "<decorator like>", AT, HASH)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, DECORATOR_LIKE, "<decorator like>");
+    r = Decorator(b, l + 1);
+    if (!r) r = Directive(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // HASH Identifier LiteralExpression*
+  public static boolean Directive(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Directive")) return false;
+    if (!nextTokenIs(b, HASH)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, HASH);
+    r = r && Identifier(b, l + 1);
+    r = r && Directive_2(b, l + 1);
+    exit_section_(b, m, DIRECTIVE, r);
+    return r;
+  }
+
+  // LiteralExpression*
+  private static boolean Directive_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Directive_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!LiteralExpression(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "Directive_2", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // DecoratorLike* ENUM Identifier EnumVariantsBlock
   public static boolean EnumStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "EnumStatement")) return false;
-    if (!nextTokenIs(b, "<enum statement>", AT, ENUM)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ENUM_STATEMENT, "<enum statement>");
     r = EnumStatement_0(b, l + 1);
@@ -172,22 +209,21 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Decorator*
+  // DecoratorLike*
   private static boolean EnumStatement_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "EnumStatement_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!Decorator(b, l + 1)) break;
+      if (!DecoratorLike(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "EnumStatement_0", c)) break;
     }
     return true;
   }
 
   /* ********************************************************** */
-  // Decorator* Identifier (COLON LiteralExpression)?
+  // DecoratorLike* Identifier (COLON LiteralExpression)?
   public static boolean EnumVariant(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "EnumVariant")) return false;
-    if (!nextTokenIs(b, "<enum variant>", AT, IDENT)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ENUM_VARIANT, "<enum variant>");
     r = EnumVariant_0(b, l + 1);
@@ -197,12 +233,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Decorator*
+  // DecoratorLike*
   private static boolean EnumVariant_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "EnumVariant_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!Decorator(b, l + 1)) break;
+      if (!DecoratorLike(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "EnumVariant_0", c)) break;
     }
     return true;
@@ -408,10 +444,9 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* Operation SEMICOLON
+  // DecoratorLike* Operation SEMICOLON
   public static boolean InterfaceOperation(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "InterfaceOperation")) return false;
-    if (!nextTokenIs(b, "<interface operation>", AT, IDENT)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, INTERFACE_OPERATION, "<interface operation>");
     r = InterfaceOperation_0(b, l + 1);
@@ -421,12 +456,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Decorator*
+  // DecoratorLike*
   private static boolean InterfaceOperation_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "InterfaceOperation_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!Decorator(b, l + 1)) break;
+      if (!DecoratorLike(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "InterfaceOperation_0", c)) break;
     }
     return true;
@@ -458,10 +493,9 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* INTERFACE Identifier TypeParameterList? InterfaceExtends? InterfaceOperationsBlock
+  // DecoratorLike* INTERFACE Identifier TypeParameterList? InterfaceExtends? InterfaceOperationsBlock
   public static boolean InterfaceStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "InterfaceStatement")) return false;
-    if (!nextTokenIs(b, "<interface statement>", AT, INTERFACE)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, INTERFACE_STATEMENT, "<interface statement>");
     r = InterfaceStatement_0(b, l + 1);
@@ -474,12 +508,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Decorator*
+  // DecoratorLike*
   private static boolean InterfaceStatement_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "InterfaceStatement_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!Decorator(b, l + 1)) break;
+      if (!DecoratorLike(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "InterfaceStatement_0", c)) break;
     }
     return true;
@@ -616,10 +650,9 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* MODEL Identifier TypeParameterList? (ModelExtends | ModelIs)? (SEMICOLON | ModelPropertiesBlock)
+  // DecoratorLike* MODEL Identifier TypeParameterList? (ModelExtends | ModelIs)? (SEMICOLON | ModelPropertiesBlock)
   public static boolean ModelStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelStatement")) return false;
-    if (!nextTokenIs(b, "<model statement>", AT, MODEL)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, MODEL_STATEMENT, "<model statement>");
     r = ModelStatement_0(b, l + 1);
@@ -632,12 +665,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Decorator*
+  // DecoratorLike*
   private static boolean ModelStatement_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelStatement_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!Decorator(b, l + 1)) break;
+      if (!DecoratorLike(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "ModelStatement_0", c)) break;
     }
     return true;
@@ -676,10 +709,9 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* Identifier QUEST? COLON Type (EQ Expression)? SEMICOLON
+  // DecoratorLike* Identifier QUEST? COLON Type (EQ Expression)? SEMICOLON
   public static boolean NamedModelProperty(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamedModelProperty")) return false;
-    if (!nextTokenIs(b, "<named model property>", AT, IDENT)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, NAMED_MODEL_PROPERTY, "<named model property>");
     r = NamedModelProperty_0(b, l + 1);
@@ -693,12 +725,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Decorator*
+  // DecoratorLike*
   private static boolean NamedModelProperty_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamedModelProperty_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!Decorator(b, l + 1)) break;
+      if (!DecoratorLike(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "NamedModelProperty_0", c)) break;
     }
     return true;
@@ -730,10 +762,9 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* Identifier QUEST? COLON Type
+  // DecoratorLike* Identifier QUEST? COLON Type
   public static boolean NamedParameter(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamedParameter")) return false;
-    if (!nextTokenIs(b, "<named parameter>", AT, IDENT)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, NAMED_PARAMETER, "<named parameter>");
     r = NamedParameter_0(b, l + 1);
@@ -745,12 +776,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Decorator*
+  // DecoratorLike*
   private static boolean NamedParameter_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamedParameter_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!Decorator(b, l + 1)) break;
+      if (!DecoratorLike(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "NamedParameter_0", c)) break;
     }
     return true;
@@ -764,10 +795,9 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* NAMESPACE Path (SEMICOLON | LBRACE Statement* RBRACE)
+  // DecoratorLike* NAMESPACE Path (SEMICOLON | LBRACE Statement* RBRACE)
   public static boolean NamespaceStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamespaceStatement")) return false;
-    if (!nextTokenIs(b, "<namespace statement>", AT, NAMESPACE)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, NAMESPACE_STATEMENT, "<namespace statement>");
     r = NamespaceStatement_0(b, l + 1);
@@ -778,12 +808,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Decorator*
+  // DecoratorLike*
   private static boolean NamespaceStatement_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamespaceStatement_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!Decorator(b, l + 1)) break;
+      if (!DecoratorLike(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "NamespaceStatement_0", c)) break;
     }
     return true;
@@ -957,10 +987,9 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* OP Operation SEMICOLON
+  // DecoratorLike* OP Operation SEMICOLON
   public static boolean OperationStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OperationStatement")) return false;
-    if (!nextTokenIs(b, "<operation statement>", AT, OP)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, OPERATION_STATEMENT, "<operation statement>");
     r = OperationStatement_0(b, l + 1);
@@ -971,12 +1000,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Decorator*
+  // DecoratorLike*
   private static boolean OperationStatement_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OperationStatement_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!Decorator(b, l + 1)) break;
+      if (!DecoratorLike(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "OperationStatement_0", c)) break;
     }
     return true;
@@ -1258,10 +1287,9 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Decorator* UNION Identifier UnionVariantsBlock
+  // DecoratorLike* UNION Identifier UnionVariantsBlock
   public static boolean UnionStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UnionStatement")) return false;
-    if (!nextTokenIs(b, "<union statement>", AT, UNION)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, UNION_STATEMENT, "<union statement>");
     r = UnionStatement_0(b, l + 1);
@@ -1272,22 +1300,21 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Decorator*
+  // DecoratorLike*
   private static boolean UnionStatement_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UnionStatement_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!Decorator(b, l + 1)) break;
+      if (!DecoratorLike(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "UnionStatement_0", c)) break;
     }
     return true;
   }
 
   /* ********************************************************** */
-  // Decorator* Identifier COLON PathType
+  // DecoratorLike* Identifier COLON PathType
   public static boolean UnionVariant(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UnionVariant")) return false;
-    if (!nextTokenIs(b, "<union variant>", AT, IDENT)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, UNION_VARIANT, "<union variant>");
     r = UnionVariant_0(b, l + 1);
@@ -1298,12 +1325,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Decorator*
+  // DecoratorLike*
   private static boolean UnionVariant_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UnionVariant_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!Decorator(b, l + 1)) break;
+      if (!DecoratorLike(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "UnionVariant_0", c)) break;
     }
     return true;

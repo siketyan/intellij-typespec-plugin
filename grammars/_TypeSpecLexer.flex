@@ -69,6 +69,7 @@ LINE_COMMENT="//".*
   "@@"                    { return ATAT; }
   ","                     { return COMMA; }
   "|"                     { return PIPE; }
+  "#"                     { return HASH; }
 
   {STRING_LITERAL}        { return STRING_LITERAL; }
   {NUMERIC_LITERAL}       { return NUMERIC_LITERAL; }

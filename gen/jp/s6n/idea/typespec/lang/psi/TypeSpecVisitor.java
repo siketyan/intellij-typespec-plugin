@@ -26,6 +26,14 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitElement(o);
   }
 
+  public void visitDecoratorLike(@NotNull TypeSpecDecoratorLike o) {
+    visitElement(o);
+  }
+
+  public void visitDirective(@NotNull TypeSpecDirective o) {
+    visitElement(o);
+  }
+
   public void visitEnumStatement(@NotNull TypeSpecEnumStatement o) {
     visitStatement(o);
   }

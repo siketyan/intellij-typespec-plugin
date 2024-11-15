@@ -49,6 +49,7 @@
     ATAT            = '@@'
     COMMA           = ','
     PIPE            = '|'
+    HASH            = '#'
 
     STRING_LITERAL  = 'regexp:"([^\\"\r\n]|\\[^\r\n])*"?'
     NUMERIC_LITERAL = 'regexp:-?\d+(\.\d+)?'
@@ -80,9 +81,9 @@ ImportStatement ::= IMPORT STRING_LITERAL SEMICOLON {extends=Statement}
 
 UsingStatement ::= USING Path SEMICOLON {extends=Statement}
 
-NamespaceStatement ::= Decorator* NAMESPACE Path (SEMICOLON | LBRACE Statement* RBRACE) {extends=Statement}
+NamespaceStatement ::= DecoratorLike* NAMESPACE Path (SEMICOLON | LBRACE Statement* RBRACE) {extends=Statement}
 
-EnumStatement ::= Decorator* ENUM Identifier EnumVariantsBlock {
+EnumStatement ::= DecoratorLike* ENUM Identifier EnumVariantsBlock {
     extends=Statement
     methods=[getPresentation]
 }
@@ -91,16 +92,16 @@ EnumVariantsBlock ::= LBRACE [EnumVariant (COMMA EnumVariant)* COMMA?] RBRACE
 
 EnumVariant ::= DecoratorLike* Identifier (COLON LiteralExpression)?
 
-UnionStatement ::= Decorator* UNION Identifier UnionVariantsBlock {
+UnionStatement ::= DecoratorLike* UNION Identifier UnionVariantsBlock {
     extends=Statement
     methods=[getPresentation]
 }
 
 UnionVariantsBlock ::= LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
 
-UnionVariant ::= Decorator* Identifier COLON PathType
+UnionVariant ::= DecoratorLike* Identifier COLON PathType
 
-ModelStatement ::= Decorator* MODEL Identifier TypeParameterList? (ModelExtends | ModelIs)? (SEMICOLON | ModelPropertiesBlock) {
+ModelStatement ::= DecoratorLike* MODEL Identifier TypeParameterList? (ModelExtends | ModelIs)? (SEMICOLON | ModelPropertiesBlock) {
     extends=Statement
     methods=[getPresentation]
 }
@@ -113,11 +114,11 @@ ModelPropertiesBlock ::= LBRACE ModelProperty* RBRACE
 
 ModelProperty ::= NamedModelProperty | SpreadModelProperty
 
-NamedModelProperty ::= Decorator* Identifier QUEST? COLON Type (EQ Expression)? SEMICOLON {extends=ModelProperty}
+NamedModelProperty ::= DecoratorLike* Identifier QUEST? COLON Type (EQ Expression)? SEMICOLON {extends=ModelProperty}
 
 SpreadModelProperty ::= DOTDOTDOT PathType SEMICOLON {extends=ModelProperty}
 
-InterfaceStatement ::= Decorator* INTERFACE Identifier TypeParameterList? InterfaceExtends? InterfaceOperationsBlock {
+InterfaceStatement ::= DecoratorLike* INTERFACE Identifier TypeParameterList? InterfaceExtends? InterfaceOperationsBlock {
     extends=Statement
     methods=[getPresentation]
 }
@@ -126,9 +127,9 @@ InterfaceExtends ::= EXTENDS [PathType (COMMA PathType)*]
 
 InterfaceOperationsBlock ::= LBRACE InterfaceOperation* RBRACE
 
-InterfaceOperation ::= Decorator* Operation SEMICOLON
+InterfaceOperation ::= DecoratorLike* Operation SEMICOLON
 
-OperationStatement ::= Decorator* OP Operation SEMICOLON {
+OperationStatement ::= DecoratorLike* OP Operation SEMICOLON {
     extends=Statement
     methods=[getPresentation]
 }
@@ -161,9 +162,13 @@ Parameter ::=
     NamedParameter
     | VariadicParameter
 
-NamedParameter ::= Decorator* Identifier QUEST? COLON Type
+NamedParameter ::= DecoratorLike* Identifier QUEST? COLON Type
 
 VariadicParameter ::= DOTDOTDOT Identifier
+
+DecoratorLike ::= Decorator | Directive
+
+Directive ::= HASH Identifier LiteralExpression*
 
 Decorator ::= AT PathExpression ArgumentList?
 

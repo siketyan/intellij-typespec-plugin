@@ -5,15 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecEnumVariant extends TypeSpecElement {
-
-  @NotNull
-  List<TypeSpecDecoratorLike> getDecoratorLikeList();
+public interface TypeSpecDirective extends TypeSpecElement {
 
   @NotNull
   TypeSpecIdentifier getIdentifier();
 
-  @Nullable
-  TypeSpecLiteralExpression getLiteralExpression();
+  @NotNull
+  List<TypeSpecLiteralExpression> getLiteralExpressionList();
 
 }

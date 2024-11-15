@@ -28,8 +28,8 @@ public class TypeSpecUnionVariantImpl extends TypeSpecElementImpl implements Typ
 
   @Override
   @NotNull
-  public List<TypeSpecDecorator> getDecoratorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecorator.class);
+  public List<TypeSpecDecoratorLike> getDecoratorLikeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecoratorLike.class);
   }
 
   @Override

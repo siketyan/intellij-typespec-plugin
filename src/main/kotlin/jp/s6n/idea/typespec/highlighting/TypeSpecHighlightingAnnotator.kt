@@ -12,6 +12,7 @@ class TypeSpecHighlightingAnnotator : Annotator {
         when (element) {
             is TypeSpecPathType -> newAnnotation(element.path.identifierList.last(), holder, TypeSpecColors.TYPE_REFERENCE)
             is TypeSpecDecorator -> newAnnotation(element.pathExpression, holder, TypeSpecColors.DECORATOR)
+            is TypeSpecDirective -> newAnnotation(element.identifier, holder, TypeSpecColors.DECORATOR)
             is TypeSpecEnumStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecUnionStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecModelStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
