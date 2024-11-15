@@ -1312,14 +1312,13 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DecoratorLike* Identifier COLON PathType
+  // DecoratorLike* (Identifier COLON)? PathType
   public static boolean UnionVariant(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UnionVariant")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, UNION_VARIANT, "<union variant>");
     r = UnionVariant_0(b, l + 1);
-    r = r && Identifier(b, l + 1);
-    r = r && consumeToken(b, COLON);
+    r = r && UnionVariant_1(b, l + 1);
     r = r && PathType(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -1334,6 +1333,24 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "UnionVariant_0", c)) break;
     }
     return true;
+  }
+
+  // (Identifier COLON)?
+  private static boolean UnionVariant_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionVariant_1")) return false;
+    UnionVariant_1_0(b, l + 1);
+    return true;
+  }
+
+  // Identifier COLON
+  private static boolean UnionVariant_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "UnionVariant_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Identifier(b, l + 1);
+    r = r && consumeToken(b, COLON);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */

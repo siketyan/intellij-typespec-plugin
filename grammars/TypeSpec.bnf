@@ -99,7 +99,7 @@ UnionStatement ::= DecoratorLike* UNION Identifier UnionVariantsBlock {
 
 UnionVariantsBlock ::= LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
 
-UnionVariant ::= DecoratorLike* Identifier COLON PathType
+UnionVariant ::= DecoratorLike* (Identifier COLON)? PathType
 
 ModelStatement ::= DecoratorLike* MODEL Identifier TypeParameterList? (ModelExtends | ModelIs)? (SEMICOLON | ModelPropertiesBlock) {
     extends=Statement

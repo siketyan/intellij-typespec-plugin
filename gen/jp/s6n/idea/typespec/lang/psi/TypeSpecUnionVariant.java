@@ -10,7 +10,7 @@ public interface TypeSpecUnionVariant extends TypeSpecElement {
   @NotNull
   List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
-  @NotNull
+  @Nullable
   TypeSpecIdentifier getIdentifier();
 
   @NotNull
