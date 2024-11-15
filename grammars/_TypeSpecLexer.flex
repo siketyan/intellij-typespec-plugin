@@ -51,6 +51,12 @@ LINE_COMMENT="//".*
   "extern"                { return EXTERN; }
   "dec"                   { return DEC; }
   "valueof"               { return VALUEOF; }
+  "typeof"                { return TYPEOF; }
+  "true"                  { return TRUE; }
+  "false"                 { return FALSE; }
+  "void"                  { return VOID; }
+  "never"                 { return NEVER; }
+  "any"                   { return ANY; }
   "{"                     { return LBRACE; }
   "}"                     { return RBRACE; }
   "("                     { return LPAREN; }
@@ -63,6 +69,7 @@ LINE_COMMENT="//".*
   "..."                   { return DOTDOTDOT; }
   "."                     { return DOT; }
   ":"                     { return COLON; }
+  "::"                    { return COLONCOLON; }
   ";"                     { return SEMICOLON; }
   "?"                     { return QUEST; }
   "@"                     { return AT; }
@@ -71,6 +78,8 @@ LINE_COMMENT="//".*
   "|"                     { return PIPE; }
   "&"                     { return AMP; }
   "#"                     { return HASH; }
+  "#{"                    { return HASHLBRACE; }
+  "#["                    { return HASHLBRACKET; }
 
   {STRING_LITERAL}        { return STRING_LITERAL; }
   {NUMERIC_LITERAL}       { return NUMERIC_LITERAL; }

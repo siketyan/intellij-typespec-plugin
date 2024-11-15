@@ -7,10 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface TypeSpecPath extends TypeSpecElement {
 
-  @NotNull
-  List<TypeSpecIdentifier> getIdentifierList();
+  @Nullable
+  TypeSpecIdentifier getIdentifier();
 
   @Nullable
-  TypeSpecTypeArgumentList getTypeArgumentList();
+  TypeSpecMemberExpression getMemberExpression();
 
 }

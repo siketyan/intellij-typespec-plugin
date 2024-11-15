@@ -10,8 +10,10 @@ public interface TypeSpecElementTypes {
 
   IElementType ALIAS_STATEMENT = new TypeSpecElementType("ALIAS_STATEMENT");
   IElementType ARGUMENT_LIST = new TypeSpecElementType("ARGUMENT_LIST");
-  IElementType ARRAY_TYPE = new TypeSpecElementType("ARRAY_TYPE");
+  IElementType ARRAY_EXPRESSION = new TypeSpecElementType("ARRAY_EXPRESSION");
+  IElementType ARRAY_LITERAL = new TypeSpecElementType("ARRAY_LITERAL");
   IElementType AUGMENT_DECORATOR_STATEMENT = new TypeSpecElementType("AUGMENT_DECORATOR_STATEMENT");
+  IElementType CALL_EXPRESSION = new TypeSpecElementType("CALL_EXPRESSION");
   IElementType DECORATOR = new TypeSpecElementType("DECORATOR");
   IElementType DECORATOR_LIKE = new TypeSpecElementType("DECORATOR_LIKE");
   IElementType DIRECTIVE = new TypeSpecElementType("DIRECTIVE");
@@ -26,50 +28,53 @@ public interface TypeSpecElementTypes {
   IElementType INTERFACE_OPERATION = new TypeSpecElementType("INTERFACE_OPERATION");
   IElementType INTERFACE_OPERATIONS_BLOCK = new TypeSpecElementType("INTERFACE_OPERATIONS_BLOCK");
   IElementType INTERFACE_STATEMENT = new TypeSpecElementType("INTERFACE_STATEMENT");
-  IElementType INTERSECTION_TYPE = new TypeSpecElementType("INTERSECTION_TYPE");
+  IElementType INTERSECTION_EXPRESSION = new TypeSpecElementType("INTERSECTION_EXPRESSION");
+  IElementType KEYWORD_EXPRESSION = new TypeSpecElementType("KEYWORD_EXPRESSION");
   IElementType LITERAL_EXPRESSION = new TypeSpecElementType("LITERAL_EXPRESSION");
-  IElementType LITERAL_TYPE = new TypeSpecElementType("LITERAL_TYPE");
+  IElementType MEMBER_EXPRESSION = new TypeSpecElementType("MEMBER_EXPRESSION");
+  IElementType MODEL_EXPRESSION = new TypeSpecElementType("MODEL_EXPRESSION");
   IElementType MODEL_EXTENDS = new TypeSpecElementType("MODEL_EXTENDS");
   IElementType MODEL_IS = new TypeSpecElementType("MODEL_IS");
-  IElementType MODEL_PROPERTIES_BLOCK = new TypeSpecElementType("MODEL_PROPERTIES_BLOCK");
   IElementType MODEL_PROPERTY = new TypeSpecElementType("MODEL_PROPERTY");
+  IElementType MODEL_PROPERTY_LIKE = new TypeSpecElementType("MODEL_PROPERTY_LIKE");
   IElementType MODEL_STATEMENT = new TypeSpecElementType("MODEL_STATEMENT");
-  IElementType NAMED_MODEL_PROPERTY = new TypeSpecElementType("NAMED_MODEL_PROPERTY");
   IElementType NAMED_PARAMETER = new TypeSpecElementType("NAMED_PARAMETER");
   IElementType NAMESPACE_STATEMENT = new TypeSpecElementType("NAMESPACE_STATEMENT");
-  IElementType OBJECT_EXPRESSION = new TypeSpecElementType("OBJECT_EXPRESSION");
-  IElementType OBJECT_EXPRESSION_PROPERTY = new TypeSpecElementType("OBJECT_EXPRESSION_PROPERTY");
-  IElementType OBJECT_TYPE = new TypeSpecElementType("OBJECT_TYPE");
+  IElementType OBJECT_LITERAL = new TypeSpecElementType("OBJECT_LITERAL");
+  IElementType OBJECT_LITERAL_PROPERTY = new TypeSpecElementType("OBJECT_LITERAL_PROPERTY");
   IElementType OPERATION = new TypeSpecElementType("OPERATION");
-  IElementType OPERATION_IS = new TypeSpecElementType("OPERATION_IS");
   IElementType OPERATION_SIGNATURE = new TypeSpecElementType("OPERATION_SIGNATURE");
+  IElementType OPERATION_SIGNATURE_DECLARATION_NODE = new TypeSpecElementType("OPERATION_SIGNATURE_DECLARATION_NODE");
+  IElementType OPERATION_SIGNATURE_REFERENCE_NODE = new TypeSpecElementType("OPERATION_SIGNATURE_REFERENCE_NODE");
   IElementType OPERATION_STATEMENT = new TypeSpecElementType("OPERATION_STATEMENT");
   IElementType PARAMETER = new TypeSpecElementType("PARAMETER");
   IElementType PARAMETER_LIST = new TypeSpecElementType("PARAMETER_LIST");
   IElementType PATH = new TypeSpecElementType("PATH");
-  IElementType PATH_EXPRESSION = new TypeSpecElementType("PATH_EXPRESSION");
-  IElementType PATH_TYPE = new TypeSpecElementType("PATH_TYPE");
-  IElementType PROPERTY = new TypeSpecElementType("PROPERTY");
   IElementType SPREAD_MODEL_PROPERTY = new TypeSpecElementType("SPREAD_MODEL_PROPERTY");
+  IElementType SPREAD_OBJECT_LITERAL_PROPERTY = new TypeSpecElementType("SPREAD_OBJECT_LITERAL_PROPERTY");
   IElementType STATEMENT = new TypeSpecElementType("STATEMENT");
-  IElementType TYPE = new TypeSpecElementType("TYPE");
+  IElementType TUPLE_EXPRESSION = new TypeSpecElementType("TUPLE_EXPRESSION");
   IElementType TYPE_ARGUMENT_LIST = new TypeSpecElementType("TYPE_ARGUMENT_LIST");
+  IElementType TYPE_OF_EXPRESSION = new TypeSpecElementType("TYPE_OF_EXPRESSION");
   IElementType TYPE_PARAMETER = new TypeSpecElementType("TYPE_PARAMETER");
   IElementType TYPE_PARAMETER_LIST = new TypeSpecElementType("TYPE_PARAMETER_LIST");
+  IElementType TYPE_REFERENCE = new TypeSpecElementType("TYPE_REFERENCE");
+  IElementType UNION_EXPRESSION = new TypeSpecElementType("UNION_EXPRESSION");
   IElementType UNION_STATEMENT = new TypeSpecElementType("UNION_STATEMENT");
-  IElementType UNION_TYPE = new TypeSpecElementType("UNION_TYPE");
   IElementType UNION_VARIANT = new TypeSpecElementType("UNION_VARIANT");
   IElementType UNION_VARIANTS_BLOCK = new TypeSpecElementType("UNION_VARIANTS_BLOCK");
   IElementType USING_STATEMENT = new TypeSpecElementType("USING_STATEMENT");
-  IElementType VALUE_OF_TYPE = new TypeSpecElementType("VALUE_OF_TYPE");
+  IElementType VALUE_OF_EXPRESSION = new TypeSpecElementType("VALUE_OF_EXPRESSION");
   IElementType VARIADIC_PARAMETER = new TypeSpecElementType("VARIADIC_PARAMETER");
 
   IElementType ALIAS = new TypeSpecTokenType("alias");
   IElementType AMP = new TypeSpecTokenType("&");
+  IElementType ANY = new TypeSpecTokenType("any");
   IElementType AT = new TypeSpecTokenType("@");
   IElementType ATAT = new TypeSpecTokenType("@@");
   IElementType BLOCK_COMMENT = new TypeSpecTokenType("BLOCK_COMMENT");
   IElementType COLON = new TypeSpecTokenType(":");
+  IElementType COLONCOLON = new TypeSpecTokenType("::");
   IElementType COMMA = new TypeSpecTokenType(",");
   IElementType DEC = new TypeSpecTokenType("dec");
   IElementType DOC_COMMENT = new TypeSpecTokenType("DOC_COMMENT");
@@ -79,8 +84,11 @@ public interface TypeSpecElementTypes {
   IElementType EQ = new TypeSpecTokenType("=");
   IElementType EXTENDS = new TypeSpecTokenType("extends");
   IElementType EXTERN = new TypeSpecTokenType("extern");
+  IElementType FALSE = new TypeSpecTokenType("false");
   IElementType GT = new TypeSpecTokenType(">");
   IElementType HASH = new TypeSpecTokenType("#");
+  IElementType HASHLBRACE = new TypeSpecTokenType("#{");
+  IElementType HASHLBRACKET = new TypeSpecTokenType("#[");
   IElementType IDENT = new TypeSpecTokenType("IDENT");
   IElementType IMPORT = new TypeSpecTokenType("import");
   IElementType INTERFACE = new TypeSpecTokenType("interface");
@@ -92,6 +100,7 @@ public interface TypeSpecElementTypes {
   IElementType LT = new TypeSpecTokenType("<");
   IElementType MODEL = new TypeSpecTokenType("model");
   IElementType NAMESPACE = new TypeSpecTokenType("namespace");
+  IElementType NEVER = new TypeSpecTokenType("never");
   IElementType NUMERIC_LITERAL = new TypeSpecTokenType("NUMERIC_LITERAL");
   IElementType OP = new TypeSpecTokenType("op");
   IElementType PIPE = new TypeSpecTokenType("|");
@@ -101,9 +110,12 @@ public interface TypeSpecElementTypes {
   IElementType RPAREN = new TypeSpecTokenType(")");
   IElementType SEMICOLON = new TypeSpecTokenType(";");
   IElementType STRING_LITERAL = new TypeSpecTokenType("STRING_LITERAL");
+  IElementType TRUE = new TypeSpecTokenType("true");
+  IElementType TYPEOF = new TypeSpecTokenType("typeof");
   IElementType UNION = new TypeSpecTokenType("union");
   IElementType USING = new TypeSpecTokenType("using");
   IElementType VALUEOF = new TypeSpecTokenType("valueof");
+  IElementType VOID = new TypeSpecTokenType("void");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -114,11 +126,17 @@ public interface TypeSpecElementTypes {
       else if (type == ARGUMENT_LIST) {
         return new TypeSpecArgumentListImpl(node);
       }
-      else if (type == ARRAY_TYPE) {
-        return new TypeSpecArrayTypeImpl(node);
+      else if (type == ARRAY_EXPRESSION) {
+        return new TypeSpecArrayExpressionImpl(node);
+      }
+      else if (type == ARRAY_LITERAL) {
+        return new TypeSpecArrayLiteralImpl(node);
       }
       else if (type == AUGMENT_DECORATOR_STATEMENT) {
         return new TypeSpecAugmentDecoratorStatementImpl(node);
+      }
+      else if (type == CALL_EXPRESSION) {
+        return new TypeSpecCallExpressionImpl(node);
       }
       else if (type == DECORATOR) {
         return new TypeSpecDecoratorImpl(node);
@@ -159,14 +177,20 @@ public interface TypeSpecElementTypes {
       else if (type == INTERFACE_STATEMENT) {
         return new TypeSpecInterfaceStatementImpl(node);
       }
-      else if (type == INTERSECTION_TYPE) {
-        return new TypeSpecIntersectionTypeImpl(node);
+      else if (type == INTERSECTION_EXPRESSION) {
+        return new TypeSpecIntersectionExpressionImpl(node);
+      }
+      else if (type == KEYWORD_EXPRESSION) {
+        return new TypeSpecKeywordExpressionImpl(node);
       }
       else if (type == LITERAL_EXPRESSION) {
         return new TypeSpecLiteralExpressionImpl(node);
       }
-      else if (type == LITERAL_TYPE) {
-        return new TypeSpecLiteralTypeImpl(node);
+      else if (type == MEMBER_EXPRESSION) {
+        return new TypeSpecMemberExpressionImpl(node);
+      }
+      else if (type == MODEL_EXPRESSION) {
+        return new TypeSpecModelExpressionImpl(node);
       }
       else if (type == MODEL_EXTENDS) {
         return new TypeSpecModelExtendsImpl(node);
@@ -174,14 +198,11 @@ public interface TypeSpecElementTypes {
       else if (type == MODEL_IS) {
         return new TypeSpecModelIsImpl(node);
       }
-      else if (type == MODEL_PROPERTIES_BLOCK) {
-        return new TypeSpecModelPropertiesBlockImpl(node);
+      else if (type == MODEL_PROPERTY) {
+        return new TypeSpecModelPropertyImpl(node);
       }
       else if (type == MODEL_STATEMENT) {
         return new TypeSpecModelStatementImpl(node);
-      }
-      else if (type == NAMED_MODEL_PROPERTY) {
-        return new TypeSpecNamedModelPropertyImpl(node);
       }
       else if (type == NAMED_PARAMETER) {
         return new TypeSpecNamedParameterImpl(node);
@@ -189,23 +210,23 @@ public interface TypeSpecElementTypes {
       else if (type == NAMESPACE_STATEMENT) {
         return new TypeSpecNamespaceStatementImpl(node);
       }
-      else if (type == OBJECT_EXPRESSION) {
-        return new TypeSpecObjectExpressionImpl(node);
+      else if (type == OBJECT_LITERAL) {
+        return new TypeSpecObjectLiteralImpl(node);
       }
-      else if (type == OBJECT_EXPRESSION_PROPERTY) {
-        return new TypeSpecObjectExpressionPropertyImpl(node);
-      }
-      else if (type == OBJECT_TYPE) {
-        return new TypeSpecObjectTypeImpl(node);
+      else if (type == OBJECT_LITERAL_PROPERTY) {
+        return new TypeSpecObjectLiteralPropertyImpl(node);
       }
       else if (type == OPERATION) {
         return new TypeSpecOperationImpl(node);
       }
-      else if (type == OPERATION_IS) {
-        return new TypeSpecOperationIsImpl(node);
-      }
       else if (type == OPERATION_SIGNATURE) {
         return new TypeSpecOperationSignatureImpl(node);
+      }
+      else if (type == OPERATION_SIGNATURE_DECLARATION_NODE) {
+        return new TypeSpecOperationSignatureDeclarationNodeImpl(node);
+      }
+      else if (type == OPERATION_SIGNATURE_REFERENCE_NODE) {
+        return new TypeSpecOperationSignatureReferenceNodeImpl(node);
       }
       else if (type == OPERATION_STATEMENT) {
         return new TypeSpecOperationStatementImpl(node);
@@ -219,23 +240,23 @@ public interface TypeSpecElementTypes {
       else if (type == PATH) {
         return new TypeSpecPathImpl(node);
       }
-      else if (type == PATH_EXPRESSION) {
-        return new TypeSpecPathExpressionImpl(node);
-      }
-      else if (type == PATH_TYPE) {
-        return new TypeSpecPathTypeImpl(node);
-      }
-      else if (type == PROPERTY) {
-        return new TypeSpecPropertyImpl(node);
-      }
       else if (type == SPREAD_MODEL_PROPERTY) {
         return new TypeSpecSpreadModelPropertyImpl(node);
+      }
+      else if (type == SPREAD_OBJECT_LITERAL_PROPERTY) {
+        return new TypeSpecSpreadObjectLiteralPropertyImpl(node);
       }
       else if (type == STATEMENT) {
         return new TypeSpecStatementImpl(node);
       }
+      else if (type == TUPLE_EXPRESSION) {
+        return new TypeSpecTupleExpressionImpl(node);
+      }
       else if (type == TYPE_ARGUMENT_LIST) {
         return new TypeSpecTypeArgumentListImpl(node);
+      }
+      else if (type == TYPE_OF_EXPRESSION) {
+        return new TypeSpecTypeOfExpressionImpl(node);
       }
       else if (type == TYPE_PARAMETER) {
         return new TypeSpecTypeParameterImpl(node);
@@ -243,11 +264,14 @@ public interface TypeSpecElementTypes {
       else if (type == TYPE_PARAMETER_LIST) {
         return new TypeSpecTypeParameterListImpl(node);
       }
+      else if (type == TYPE_REFERENCE) {
+        return new TypeSpecTypeReferenceImpl(node);
+      }
+      else if (type == UNION_EXPRESSION) {
+        return new TypeSpecUnionExpressionImpl(node);
+      }
       else if (type == UNION_STATEMENT) {
         return new TypeSpecUnionStatementImpl(node);
-      }
-      else if (type == UNION_TYPE) {
-        return new TypeSpecUnionTypeImpl(node);
       }
       else if (type == UNION_VARIANT) {
         return new TypeSpecUnionVariantImpl(node);
@@ -258,8 +282,8 @@ public interface TypeSpecElementTypes {
       else if (type == USING_STATEMENT) {
         return new TypeSpecUsingStatementImpl(node);
       }
-      else if (type == VALUE_OF_TYPE) {
-        return new TypeSpecValueOfTypeImpl(node);
+      else if (type == VALUE_OF_EXPRESSION) {
+        return new TypeSpecValueOfExpressionImpl(node);
       }
       else if (type == VARIADIC_PARAMETER) {
         return new TypeSpecVariadicParameterImpl(node);

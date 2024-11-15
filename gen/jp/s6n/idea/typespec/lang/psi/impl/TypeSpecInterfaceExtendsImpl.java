@@ -28,8 +28,8 @@ public class TypeSpecInterfaceExtendsImpl extends TypeSpecElementImpl implements
 
   @Override
   @NotNull
-  public List<TypeSpecPathType> getPathTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecPathType.class);
+  public List<TypeSpecTypeReference> getTypeReferenceList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecTypeReference.class);
   }
 
 }

@@ -42,6 +42,12 @@ public class TypeSpecModelStatementImpl extends TypeSpecStatementImpl implements
 
   @Override
   @Nullable
+  public TypeSpecModelExpression getModelExpression() {
+    return findChildByClass(TypeSpecModelExpression.class);
+  }
+
+  @Override
+  @Nullable
   public TypeSpecModelExtends getModelExtends() {
     return findChildByClass(TypeSpecModelExtends.class);
   }
@@ -50,12 +56,6 @@ public class TypeSpecModelStatementImpl extends TypeSpecStatementImpl implements
   @Nullable
   public TypeSpecModelIs getModelIs() {
     return findChildByClass(TypeSpecModelIs.class);
-  }
-
-  @Override
-  @Nullable
-  public TypeSpecModelPropertiesBlock getModelPropertiesBlock() {
-    return findChildByClass(TypeSpecModelPropertiesBlock.class);
   }
 
   @Override

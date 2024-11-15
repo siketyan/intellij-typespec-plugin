@@ -10,12 +10,13 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public abstract class TypeSpecModelPropertyImpl extends TypeSpecElementImpl implements TypeSpecModelProperty {
+public class TypeSpecModelPropertyImpl extends TypeSpecModelPropertyLikeImpl implements TypeSpecModelProperty {
 
   public TypeSpecModelPropertyImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
     visitor.visitModelProperty(this);
   }
@@ -24,6 +25,24 @@ public abstract class TypeSpecModelPropertyImpl extends TypeSpecElementImpl impl
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TypeSpecVisitor) accept((TypeSpecVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public List<TypeSpecDecoratorLike> getDecoratorLikeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecoratorLike.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TypeSpecExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecExpression.class);
+  }
+
+  @Override
+  @NotNull
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
 }

@@ -7,13 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface TypeSpecOperationSignature extends TypeSpecElement {
 
-  @NotNull
-  TypeSpecParameterList getParameterList();
-
-  @NotNull
-  TypeSpecType getType();
+  @Nullable
+  TypeSpecOperationSignatureDeclarationNode getOperationSignatureDeclarationNode();
 
   @Nullable
-  TypeSpecTypeParameterList getTypeParameterList();
+  TypeSpecOperationSignatureReferenceNode getOperationSignatureReferenceNode();
 
 }

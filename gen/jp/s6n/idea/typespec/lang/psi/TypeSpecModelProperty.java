@@ -5,6 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecModelProperty extends TypeSpecElement {
+public interface TypeSpecModelProperty extends TypeSpecModelPropertyLike {
+
+  @NotNull
+  List<TypeSpecDecoratorLike> getDecoratorLikeList();
+
+  @NotNull
+  List<TypeSpecExpression> getExpressionList();
+
+  @NotNull
+  TypeSpecIdentifier getIdentifier();
 
 }

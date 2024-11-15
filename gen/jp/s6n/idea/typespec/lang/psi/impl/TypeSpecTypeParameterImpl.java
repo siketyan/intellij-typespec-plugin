@@ -28,14 +28,14 @@ public class TypeSpecTypeParameterImpl extends TypeSpecElementImpl implements Ty
 
   @Override
   @NotNull
-  public TypeSpecIdentifier getIdentifier() {
-    return findNotNullChildByClass(TypeSpecIdentifier.class);
+  public List<TypeSpecExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecExpression.class);
   }
 
   @Override
   @NotNull
-  public List<TypeSpecType> getTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecType.class);
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
 
 }

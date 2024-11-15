@@ -10,10 +10,10 @@ public interface TypeSpecOperation extends TypeSpecElement {
   @NotNull
   TypeSpecIdentifier getIdentifier();
 
-  @Nullable
-  TypeSpecOperationIs getOperationIs();
+  @NotNull
+  TypeSpecOperationSignature getOperationSignature();
 
   @Nullable
-  TypeSpecOperationSignature getOperationSignature();
+  TypeSpecTypeParameterList getTypeParameterList();
 
 }

@@ -34,8 +34,8 @@ public class TypeSpecDecoratorImpl extends TypeSpecElementImpl implements TypeSp
 
   @Override
   @NotNull
-  public TypeSpecPathExpression getPathExpression() {
-    return findNotNullChildByClass(TypeSpecPathExpression.class);
+  public TypeSpecPath getPath() {
+    return findNotNullChildByClass(TypeSpecPath.class);
   }
 
 }

@@ -10,8 +10,8 @@ import jp.s6n.idea.typespec.lang.psi.*
 class TypeSpecHighlightingAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         when (element) {
-            is TypeSpecPathType -> newAnnotation(element.path.identifierList.last(), holder, TypeSpecColors.TYPE_REFERENCE)
-            is TypeSpecDecorator -> newAnnotation(element.pathExpression, holder, TypeSpecColors.DECORATOR)
+            is TypeSpecTypeReference -> newAnnotation(element.path.identifier ?: element.path.memberExpression?.lastChild!!, holder, TypeSpecColors.TYPE_REFERENCE)
+            is TypeSpecDecorator -> newAnnotation(element.path, holder, TypeSpecColors.DECORATOR)
             is TypeSpecDirective -> newAnnotation(element.identifier, holder, TypeSpecColors.DECORATOR)
             is TypeSpecEnumStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecUnionStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
@@ -20,7 +20,7 @@ class TypeSpecHighlightingAnnotator : Annotator {
             is TypeSpecOperationStatement -> newAnnotation(element.operation.identifier, holder, TypeSpecColors.OPERATION)
             is TypeSpecAliasStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
             is TypeSpecExternDecoratorStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.DECORATOR)
-            is TypeSpecAugmentDecoratorStatement -> newAnnotation(element.pathExpression, holder, TypeSpecColors.DECORATOR)
+            is TypeSpecAugmentDecoratorStatement -> newAnnotation(element.path, holder, TypeSpecColors.DECORATOR)
             is TypeSpecTypeParameterList -> element.typeParameterList.forEach { newAnnotation(it, holder, TypeSpecColors.TYPE) }
         }
     }

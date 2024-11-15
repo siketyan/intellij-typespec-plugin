@@ -34,8 +34,8 @@ public class TypeSpecAugmentDecoratorStatementImpl extends TypeSpecElementImpl i
 
   @Override
   @NotNull
-  public TypeSpecPathExpression getPathExpression() {
-    return findNotNullChildByClass(TypeSpecPathExpression.class);
+  public TypeSpecPath getPath() {
+    return findNotNullChildByClass(TypeSpecPath.class);
   }
 
 }

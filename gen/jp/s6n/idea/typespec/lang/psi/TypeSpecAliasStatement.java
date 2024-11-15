@@ -12,10 +12,10 @@ public interface TypeSpecAliasStatement extends TypeSpecStatement {
   List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
   @NotNull
-  TypeSpecIdentifier getIdentifier();
+  TypeSpecExpression getExpression();
 
   @NotNull
-  TypeSpecType getType();
+  TypeSpecIdentifier getIdentifier();
 
   @Nullable
   TypeSpecTypeParameterList getTypeParameterList();

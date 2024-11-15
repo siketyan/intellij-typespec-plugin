@@ -33,15 +33,15 @@ public class TypeSpecUnionVariantImpl extends TypeSpecElementImpl implements Typ
   }
 
   @Override
-  @Nullable
-  public TypeSpecIdentifier getIdentifier() {
-    return findChildByClass(TypeSpecIdentifier.class);
+  @NotNull
+  public TypeSpecExpression getExpression() {
+    return findNotNullChildByClass(TypeSpecExpression.class);
   }
 
   @Override
-  @NotNull
-  public TypeSpecType getType() {
-    return findNotNullChildByClass(TypeSpecType.class);
+  @Nullable
+  public TypeSpecIdentifier getIdentifier() {
+    return findChildByClass(TypeSpecIdentifier.class);
   }
 
 }

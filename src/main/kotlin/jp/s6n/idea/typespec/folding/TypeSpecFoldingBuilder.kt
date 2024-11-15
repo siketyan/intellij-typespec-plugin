@@ -22,7 +22,7 @@ class TypeSpecFoldingBuilder : FoldingBuilderEx() {
             is TypeSpecNamespaceStatement -> element.statementList.flatMap { findRegions(it) }
             is TypeSpecEnumStatement -> foldBlock(element.enumVariantsBlock)
             is TypeSpecUnionStatement -> foldBlock(element.unionVariantsBlock)
-            is TypeSpecModelStatement -> foldBlock(element.modelPropertiesBlock ?: return emptyList())
+            is TypeSpecModelStatement -> foldBlock(element.modelExpression ?: return emptyList())
             is TypeSpecInterfaceStatement -> foldBlock(element.interfaceOperationsBlock)
             else -> emptyList()
         }

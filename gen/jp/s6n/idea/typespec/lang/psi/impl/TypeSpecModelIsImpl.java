@@ -28,8 +28,8 @@ public class TypeSpecModelIsImpl extends TypeSpecElementImpl implements TypeSpec
 
   @Override
   @NotNull
-  public TypeSpecPathType getPathType() {
-    return findNotNullChildByClass(TypeSpecPathType.class);
+  public TypeSpecExpression getExpression() {
+    return findNotNullChildByClass(TypeSpecExpression.class);
   }
 
 }

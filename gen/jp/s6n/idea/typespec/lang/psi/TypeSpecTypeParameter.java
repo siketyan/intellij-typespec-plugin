@@ -8,9 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecTypeParameter extends TypeSpecElement {
 
   @NotNull
-  TypeSpecIdentifier getIdentifier();
+  List<TypeSpecExpression> getExpressionList();
 
   @NotNull
-  List<TypeSpecType> getTypeList();
+  TypeSpecIdentifier getIdentifier();
 
 }

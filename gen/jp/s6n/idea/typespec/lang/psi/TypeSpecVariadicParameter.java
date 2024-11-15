@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecVariadicParameter extends TypeSpecElement {
 
   @NotNull
-  TypeSpecPathType getPathType();
+  TypeSpecExpression getExpression();
 
 }

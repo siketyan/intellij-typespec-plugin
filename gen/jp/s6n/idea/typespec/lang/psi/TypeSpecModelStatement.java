@@ -15,13 +15,13 @@ public interface TypeSpecModelStatement extends TypeSpecStatement {
   TypeSpecIdentifier getIdentifier();
 
   @Nullable
+  TypeSpecModelExpression getModelExpression();
+
+  @Nullable
   TypeSpecModelExtends getModelExtends();
 
   @Nullable
   TypeSpecModelIs getModelIs();
-
-  @Nullable
-  TypeSpecModelPropertiesBlock getModelPropertiesBlock();
 
   @Nullable
   TypeSpecTypeParameterList getTypeParameterList();

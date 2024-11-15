@@ -11,9 +11,9 @@ public interface TypeSpecNamedParameter extends TypeSpecElement {
   List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
   @NotNull
-  TypeSpecIdentifier getIdentifier();
+  TypeSpecExpression getExpression();
 
   @NotNull
-  TypeSpecType getType();
+  TypeSpecIdentifier getIdentifier();
 
 }

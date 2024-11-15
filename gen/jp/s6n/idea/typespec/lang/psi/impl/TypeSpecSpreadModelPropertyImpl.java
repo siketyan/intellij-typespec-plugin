@@ -10,7 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecSpreadModelPropertyImpl extends TypeSpecModelPropertyImpl implements TypeSpecSpreadModelProperty {
+public class TypeSpecSpreadModelPropertyImpl extends TypeSpecModelPropertyLikeImpl implements TypeSpecSpreadModelProperty {
 
   public TypeSpecSpreadModelPropertyImpl(@NotNull ASTNode node) {
     super(node);
@@ -29,8 +29,8 @@ public class TypeSpecSpreadModelPropertyImpl extends TypeSpecModelPropertyImpl i
 
   @Override
   @NotNull
-  public TypeSpecPathType getPathType() {
-    return findNotNullChildByClass(TypeSpecPathType.class);
+  public TypeSpecExpression getExpression() {
+    return findNotNullChildByClass(TypeSpecExpression.class);
   }
 
 }

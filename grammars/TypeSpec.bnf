@@ -30,6 +30,12 @@
     EXTERN          = 'extern'
     DEC             = 'dec'
     VALUEOF         = 'valueof'
+    TYPEOF          = 'typeof'
+    TRUE            = 'true'
+    FALSE           = 'false'
+    VOID            = 'void'
+    NEVER           = 'never'
+    ANY             = 'any'
 
     LBRACE          = '{'
     RBRACE          = '}'
@@ -43,6 +49,7 @@
     DOTDOTDOT       = '...'
     DOT             = '.'
     COLON           = ':'
+    COLONCOLON      = '::'
     SEMICOLON       = ';'
     QUEST           = '?'
     AT              = '@'
@@ -51,6 +58,8 @@
     PIPE            = '|'
     AMP             = '&'
     HASH            = '#'
+    HASHLBRACE      = '#{'
+    HASHLBRACKET    = '#['
 
     STRING_LITERAL  = 'regexp:"([^\\"\r\n]|\\[^\r\n])*"?'
     NUMERIC_LITERAL = 'regexp:-?\d+(\.\d+)?'
@@ -98,33 +107,31 @@ UnionStatement ::= DecoratorLike* UNION Identifier UnionVariantsBlock {
     methods=[getPresentation]
 }
 
-UnionVariantsBlock ::= LBRACE [UnionVariant (COMMA UnionVariant)* COMMA?] RBRACE
+UnionVariantsBlock ::= LBRACE [(UnionVariant COMMA)* UnionVariant?] RBRACE
 
-UnionVariant ::= DecoratorLike* (Identifier COLON)? Type
+UnionVariant ::= DecoratorLike* (Identifier COLON)? Expression
 
-ModelStatement ::= DecoratorLike* MODEL Identifier TypeParameterList? (ModelExtends | ModelIs)? (SEMICOLON | ModelPropertiesBlock) {
+ModelStatement ::= DecoratorLike* MODEL Identifier TypeParameterList? (ModelExtends | ModelIs)? (SEMICOLON | ModelExpression) {
     extends=Statement
     methods=[getPresentation]
 }
 
-ModelExtends ::= EXTENDS [PathType (COMMA PathType)*]
+ModelExtends ::= EXTENDS Expression
 
-ModelIs ::= IS PathType
+ModelIs ::= IS Expression
 
-ModelPropertiesBlock ::= LBRACE ModelProperty* RBRACE
+ModelPropertyLike ::= ModelProperty | SpreadModelProperty
 
-ModelProperty ::= NamedModelProperty | SpreadModelProperty
+ModelProperty ::= DecoratorLike* Identifier QUEST? COLON Expression (EQ Expression)? (COMMA | SEMICOLON) {extends=ModelPropertyLike}
 
-NamedModelProperty ::= DecoratorLike* Identifier QUEST? COLON Type (EQ Expression)? SEMICOLON {extends=ModelProperty}
-
-SpreadModelProperty ::= DOTDOTDOT PathType SEMICOLON {extends=ModelProperty}
+SpreadModelProperty ::= DOTDOTDOT Expression (COMMA | SEMICOLON) {extends=ModelPropertyLike}
 
 InterfaceStatement ::= DecoratorLike* INTERFACE Identifier TypeParameterList? InterfaceExtends? InterfaceOperationsBlock {
     extends=Statement
     methods=[getPresentation]
 }
 
-InterfaceExtends ::= EXTENDS [PathType (COMMA PathType)*]
+InterfaceExtends ::= EXTENDS [TypeReference (COMMA TypeReference)*]
 
 InterfaceOperationsBlock ::= LBRACE InterfaceOperation* RBRACE
 
@@ -135,7 +142,7 @@ OperationStatement ::= DecoratorLike* OP Operation SEMICOLON {
     methods=[getPresentation]
 }
 
-AliasStatement ::= DecoratorLike* ALIAS Identifier TypeParameterList? EQ Type SEMICOLON {
+AliasStatement ::= DecoratorLike* ALIAS Identifier TypeParameterList? EQ Expression SEMICOLON {
     extends=Statement
     methods=[getPresentation]
 }
@@ -145,19 +152,23 @@ ExternDecoratorStatement ::= EXTERN DEC Identifier ParameterList SEMICOLON {
     methods=[getPresentation]
 }
 
-AugmentDecoratorStatement ::= ATAT PathExpression ArgumentList? SEMICOLON
+AugmentDecoratorStatement ::= ATAT Path ArgumentList? SEMICOLON
 
-Operation ::= Identifier (OperationSignature | OperationIs)
+Operation ::= Identifier TypeParameterList? OperationSignature
 
-OperationSignature ::= TypeParameterList? ParameterList COLON Type
+OperationSignature ::=
+    OperationSignatureDeclarationNode
+    | OperationSignatureReferenceNode
 
-OperationIs ::= IS Path
+OperationSignatureDeclarationNode ::= ParameterList COLON Expression
+
+OperationSignatureReferenceNode ::= IS TypeReference
 
 TypeParameterList ::= LT [(TypeParameter COMMA)* TypeParameter?] GT
 
-TypeParameter ::= Identifier (EXTENDS Type)? (EQ Type)?
+TypeParameter ::= Identifier (EXTENDS Expression)? (EQ Expression)?
 
-TypeArgumentList ::= LT [(Type COMMA)* Type?] GT
+TypeArgumentList ::= LT [(Expression COMMA)* Expression?] GT
 
 ParameterList ::= LPAREN [(Parameter COMMA)* Parameter?] RPAREN
 
@@ -165,56 +176,68 @@ Parameter ::=
     NamedParameter
     | VariadicParameter
 
-NamedParameter ::= DecoratorLike* Identifier QUEST? COLON Type
+NamedParameter ::= DecoratorLike* Identifier QUEST? COLON Expression
 
-VariadicParameter ::= DOTDOTDOT PathType
+VariadicParameter ::= DOTDOTDOT Expression
 
 DecoratorLike ::= Decorator | Directive
 
 Directive ::= HASH Identifier LiteralExpression*
 
-Decorator ::= AT PathExpression ArgumentList?
+Decorator ::= AT Path ArgumentList?
 
-ArgumentList ::= LPAREN [Expression (COMMA Expression)*] RPAREN
+ArgumentList ::= LPAREN [(Expression COMMA)* Expression?] RPAREN
+
+Path ::= MemberExpression | Identifier
 
 Expression ::=
-    ObjectExpression
-    | PathExpression
+    UnionExpression
+    | IntersectionExpression
+    | TupleExpression
+    | ArrayExpression
+    | ValueOfExpression
+    | TypeOfExpression
+    | TypeReference
+    | MemberExpression
+    | ModelExpression
+    | ObjectLiteral
+    | ArrayLiteral
+    | CallExpression
     | LiteralExpression
+    | KeywordExpression
 
-ObjectExpression ::= LBRACE [ObjectExpressionProperty (COMMA ObjectExpressionProperty)* COMMA?] RBRACE {extends=Expression}
+ArrayExpression ::= Expression LBRACKET RBRACKET {extends=Expression}
 
-ObjectExpressionProperty ::= Identifier COLON Expression
+MemberExpression ::= Identifier ((DOT | COLONCOLON) Identifier)+ {extends=Expression}
 
-PathExpression ::= Path {extends=Expression}
+ModelExpression ::= LBRACE ModelPropertyLike* RBRACE {extends=Expression}
 
-LiteralExpression ::= STRING_LITERAL | NUMERIC_LITERAL {extends=Expression}
+ObjectLiteral ::= HASHLBRACE [(ObjectLiteralPropertyLike COMMA)* ObjectLiteralPropertyLike?] RBRACE {extends=Expression}
 
-Type ::=
-    UnionType
-    | IntersectionType
-    | ValueOfType
-    | ObjectType
-    | ArrayType
-    | PathType
-    | LiteralType
+private ObjectLiteralPropertyLike ::= ObjectLiteralProperty | SpreadObjectLiteralProperty
 
-ValueOfType ::= VALUEOF Type {extends=Type}
+ObjectLiteralProperty ::= Identifier COLON Expression
 
-UnionType ::= Type (PIPE Type)+ {extends=Type}
+SpreadObjectLiteralProperty ::= DOTDOTDOT Expression
 
-IntersectionType ::= Type (AMP Type)+ {extends=Type}
+ArrayLiteral ::= HASHLBRACKET [(Expression COMMA)* Expression?] RBRACKET {extends=Expression}
 
-ObjectType ::= LBRACE Property* RBRACE {extends=Type}
+TupleExpression ::= LBRACKET [(Expression COMMA)* Expression?] RBRACKET {extends=Expression}
 
-ArrayType ::= Type LBRACKET RBRACKET {extends=Type}
+UnionExpression ::= Expression (PIPE Expression)+ {extends=Expression}
 
-PathType ::= Path TypeArgumentList? {extends=Type}
+IntersectionExpression ::= Expression (AMP Expression)+ {extends=Expression}
 
-LiteralType ::= STRING_LITERAL | NUMERIC_LITERAL {extends=Type}
+TypeReference ::= Path TypeArgumentList? {extends=Expression}
 
-Property ::= DecoratorLike* Identifier QUEST? COLON Type SEMICOLON
+ValueOfExpression ::= VALUEOF Expression {extends=Expression}
 
-Path ::= Identifier (DOT Identifier)* TypeArgumentList?
+TypeOfExpression ::= TYPEOF Expression {extends=Expression}
+
+CallExpression ::= MemberExpression ArgumentList {extends=Expression}
+
+LiteralExpression ::= STRING_LITERAL | NUMERIC_LITERAL | TRUE | FALSE {extends=Expression}
+
+KeywordExpression ::= VOID | NEVER | ANY {extends=Expression}
 
 Identifier ::= IDENT

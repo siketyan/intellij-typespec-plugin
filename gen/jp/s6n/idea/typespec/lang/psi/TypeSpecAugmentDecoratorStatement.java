@@ -11,6 +11,6 @@ public interface TypeSpecAugmentDecoratorStatement extends TypeSpecElement {
   TypeSpecArgumentList getArgumentList();
 
   @NotNull
-  TypeSpecPathExpression getPathExpression();
+  TypeSpecPath getPath();
 
 }

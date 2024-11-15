@@ -33,15 +33,15 @@ public class TypeSpecOperationImpl extends TypeSpecElementImpl implements TypeSp
   }
 
   @Override
-  @Nullable
-  public TypeSpecOperationIs getOperationIs() {
-    return findChildByClass(TypeSpecOperationIs.class);
+  @NotNull
+  public TypeSpecOperationSignature getOperationSignature() {
+    return findNotNullChildByClass(TypeSpecOperationSignature.class);
   }
 
   @Override
   @Nullable
-  public TypeSpecOperationSignature getOperationSignature() {
-    return findChildByClass(TypeSpecOperationSignature.class);
+  public TypeSpecTypeParameterList getTypeParameterList() {
+    return findChildByClass(TypeSpecTypeParameterList.class);
   }
 
 }

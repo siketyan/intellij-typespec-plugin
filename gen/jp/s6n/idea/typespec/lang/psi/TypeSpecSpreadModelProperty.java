@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecSpreadModelProperty extends TypeSpecModelProperty {
+public interface TypeSpecSpreadModelProperty extends TypeSpecModelPropertyLike {
 
   @NotNull
-  TypeSpecPathType getPathType();
+  TypeSpecExpression getExpression();
 
 }

@@ -28,8 +28,8 @@ public class TypeSpecVariadicParameterImpl extends TypeSpecElementImpl implement
 
   @Override
   @NotNull
-  public TypeSpecPathType getPathType() {
-    return findNotNullChildByClass(TypeSpecPathType.class);
+  public TypeSpecExpression getExpression() {
+    return findNotNullChildByClass(TypeSpecExpression.class);
   }
 
 }

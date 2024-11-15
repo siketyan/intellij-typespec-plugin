@@ -27,21 +27,15 @@ public class TypeSpecOperationSignatureImpl extends TypeSpecElementImpl implemen
   }
 
   @Override
-  @NotNull
-  public TypeSpecParameterList getParameterList() {
-    return findNotNullChildByClass(TypeSpecParameterList.class);
-  }
-
-  @Override
-  @NotNull
-  public TypeSpecType getType() {
-    return findNotNullChildByClass(TypeSpecType.class);
+  @Nullable
+  public TypeSpecOperationSignatureDeclarationNode getOperationSignatureDeclarationNode() {
+    return findChildByClass(TypeSpecOperationSignatureDeclarationNode.class);
   }
 
   @Override
   @Nullable
-  public TypeSpecTypeParameterList getTypeParameterList() {
-    return findChildByClass(TypeSpecTypeParameterList.class);
+  public TypeSpecOperationSignatureReferenceNode getOperationSignatureReferenceNode() {
+    return findChildByClass(TypeSpecOperationSignatureReferenceNode.class);
   }
 
 }

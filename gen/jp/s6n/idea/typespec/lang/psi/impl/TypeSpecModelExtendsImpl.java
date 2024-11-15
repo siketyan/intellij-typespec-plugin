@@ -28,8 +28,8 @@ public class TypeSpecModelExtendsImpl extends TypeSpecElementImpl implements Typ
 
   @Override
   @NotNull
-  public List<TypeSpecPathType> getPathTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecPathType.class);
+  public TypeSpecExpression getExpression() {
+    return findNotNullChildByClass(TypeSpecExpression.class);
   }
 
 }
