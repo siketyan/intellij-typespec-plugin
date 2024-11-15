@@ -40,8 +40,8 @@ public class TypeSpecUnionVariantImpl extends TypeSpecElementImpl implements Typ
 
   @Override
   @NotNull
-  public TypeSpecPathType getPathType() {
-    return findNotNullChildByClass(TypeSpecPathType.class);
+  public TypeSpecType getType() {
+    return findNotNullChildByClass(TypeSpecType.class);
   }
 
 }

@@ -14,6 +14,6 @@ public interface TypeSpecUnionVariant extends TypeSpecElement {
   TypeSpecIdentifier getIdentifier();
 
   @NotNull
-  TypeSpecPathType getPathType();
+  TypeSpecType getType();
 
 }

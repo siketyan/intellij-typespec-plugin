@@ -1312,14 +1312,14 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DecoratorLike* (Identifier COLON)? PathType
+  // DecoratorLike* (Identifier COLON)? Type
   public static boolean UnionVariant(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UnionVariant")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, UNION_VARIANT, "<union variant>");
     r = UnionVariant_0(b, l + 1);
     r = r && UnionVariant_1(b, l + 1);
-    r = r && PathType(b, l + 1);
+    r = r && Type(b, l + 1, -1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
