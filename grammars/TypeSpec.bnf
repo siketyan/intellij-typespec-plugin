@@ -134,7 +134,7 @@ OperationStatement ::= DecoratorLike* OP Operation SEMICOLON {
     methods=[getPresentation]
 }
 
-AliasStatement ::= ALIAS Identifier EQ Type SEMICOLON {
+AliasStatement ::= DecoratorLike* ALIAS Identifier TypeParameterList? EQ Type SEMICOLON {
     extends=Statement
     methods=[getPresentation]
 }
@@ -152,9 +152,11 @@ OperationSignature ::= TypeParameterList? ParameterList COLON Type
 
 OperationIs ::= IS Path
 
-TypeParameterList ::= LT [Identifier (COMMA Identifier)*] GT
+TypeParameterList ::= LT [(TypeParameter COMMA)* TypeParameter?] GT
 
-TypeArgumentList ::= LT [Type (COMMA Type)*] GT
+TypeParameter ::= Identifier (EXTENDS Type)?
+
+TypeArgumentList ::= LT [(Type COMMA)* Type?] GT
 
 ParameterList ::= LPAREN [Parameter (COMMA Parameter)*] RPAREN
 
@@ -199,7 +201,7 @@ ValueOfType ::= VALUEOF Type {extends=Type}
 
 UnionType ::= Type (PIPE Type)+ {extends=Type}
 
-ObjectType ::= LBRACE [(Property COMMA)* Property?] RBRACE {extends=Type}
+ObjectType ::= LBRACE Property* RBRACE {extends=Type}
 
 ArrayType ::= Type LBRACKET RBRACKET {extends=Type}
 
@@ -207,7 +209,7 @@ PathType ::= Path {extends=Type}
 
 LiteralType ::= STRING_LITERAL | NUMERIC_LITERAL {extends=Type}
 
-Property ::= Identifier COLON Type;
+Property ::= DecoratorLike* Identifier QUEST? COLON Type SEMICOLON
 
 Path ::= Identifier (DOT Identifier)* TypeArgumentList?
 

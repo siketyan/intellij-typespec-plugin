@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
 
-public class TypeSpecTypeParameterListImpl extends TypeSpecElementImpl implements TypeSpecTypeParameterList {
+public class TypeSpecTypeParameterImpl extends TypeSpecElementImpl implements TypeSpecTypeParameter {
 
-  public TypeSpecTypeParameterListImpl(@NotNull ASTNode node) {
+  public TypeSpecTypeParameterImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TypeSpecVisitor visitor) {
-    visitor.visitTypeParameterList(this);
+    visitor.visitTypeParameter(this);
   }
 
   @Override
@@ -28,8 +28,14 @@ public class TypeSpecTypeParameterListImpl extends TypeSpecElementImpl implement
 
   @Override
   @NotNull
-  public List<TypeSpecTypeParameter> getTypeParameterList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecTypeParameter.class);
+  public TypeSpecIdentifier getIdentifier() {
+    return findNotNullChildByClass(TypeSpecIdentifier.class);
+  }
+
+  @Override
+  @Nullable
+  public TypeSpecType getType() {
+    return findChildByClass(TypeSpecType.class);
   }
 
 }

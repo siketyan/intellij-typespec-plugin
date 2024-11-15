@@ -186,6 +186,10 @@ public class TypeSpecVisitor extends PsiElementVisitor {
     visitElement(o);
   }
 
+  public void visitTypeParameter(@NotNull TypeSpecTypeParameter o) {
+    visitElement(o);
+  }
+
   public void visitTypeParameterList(@NotNull TypeSpecTypeParameterList o) {
     visitElement(o);
   }

@@ -53,6 +53,7 @@ public interface TypeSpecElementTypes {
   IElementType STATEMENT = new TypeSpecElementType("STATEMENT");
   IElementType TYPE = new TypeSpecElementType("TYPE");
   IElementType TYPE_ARGUMENT_LIST = new TypeSpecElementType("TYPE_ARGUMENT_LIST");
+  IElementType TYPE_PARAMETER = new TypeSpecElementType("TYPE_PARAMETER");
   IElementType TYPE_PARAMETER_LIST = new TypeSpecElementType("TYPE_PARAMETER_LIST");
   IElementType UNION_STATEMENT = new TypeSpecElementType("UNION_STATEMENT");
   IElementType UNION_TYPE = new TypeSpecElementType("UNION_TYPE");
@@ -230,6 +231,9 @@ public interface TypeSpecElementTypes {
       }
       else if (type == TYPE_ARGUMENT_LIST) {
         return new TypeSpecTypeArgumentListImpl(node);
+      }
+      else if (type == TYPE_PARAMETER) {
+        return new TypeSpecTypeParameterImpl(node);
       }
       else if (type == TYPE_PARAMETER_LIST) {
         return new TypeSpecTypeParameterListImpl(node);

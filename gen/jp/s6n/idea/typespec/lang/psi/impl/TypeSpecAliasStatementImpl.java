@@ -30,6 +30,12 @@ public class TypeSpecAliasStatementImpl extends TypeSpecStatementImpl implements
 
   @Override
   @NotNull
+  public List<TypeSpecDecoratorLike> getDecoratorLikeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecoratorLike.class);
+  }
+
+  @Override
+  @NotNull
   public TypeSpecIdentifier getIdentifier() {
     return findNotNullChildByClass(TypeSpecIdentifier.class);
   }
@@ -38,6 +44,12 @@ public class TypeSpecAliasStatementImpl extends TypeSpecStatementImpl implements
   @NotNull
   public TypeSpecType getType() {
     return findNotNullChildByClass(TypeSpecType.class);
+  }
+
+  @Override
+  @Nullable
+  public TypeSpecTypeParameterList getTypeParameterList() {
+    return findChildByClass(TypeSpecTypeParameterList.class);
   }
 
   @Override

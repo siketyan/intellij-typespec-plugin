@@ -28,6 +28,12 @@ public class TypeSpecPropertyImpl extends TypeSpecElementImpl implements TypeSpe
 
   @Override
   @NotNull
+  public List<TypeSpecDecoratorLike> getDecoratorLikeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecDecoratorLike.class);
+  }
+
+  @Override
+  @NotNull
   public TypeSpecIdentifier getIdentifier() {
     return findNotNullChildByClass(TypeSpecIdentifier.class);
   }

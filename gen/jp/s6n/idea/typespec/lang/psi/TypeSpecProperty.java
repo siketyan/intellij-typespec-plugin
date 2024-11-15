@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecProperty extends TypeSpecElement {
 
   @NotNull
+  List<TypeSpecDecoratorLike> getDecoratorLikeList();
+
+  @NotNull
   TypeSpecIdentifier getIdentifier();
 
   @NotNull

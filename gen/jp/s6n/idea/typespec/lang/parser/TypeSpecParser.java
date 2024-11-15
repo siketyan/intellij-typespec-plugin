@@ -46,19 +46,38 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   };
 
   /* ********************************************************** */
-  // ALIAS Identifier EQ Type SEMICOLON
+  // DecoratorLike* ALIAS Identifier TypeParameterList? EQ Type SEMICOLON
   public static boolean AliasStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "AliasStatement")) return false;
-    if (!nextTokenIs(b, ALIAS)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, ALIAS);
+    Marker m = enter_section_(b, l, _NONE_, ALIAS_STATEMENT, "<alias statement>");
+    r = AliasStatement_0(b, l + 1);
+    r = r && consumeToken(b, ALIAS);
     r = r && Identifier(b, l + 1);
+    r = r && AliasStatement_3(b, l + 1);
     r = r && consumeToken(b, EQ);
     r = r && Type(b, l + 1, -1);
     r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, m, ALIAS_STATEMENT, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // DecoratorLike*
+  private static boolean AliasStatement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "AliasStatement_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!DecoratorLike(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "AliasStatement_0", c)) break;
+    }
+    return true;
+  }
+
+  // TypeParameterList?
+  private static boolean AliasStatement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "AliasStatement_3")) return false;
+    TypeParameterList(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1134,17 +1153,37 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Identifier COLON Type
+  // DecoratorLike* Identifier QUEST? COLON Type SEMICOLON
   public static boolean Property(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Property")) return false;
-    if (!nextTokenIs(b, IDENT)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = Identifier(b, l + 1);
+    Marker m = enter_section_(b, l, _NONE_, PROPERTY, "<property>");
+    r = Property_0(b, l + 1);
+    r = r && Identifier(b, l + 1);
+    r = r && Property_2(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && Type(b, l + 1, -1);
-    exit_section_(b, m, PROPERTY, r);
+    r = r && consumeToken(b, SEMICOLON);
+    exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // DecoratorLike*
+  private static boolean Property_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Property_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!DecoratorLike(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "Property_0", c)) break;
+    }
+    return true;
+  }
+
+  // QUEST?
+  private static boolean Property_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Property_2")) return false;
+    consumeToken(b, QUEST);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1193,7 +1232,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LT [Type (COMMA Type)*] GT
+  // LT [(Type COMMA)* Type?] GT
   public static boolean TypeArgumentList(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TypeArgumentList")) return false;
     if (!nextTokenIs(b, LT)) return false;
@@ -1206,48 +1245,86 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // [Type (COMMA Type)*]
+  // [(Type COMMA)* Type?]
   private static boolean TypeArgumentList_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TypeArgumentList_1")) return false;
     TypeArgumentList_1_0(b, l + 1);
     return true;
   }
 
-  // Type (COMMA Type)*
+  // (Type COMMA)* Type?
   private static boolean TypeArgumentList_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TypeArgumentList_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = Type(b, l + 1, -1);
+    r = TypeArgumentList_1_0_0(b, l + 1);
     r = r && TypeArgumentList_1_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // (COMMA Type)*
-  private static boolean TypeArgumentList_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "TypeArgumentList_1_0_1")) return false;
+  // (Type COMMA)*
+  private static boolean TypeArgumentList_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypeArgumentList_1_0_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!TypeArgumentList_1_0_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "TypeArgumentList_1_0_1", c)) break;
+      if (!TypeArgumentList_1_0_0_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "TypeArgumentList_1_0_0", c)) break;
     }
     return true;
   }
 
-  // COMMA Type
-  private static boolean TypeArgumentList_1_0_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "TypeArgumentList_1_0_1_0")) return false;
+  // Type COMMA
+  private static boolean TypeArgumentList_1_0_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypeArgumentList_1_0_0_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, COMMA);
+    r = Type(b, l + 1, -1);
+    r = r && consumeToken(b, COMMA);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // Type?
+  private static boolean TypeArgumentList_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypeArgumentList_1_0_1")) return false;
+    Type(b, l + 1, -1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // Identifier (EXTENDS Type)?
+  public static boolean TypeParameter(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypeParameter")) return false;
+    if (!nextTokenIs(b, IDENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Identifier(b, l + 1);
+    r = r && TypeParameter_1(b, l + 1);
+    exit_section_(b, m, TYPE_PARAMETER, r);
+    return r;
+  }
+
+  // (EXTENDS Type)?
+  private static boolean TypeParameter_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypeParameter_1")) return false;
+    TypeParameter_1_0(b, l + 1);
+    return true;
+  }
+
+  // EXTENDS Type
+  private static boolean TypeParameter_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypeParameter_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, EXTENDS);
     r = r && Type(b, l + 1, -1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // LT [Identifier (COMMA Identifier)*] GT
+  // LT [(TypeParameter COMMA)* TypeParameter?] GT
   public static boolean TypeParameterList(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TypeParameterList")) return false;
     if (!nextTokenIs(b, LT)) return false;
@@ -1260,44 +1337,51 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // [Identifier (COMMA Identifier)*]
+  // [(TypeParameter COMMA)* TypeParameter?]
   private static boolean TypeParameterList_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TypeParameterList_1")) return false;
     TypeParameterList_1_0(b, l + 1);
     return true;
   }
 
-  // Identifier (COMMA Identifier)*
+  // (TypeParameter COMMA)* TypeParameter?
   private static boolean TypeParameterList_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TypeParameterList_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = Identifier(b, l + 1);
+    r = TypeParameterList_1_0_0(b, l + 1);
     r = r && TypeParameterList_1_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // (COMMA Identifier)*
-  private static boolean TypeParameterList_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "TypeParameterList_1_0_1")) return false;
+  // (TypeParameter COMMA)*
+  private static boolean TypeParameterList_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypeParameterList_1_0_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!TypeParameterList_1_0_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "TypeParameterList_1_0_1", c)) break;
+      if (!TypeParameterList_1_0_0_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "TypeParameterList_1_0_0", c)) break;
     }
     return true;
   }
 
-  // COMMA Identifier
-  private static boolean TypeParameterList_1_0_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "TypeParameterList_1_0_1_0")) return false;
+  // TypeParameter COMMA
+  private static boolean TypeParameterList_1_0_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypeParameterList_1_0_0_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, COMMA);
-    r = r && Identifier(b, l + 1);
+    r = TypeParameter(b, l + 1);
+    r = r && consumeToken(b, COMMA);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // TypeParameter?
+  private static boolean TypeParameterList_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypeParameterList_1_0_1")) return false;
+    TypeParameter(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1516,7 +1600,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r || p;
   }
 
-  // LBRACE [(Property COMMA)* Property?] RBRACE
+  // LBRACE Property* RBRACE
   public static boolean ObjectType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectType")) return false;
     if (!nextTokenIsSmart(b, LBRACE)) return false;
@@ -1529,50 +1613,14 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // [(Property COMMA)* Property?]
+  // Property*
   private static boolean ObjectType_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectType_1")) return false;
-    ObjectType_1_0(b, l + 1);
-    return true;
-  }
-
-  // (Property COMMA)* Property?
-  private static boolean ObjectType_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ObjectType_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = ObjectType_1_0_0(b, l + 1);
-    r = r && ObjectType_1_0_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (Property COMMA)*
-  private static boolean ObjectType_1_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ObjectType_1_0_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!ObjectType_1_0_0_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "ObjectType_1_0_0", c)) break;
+      if (!Property(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "ObjectType_1", c)) break;
     }
-    return true;
-  }
-
-  // Property COMMA
-  private static boolean ObjectType_1_0_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ObjectType_1_0_0_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = Property(b, l + 1);
-    r = r && consumeToken(b, COMMA);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // Property?
-  private static boolean ObjectType_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ObjectType_1_0_1")) return false;
-    Property(b, l + 1);
     return true;
   }
 

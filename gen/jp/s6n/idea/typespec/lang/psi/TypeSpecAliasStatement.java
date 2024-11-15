@@ -9,10 +9,16 @@ import com.intellij.navigation.ItemPresentation;
 public interface TypeSpecAliasStatement extends TypeSpecStatement {
 
   @NotNull
+  List<TypeSpecDecoratorLike> getDecoratorLikeList();
+
+  @NotNull
   TypeSpecIdentifier getIdentifier();
 
   @NotNull
   TypeSpecType getType();
+
+  @Nullable
+  TypeSpecTypeParameterList getTypeParameterList();
 
   @Nullable
   ItemPresentation getPresentation();
