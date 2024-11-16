@@ -9,9 +9,12 @@ import jp.s6n.idea.typespec.lang.TypeSpecLanguage
 
 @Suppress("UnstableApiUsage")
 class TypeSpecLspServerDescriptor(
-    project: Project, root: VirtualFile, private val tspServerFile: VirtualFile
-) : LspServerDescriptor(project, "TypeSpec", root) {
+    project: Project,
+    root: VirtualFile,
+    version: String,
+    private val tspServerFile: VirtualFile
+) : LspServerDescriptor(project, "TypeSpec $version", root) {
     override fun isSupportedFile(file: VirtualFile) = file.fileType == TypeSpecFileType
     override fun getLanguageId(file: VirtualFile) = TypeSpecLanguage.id
-    override fun createCommandLine() = GeneralCommandLine(tspServerFile.path, "--stdio")
+    override fun createCommandLine() = GeneralCommandLine("node", tspServerFile.path, "--stdio")
 }

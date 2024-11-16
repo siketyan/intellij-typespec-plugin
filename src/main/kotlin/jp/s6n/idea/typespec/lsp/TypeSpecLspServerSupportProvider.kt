@@ -5,9 +5,14 @@ import com.intellij.notification.NotificationType
 import com.intellij.notification.Notifications
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.openapi.vfs.findDirectory
 import com.intellij.openapi.vfs.findFile
 import com.intellij.platform.lsp.api.LspServerSupportProvider
 import jp.s6n.idea.typespec.lang.TypeSpecFileType
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 
 @Suppress("UnstableApiUsage")
 class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
@@ -29,9 +34,27 @@ class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
     }
 
     private fun findTspServer(project: Project, directory: VirtualFile): TypeSpecLspServerDescriptor? {
-        val tspServerFile = directory.findFile("node_modules/@typespec/compiler/cmd/tsp-server.js")
+        val tspDirectory = directory.findDirectory("node_modules/@typespec/compiler")
             ?: return findTspServer(project, directory.parent ?: return null)
 
-        return TypeSpecLspServerDescriptor(project, directory, tspServerFile)
+        val tspServerFile = tspDirectory.findFile("cmd/tsp-server.js") ?: return null
+        val version = tspDirectory.findFile("package.json")
+            ?.let { PackageJson.parseFile(it).version }
+            ?: return null
+
+        return TypeSpecLspServerDescriptor(project, directory, version, tspServerFile)
+    }
+
+    @Serializable
+    class PackageJson(val version: String?) {
+        companion object {
+            private val decoder = Json {
+                ignoreUnknownKeys = true
+            }
+
+            @OptIn(ExperimentalSerializationApi::class)
+            fun parseFile(file: VirtualFile): PackageJson =
+                decoder.decodeFromStream(file.inputStream)
+        }
     }
 }
