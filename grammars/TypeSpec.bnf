@@ -65,7 +65,7 @@
 
     STRING_LITERAL  = 'regexp:"([^\\"\r\n]|\\[^\r\n])*"?'
     NUMERIC_LITERAL = 'regexp:-?\d+(\.\d+)?'
-    IDENT           = 'regexp:[a-zA-Z][a-zA-Z0-9\-_]*|`(\\`|[^`])+`'
+    IDENT           = 'regexp:[$_\p{ID_Start}\p{Emoji}][$\p{ID_Continue}\p{Emoji}]*|`(\\`|[^`])+`'
     WHITE_SPACE     = 'regexp:\s+'
 
     DOC_COMMENT     = 'regexp:/\*\*([^*]|\*[^/])*\*/'
