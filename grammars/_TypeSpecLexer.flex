@@ -27,7 +27,7 @@ WHITE_SPACE=\s+
 
 STRING_LITERAL=\"([^\\\"\r\n]|\\[^\r\n])*\"?
 NUMERIC_LITERAL=-?[0-9]+(\.[0-9]+)?
-IDENT=[$_\p{ID_Start}\p{Emoji}][$\p{ID_Continue}\p{Emoji}]*|`(\\`|[^`])+`
+IDENT=[$_[\p{ID_Start}&&[^#]]][$\p{ID_Continue}]*
 WHITE_SPACE=[ \t\n\x0B\f\r]+
 DOC_COMMENT="/"\*\*([^*]|\*[^/])*\*"/"
 BLOCK_COMMENT="/"\*([^*]|\*[^/])*\*"/"
