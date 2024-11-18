@@ -14,7 +14,29 @@
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
   <description><![CDATA[
-        <p>TypeSpec language support plugin for IntelliJ Platform.</p>
+    <p>TypeSpec language support plugin for IntelliJ Platform.</p>
+    <p>
+      NOTE: This plugin is still under development.
+      If you found a bug, please <a href="https://github.com/siketyan/intellij-typespec-plguin/issues/new">open an issue</a> on GitHub.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Syntax highlighting</li>
+      <li>Code folding</li>
+      <li>
+        LSP integration
+        <ul>
+          <li>Static analysing</li>
+          <li>Go to definition / Find usages</li>
+        </ul>
+      </li>
+    </ul>
+    <p>Usage:</p>
+    <ol>
+      <li>Make sure <code>@typespec/compiler</code> is installed in the project.</li>
+      <li>Install this plugin to your IDE.</li>
+      <li>Open <code>*.tsp</code> files.</li>
+    </ol>
   ]]></description>
 
   <!-- Product and plugin compatibility requirements.
