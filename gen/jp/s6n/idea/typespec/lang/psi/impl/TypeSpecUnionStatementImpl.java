@@ -35,15 +35,15 @@ public class TypeSpecUnionStatementImpl extends TypeSpecStatementImpl implements
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecIdentifier getIdentifier() {
-    return findNotNullChildByClass(TypeSpecIdentifier.class);
+    return findChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecUnionVariantsBlock getUnionVariantsBlock() {
-    return findNotNullChildByClass(TypeSpecUnionVariantsBlock.class);
+    return findChildByClass(TypeSpecUnionVariantsBlock.class);
   }
 
   @Override

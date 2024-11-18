@@ -11,13 +11,13 @@ public interface TypeSpecInterfaceStatement extends TypeSpecStatement {
   @NotNull
   List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
-  @NotNull
+  @Nullable
   TypeSpecIdentifier getIdentifier();
 
   @Nullable
   TypeSpecInterfaceExtends getInterfaceExtends();
 
-  @NotNull
+  @Nullable
   TypeSpecInterfaceOperationsBlock getInterfaceOperationsBlock();
 
   @Nullable

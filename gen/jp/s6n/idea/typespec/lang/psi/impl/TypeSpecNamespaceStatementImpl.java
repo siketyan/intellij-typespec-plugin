@@ -34,9 +34,9 @@ public class TypeSpecNamespaceStatementImpl extends TypeSpecStatementImpl implem
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecPath getPath() {
-    return findNotNullChildByClass(TypeSpecPath.class);
+    return findChildByClass(TypeSpecPath.class);
   }
 
   @Override

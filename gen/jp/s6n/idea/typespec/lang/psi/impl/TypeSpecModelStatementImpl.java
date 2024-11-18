@@ -35,9 +35,9 @@ public class TypeSpecModelStatementImpl extends TypeSpecStatementImpl implements
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecIdentifier getIdentifier() {
-    return findNotNullChildByClass(TypeSpecIdentifier.class);
+    return findChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override

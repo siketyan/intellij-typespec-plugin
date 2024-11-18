@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecModelIs extends TypeSpecElement {
 
   @NotNull
-  TypeSpecExpression getExpression();
+  TypeSpecTypeReference getTypeReference();
 
 }

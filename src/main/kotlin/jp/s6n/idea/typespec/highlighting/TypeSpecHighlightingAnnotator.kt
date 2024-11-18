@@ -10,28 +10,44 @@ import jp.s6n.idea.typespec.lang.psi.*
 class TypeSpecHighlightingAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         when (element) {
-            is TypeSpecTypeReference -> newAnnotation(element.path.identifier ?: element.path.memberExpression?.lastChild!!, holder, TypeSpecColors.TYPE_REFERENCE)
+            is TypeSpecScalarStatement -> element.identifier?.let { newAnnotation(it, holder, TypeSpecColors.TYPE) }
+            is TypeSpecEnumStatement -> element.identifier?.let { newAnnotation(it, holder, TypeSpecColors.TYPE) }
+            is TypeSpecUnionStatement -> element.identifier?.let { newAnnotation(it, holder, TypeSpecColors.TYPE) }
+            is TypeSpecModelStatement -> element.identifier?.let { newAnnotation(it, holder, TypeSpecColors.TYPE) }
+            is TypeSpecInterfaceStatement -> element.identifier?.let { newAnnotation(it, holder, TypeSpecColors.TYPE) }
+            is TypeSpecAliasStatement -> element.identifier?.let { newAnnotation(it, holder, TypeSpecColors.TYPE) }
+
+            is TypeSpecOperationStatement -> element.operation?.identifier?.let {
+                newAnnotation(it, holder, TypeSpecColors.OPERATION)
+            }
+
+            is TypeSpecExternDecoratorStatement -> element.identifier?.let {
+                newAnnotation(it, holder, TypeSpecColors.DECORATOR)
+            }
+
+            is TypeSpecAugmentDecoratorStatement -> element.path?.let {
+                newAnnotation(it, holder, TypeSpecColors.DECORATOR)
+            }
+
             is TypeSpecDecorator -> newAnnotation(element.path, holder, TypeSpecColors.DECORATOR)
             is TypeSpecDirective -> newAnnotation(element.identifier, holder, TypeSpecColors.DECORATOR)
-            is TypeSpecScalarStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
-            is TypeSpecEnumStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
-            is TypeSpecUnionStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
-            is TypeSpecModelStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
-            is TypeSpecInterfaceStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
-            is TypeSpecOperationStatement -> newAnnotation(element.operation.identifier, holder, TypeSpecColors.OPERATION)
-            is TypeSpecAliasStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.TYPE)
-            is TypeSpecExternDecoratorStatement -> newAnnotation(element.identifier, holder, TypeSpecColors.DECORATOR)
-            is TypeSpecAugmentDecoratorStatement -> newAnnotation(element.path, holder, TypeSpecColors.DECORATOR)
-            is TypeSpecTypeParameterList -> element.typeParameterList.forEach { newAnnotation(it.identifier, holder, TypeSpecColors.TYPE) }
+
+            is TypeSpecTypeReference -> {
+                (element.path.identifier ?: element.path.memberExpression?.lastChild)?.let {
+                    newAnnotation(it, holder, TypeSpecColors.TYPE_REFERENCE)
+                }
+            }
+
+            is TypeSpecTypeParameterList -> element.typeParameterList.forEach {
+                newAnnotation(it.identifier, holder, TypeSpecColors.TYPE)
+            }
         }
     }
 
     private fun newAnnotation(
         element: PsiElement, holder: AnnotationHolder, textAttributesKey: TextAttributesKey
     ) {
-        holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-            .textAttributes(textAttributesKey)
-            .range(element)
+        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).textAttributes(textAttributesKey).range(element)
             .create()
     }
 }

@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface TypeSpecImportStatement extends TypeSpecStatement {
 
-  @NotNull
+  @Nullable
   PsiElement getStringLiteral();
 
 }

@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TypeSpecAugmentDecoratorStatement extends TypeSpecElement {
+public interface TypeSpecAugmentDecoratorStatement extends TypeSpecStatement {
 
   @Nullable
   TypeSpecArgumentList getArgumentList();
 
-  @NotNull
+  @Nullable
   TypeSpecPath getPath();
 
 }

@@ -29,15 +29,15 @@ public class TypeSpecExternDecoratorStatementImpl extends TypeSpecStatementImpl 
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecIdentifier getIdentifier() {
-    return findNotNullChildByClass(TypeSpecIdentifier.class);
+    return findChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecParameterList getParameterList() {
-    return findNotNullChildByClass(TypeSpecParameterList.class);
+    return findChildByClass(TypeSpecParameterList.class);
   }
 
   @Override

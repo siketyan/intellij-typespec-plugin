@@ -11,7 +11,7 @@ public interface TypeSpecOperationStatement extends TypeSpecStatement {
   @NotNull
   List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
-  @NotNull
+  @Nullable
   TypeSpecOperation getOperation();
 
   @Nullable

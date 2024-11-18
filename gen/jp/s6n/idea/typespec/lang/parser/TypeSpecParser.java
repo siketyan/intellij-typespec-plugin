@@ -42,26 +42,28 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
       VALUE_OF_EXPRESSION),
     create_token_set_(ARRAY_LITERAL, KEYWORD_EXPRESSION, LITERAL_EXPRESSION, MEMBER_EXPRESSION,
       NON_ARRAY_EXPRESSION, OBJECT_LITERAL, TUPLE_EXPRESSION, TYPE_REFERENCE),
-    create_token_set_(ALIAS_STATEMENT, ENUM_STATEMENT, EXTERN_DECORATOR_STATEMENT, IMPORT_STATEMENT,
-      INTERFACE_STATEMENT, MODEL_STATEMENT, NAMESPACE_STATEMENT, OPERATION_STATEMENT,
-      STATEMENT, UNION_STATEMENT, USING_STATEMENT),
+    create_token_set_(ALIAS_STATEMENT, AUGMENT_DECORATOR_STATEMENT, ENUM_STATEMENT, EXTERN_DECORATOR_STATEMENT,
+      IMPORT_STATEMENT, INTERFACE_STATEMENT, MODEL_STATEMENT, NAMESPACE_STATEMENT,
+      OPERATION_STATEMENT, SCALAR_STATEMENT, STATEMENT, UNION_STATEMENT,
+      USING_STATEMENT),
   };
 
   /* ********************************************************** */
   // DecoratorLike* ALIAS Identifier TypeParameterList? EQ Expression SEMICOLON
   public static boolean AliasStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "AliasStatement")) return false;
-    boolean r;
+    boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, ALIAS_STATEMENT, "<alias statement>");
     r = AliasStatement_0(b, l + 1);
     r = r && consumeToken(b, ALIAS);
-    r = r && Identifier(b, l + 1);
-    r = r && AliasStatement_3(b, l + 1);
-    r = r && consumeToken(b, EQ);
-    r = r && Expression(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, l, m, r, false, null);
-    return r;
+    p = r; // pin = 2
+    r = r && report_error_(b, Identifier(b, l + 1));
+    r = p && report_error_(b, AliasStatement_3(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, EQ)) && r;
+    r = p && report_error_(b, Expression(b, l + 1)) && r;
+    r = p && consumeToken(b, SEMICOLON) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // DecoratorLike*
@@ -246,14 +248,15 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   public static boolean AugmentDecoratorStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "AugmentDecoratorStatement")) return false;
     if (!nextTokenIs(b, ATAT)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, AUGMENT_DECORATOR_STATEMENT, null);
     r = consumeToken(b, ATAT);
-    r = r && Path(b, l + 1);
-    r = r && AugmentDecoratorStatement_2(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, m, AUGMENT_DECORATOR_STATEMENT, r);
-    return r;
+    p = r; // pin = 1
+    r = r && report_error_(b, Path(b, l + 1));
+    r = p && report_error_(b, AugmentDecoratorStatement_2(b, l + 1)) && r;
+    r = p && consumeToken(b, SEMICOLON) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // ArgumentList?
@@ -338,14 +341,15 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   // DecoratorLike* ENUM Identifier EnumVariantsBlock
   public static boolean EnumStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "EnumStatement")) return false;
-    boolean r;
+    boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, ENUM_STATEMENT, "<enum statement>");
     r = EnumStatement_0(b, l + 1);
     r = r && consumeToken(b, ENUM);
-    r = r && Identifier(b, l + 1);
-    r = r && EnumVariantsBlock(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
+    p = r; // pin = 2
+    r = r && report_error_(b, Identifier(b, l + 1));
+    r = p && EnumVariantsBlock(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // DecoratorLike*
@@ -479,14 +483,15 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   public static boolean ExternDecoratorStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ExternDecoratorStatement")) return false;
     if (!nextTokenIs(b, EXTERN)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, EXTERN, DEC);
-    r = r && Identifier(b, l + 1);
-    r = r && ParameterList(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, m, EXTERN_DECORATOR_STATEMENT, r);
-    return r;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, EXTERN_DECORATOR_STATEMENT, null);
+    r = consumeTokens(b, 1, EXTERN, DEC);
+    p = r; // pin = 1
+    r = r && report_error_(b, Identifier(b, l + 1));
+    r = p && report_error_(b, ParameterList(b, l + 1)) && r;
+    r = p && consumeToken(b, SEMICOLON) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */
@@ -518,11 +523,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   public static boolean ImportStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ImportStatement")) return false;
     if (!nextTokenIs(b, IMPORT)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, IMPORT, STRING_LITERAL, SEMICOLON);
-    exit_section_(b, m, IMPORT_STATEMENT, r);
-    return r;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, IMPORT_STATEMENT, null);
+    r = consumeTokens(b, 1, IMPORT, STRING_LITERAL, SEMICOLON);
+    p = r; // pin = 1
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */
@@ -631,16 +637,17 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   // DecoratorLike* INTERFACE Identifier TypeParameterList? InterfaceExtends? InterfaceOperationsBlock
   public static boolean InterfaceStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "InterfaceStatement")) return false;
-    boolean r;
+    boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, INTERFACE_STATEMENT, "<interface statement>");
     r = InterfaceStatement_0(b, l + 1);
     r = r && consumeToken(b, INTERFACE);
-    r = r && Identifier(b, l + 1);
-    r = r && InterfaceStatement_3(b, l + 1);
-    r = r && InterfaceStatement_4(b, l + 1);
-    r = r && InterfaceOperationsBlock(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
+    p = r; // pin = 2
+    r = r && report_error_(b, Identifier(b, l + 1));
+    r = p && report_error_(b, InterfaceStatement_3(b, l + 1)) && r;
+    r = p && report_error_(b, InterfaceStatement_4(b, l + 1)) && r;
+    r = p && InterfaceOperationsBlock(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // DecoratorLike*
@@ -841,14 +848,14 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IS Expression
+  // IS TypeReference
   public static boolean ModelIs(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelIs")) return false;
     if (!nextTokenIs(b, IS)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, IS);
-    r = r && Expression(b, l + 1);
+    r = r && TypeReference(b, l + 1);
     exit_section_(b, m, MODEL_IS, r);
     return r;
   }
@@ -928,19 +935,20 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DecoratorLike* MODEL Identifier TypeParameterList? (ModelExtends | ModelIs)? (SEMICOLON | ModelExpression)
+  // DecoratorLike* MODEL Identifier TypeParameterList? (ModelExtends | ModelIs)? (ModelExpression | SEMICOLON)
   public static boolean ModelStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelStatement")) return false;
-    boolean r;
+    boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, MODEL_STATEMENT, "<model statement>");
     r = ModelStatement_0(b, l + 1);
     r = r && consumeToken(b, MODEL);
-    r = r && Identifier(b, l + 1);
-    r = r && ModelStatement_3(b, l + 1);
-    r = r && ModelStatement_4(b, l + 1);
-    r = r && ModelStatement_5(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
+    p = r; // pin = 2
+    r = r && report_error_(b, Identifier(b, l + 1));
+    r = p && report_error_(b, ModelStatement_3(b, l + 1)) && r;
+    r = p && report_error_(b, ModelStatement_4(b, l + 1)) && r;
+    r = p && ModelStatement_5(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // DecoratorLike*
@@ -977,12 +985,12 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // SEMICOLON | ModelExpression
+  // ModelExpression | SEMICOLON
   private static boolean ModelStatement_5(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModelStatement_5")) return false;
     boolean r;
-    r = consumeToken(b, SEMICOLON);
-    if (!r) r = ModelExpression(b, l + 1);
+    r = ModelExpression(b, l + 1);
+    if (!r) r = consumeToken(b, SEMICOLON);
     return r;
   }
 
@@ -1040,14 +1048,15 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   // DecoratorLike* NAMESPACE Path (SEMICOLON | LBRACE Statement* RBRACE)
   public static boolean NamespaceStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamespaceStatement")) return false;
-    boolean r;
+    boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, NAMESPACE_STATEMENT, "<namespace statement>");
     r = NamespaceStatement_0(b, l + 1);
     r = r && consumeToken(b, NAMESPACE);
-    r = r && Path(b, l + 1);
-    r = r && NamespaceStatement_3(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
+    p = r; // pin = 2
+    r = r && report_error_(b, Path(b, l + 1));
+    r = p && NamespaceStatement_3(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // DecoratorLike*
@@ -1272,14 +1281,15 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   // DecoratorLike* OP Operation SEMICOLON
   public static boolean OperationStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OperationStatement")) return false;
-    boolean r;
+    boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, OPERATION_STATEMENT, "<operation statement>");
     r = OperationStatement_0(b, l + 1);
     r = r && consumeToken(b, OP);
-    r = r && Operation(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, l, m, r, false, null);
-    return r;
+    p = r; // pin = 2
+    r = r && report_error_(b, Operation(b, l + 1));
+    r = p && consumeToken(b, SEMICOLON) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // DecoratorLike*
@@ -1463,16 +1473,17 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   // DecoratorLike* SCALAR Identifier TypeParameterList? ScalarExtends? (SEMICOLON | ScalarConstructorList)
   public static boolean ScalarStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ScalarStatement")) return false;
-    boolean r;
+    boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, SCALAR_STATEMENT, "<scalar statement>");
     r = ScalarStatement_0(b, l + 1);
     r = r && consumeToken(b, SCALAR);
-    r = r && Identifier(b, l + 1);
-    r = r && ScalarStatement_3(b, l + 1);
-    r = r && ScalarStatement_4(b, l + 1);
-    r = r && ScalarStatement_5(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
+    p = r; // pin = 2
+    r = r && report_error_(b, Identifier(b, l + 1));
+    r = p && report_error_(b, ScalarStatement_3(b, l + 1)) && r;
+    r = p && report_error_(b, ScalarStatement_4(b, l + 1)) && r;
+    r = p && ScalarStatement_5(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // DecoratorLike*
@@ -1574,7 +1585,41 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     if (!r) r = AliasStatement(b, l + 1);
     if (!r) r = ExternDecoratorStatement(b, l + 1);
     if (!r) r = AugmentDecoratorStatement(b, l + 1);
+    exit_section_(b, l, m, r, false, TypeSpecParser::Statement_recover);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // !(
+  //     IMPORT | USING | NAMESPACE | SCALAR | ENUM | UNION | MODEL | INTERFACE | OP | ALIAS | EXTERN | AT | ATAT | HASH
+  // )
+  static boolean Statement_recover(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Statement_recover")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NOT_);
+    r = !Statement_recover_0(b, l + 1);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // IMPORT | USING | NAMESPACE | SCALAR | ENUM | UNION | MODEL | INTERFACE | OP | ALIAS | EXTERN | AT | ATAT | HASH
+  private static boolean Statement_recover_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Statement_recover_0")) return false;
+    boolean r;
+    r = consumeToken(b, IMPORT);
+    if (!r) r = consumeToken(b, USING);
+    if (!r) r = consumeToken(b, NAMESPACE);
+    if (!r) r = consumeToken(b, SCALAR);
+    if (!r) r = consumeToken(b, ENUM);
+    if (!r) r = consumeToken(b, UNION);
+    if (!r) r = consumeToken(b, MODEL);
+    if (!r) r = consumeToken(b, INTERFACE);
+    if (!r) r = consumeToken(b, OP);
+    if (!r) r = consumeToken(b, ALIAS);
+    if (!r) r = consumeToken(b, EXTERN);
+    if (!r) r = consumeToken(b, AT);
+    if (!r) r = consumeToken(b, ATAT);
+    if (!r) r = consumeToken(b, HASH);
     return r;
   }
 
@@ -1907,14 +1952,15 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   // DecoratorLike* UNION Identifier UnionVariantsBlock
   public static boolean UnionStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UnionStatement")) return false;
-    boolean r;
+    boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, UNION_STATEMENT, "<union statement>");
     r = UnionStatement_0(b, l + 1);
     r = r && consumeToken(b, UNION);
-    r = r && Identifier(b, l + 1);
-    r = r && UnionVariantsBlock(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
+    p = r; // pin = 2
+    r = r && report_error_(b, Identifier(b, l + 1));
+    r = p && UnionVariantsBlock(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // DecoratorLike*
@@ -2036,13 +2082,14 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   public static boolean UsingStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UsingStatement")) return false;
     if (!nextTokenIs(b, USING)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, USING_STATEMENT, null);
     r = consumeToken(b, USING);
-    r = r && Path(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, m, USING_STATEMENT, r);
-    return r;
+    p = r; // pin = 1
+    r = r && report_error_(b, Path(b, l + 1));
+    r = p && consumeToken(b, SEMICOLON) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */

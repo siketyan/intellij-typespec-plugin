@@ -35,15 +35,15 @@ public class TypeSpecEnumStatementImpl extends TypeSpecStatementImpl implements 
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecEnumVariantsBlock getEnumVariantsBlock() {
-    return findNotNullChildByClass(TypeSpecEnumVariantsBlock.class);
+    return findChildByClass(TypeSpecEnumVariantsBlock.class);
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecIdentifier getIdentifier() {
-    return findNotNullChildByClass(TypeSpecIdentifier.class);
+    return findChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override

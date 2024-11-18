@@ -11,10 +11,10 @@ public interface TypeSpecEnumStatement extends TypeSpecStatement {
   @NotNull
   List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
-  @NotNull
+  @Nullable
   TypeSpecEnumVariantsBlock getEnumVariantsBlock();
 
-  @NotNull
+  @Nullable
   TypeSpecIdentifier getIdentifier();
 
   @Nullable

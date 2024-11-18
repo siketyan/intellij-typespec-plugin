@@ -28,9 +28,9 @@ public class TypeSpecUsingStatementImpl extends TypeSpecStatementImpl implements
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecPath getPath() {
-    return findNotNullChildByClass(TypeSpecPath.class);
+    return findChildByClass(TypeSpecPath.class);
   }
 
 }

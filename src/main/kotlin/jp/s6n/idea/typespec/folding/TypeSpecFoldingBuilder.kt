@@ -20,10 +20,10 @@ class TypeSpecFoldingBuilder : FoldingBuilderEx() {
     private fun findRegions(element: PsiElement): List<FoldingDescriptor> {
         return when (element) {
             is TypeSpecNamespaceStatement -> element.statementList.flatMap { findRegions(it) }
-            is TypeSpecEnumStatement -> foldBlock(element.enumVariantsBlock)
-            is TypeSpecUnionStatement -> foldBlock(element.unionVariantsBlock)
+            is TypeSpecEnumStatement -> foldBlock(element.enumVariantsBlock ?: return emptyList())
+            is TypeSpecUnionStatement -> foldBlock(element.unionVariantsBlock ?: return emptyList())
             is TypeSpecModelStatement -> foldBlock(element.modelExpression ?: return emptyList())
-            is TypeSpecInterfaceStatement -> foldBlock(element.interfaceOperationsBlock)
+            is TypeSpecInterfaceStatement -> foldBlock(element.interfaceOperationsBlock ?: return emptyList())
             else -> emptyList()
         }
     }

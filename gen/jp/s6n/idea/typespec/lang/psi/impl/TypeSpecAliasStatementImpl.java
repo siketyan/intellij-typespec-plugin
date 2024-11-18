@@ -35,15 +35,15 @@ public class TypeSpecAliasStatementImpl extends TypeSpecStatementImpl implements
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecExpression getExpression() {
-    return findNotNullChildByClass(TypeSpecExpression.class);
+    return findChildByClass(TypeSpecExpression.class);
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecIdentifier getIdentifier() {
-    return findNotNullChildByClass(TypeSpecIdentifier.class);
+    return findChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override

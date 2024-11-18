@@ -35,9 +35,9 @@ public class TypeSpecInterfaceStatementImpl extends TypeSpecStatementImpl implem
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecIdentifier getIdentifier() {
-    return findNotNullChildByClass(TypeSpecIdentifier.class);
+    return findChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override
@@ -47,9 +47,9 @@ public class TypeSpecInterfaceStatementImpl extends TypeSpecStatementImpl implem
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecInterfaceOperationsBlock getInterfaceOperationsBlock() {
-    return findNotNullChildByClass(TypeSpecInterfaceOperationsBlock.class);
+    return findChildByClass(TypeSpecInterfaceOperationsBlock.class);
   }
 
   @Override

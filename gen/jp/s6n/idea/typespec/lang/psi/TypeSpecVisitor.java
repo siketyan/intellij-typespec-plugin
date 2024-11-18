@@ -23,7 +23,7 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitAugmentDecoratorStatement(@NotNull TypeSpecAugmentDecoratorStatement o) {
-    visitElement(o);
+    visitStatement(o);
   }
 
   public void visitCallExpression(@NotNull TypeSpecCallExpression o) {
@@ -195,7 +195,7 @@ public class TypeSpecVisitor extends PsiElementVisitor {
   }
 
   public void visitScalarStatement(@NotNull TypeSpecScalarStatement o) {
-    visitElement(o);
+    visitStatement(o);
   }
 
   public void visitSpreadModelProperty(@NotNull TypeSpecSpreadModelProperty o) {

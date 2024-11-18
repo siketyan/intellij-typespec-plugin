@@ -11,10 +11,10 @@ public interface TypeSpecUnionStatement extends TypeSpecStatement {
   @NotNull
   List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
-  @NotNull
+  @Nullable
   TypeSpecIdentifier getIdentifier();
 
-  @NotNull
+  @Nullable
   TypeSpecUnionVariantsBlock getUnionVariantsBlock();
 
   @Nullable

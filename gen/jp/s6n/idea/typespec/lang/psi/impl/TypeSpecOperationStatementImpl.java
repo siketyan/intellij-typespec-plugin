@@ -35,9 +35,9 @@ public class TypeSpecOperationStatementImpl extends TypeSpecStatementImpl implem
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecOperation getOperation() {
-    return findNotNullChildByClass(TypeSpecOperation.class);
+    return findChildByClass(TypeSpecOperation.class);
   }
 
   @Override

@@ -26,16 +26,4 @@ public class TypeSpecStatementImpl extends TypeSpecElementImpl implements TypeSp
     else super.accept(visitor);
   }
 
-  @Override
-  @Nullable
-  public TypeSpecAugmentDecoratorStatement getAugmentDecoratorStatement() {
-    return findChildByClass(TypeSpecAugmentDecoratorStatement.class);
-  }
-
-  @Override
-  @Nullable
-  public TypeSpecScalarStatement getScalarStatement() {
-    return findChildByClass(TypeSpecScalarStatement.class);
-  }
-
 }

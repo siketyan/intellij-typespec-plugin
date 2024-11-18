@@ -28,8 +28,8 @@ public class TypeSpecModelIsImpl extends TypeSpecElementImpl implements TypeSpec
 
   @Override
   @NotNull
-  public TypeSpecExpression getExpression() {
-    return findNotNullChildByClass(TypeSpecExpression.class);
+  public TypeSpecTypeReference getTypeReference() {
+    return findNotNullChildByClass(TypeSpecTypeReference.class);
   }
 
 }

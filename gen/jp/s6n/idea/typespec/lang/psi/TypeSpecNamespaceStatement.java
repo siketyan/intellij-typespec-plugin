@@ -10,7 +10,7 @@ public interface TypeSpecNamespaceStatement extends TypeSpecStatement {
   @NotNull
   List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
-  @NotNull
+  @Nullable
   TypeSpecPath getPath();
 
   @NotNull

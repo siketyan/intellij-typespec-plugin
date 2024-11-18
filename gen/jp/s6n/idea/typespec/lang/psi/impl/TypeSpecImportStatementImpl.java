@@ -28,9 +28,9 @@ public class TypeSpecImportStatementImpl extends TypeSpecStatementImpl implement
   }
 
   @Override
-  @NotNull
+  @Nullable
   public PsiElement getStringLiteral() {
-    return findNotNullChildByType(STRING_LITERAL);
+    return findChildByType(STRING_LITERAL);
   }
 
 }

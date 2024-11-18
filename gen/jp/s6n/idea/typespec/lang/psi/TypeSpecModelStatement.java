@@ -11,7 +11,7 @@ public interface TypeSpecModelStatement extends TypeSpecStatement {
   @NotNull
   List<TypeSpecDecoratorLike> getDecoratorLikeList();
 
-  @NotNull
+  @Nullable
   TypeSpecIdentifier getIdentifier();
 
   @Nullable

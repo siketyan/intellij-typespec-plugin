@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface TypeSpecUsingStatement extends TypeSpecStatement {
 
-  @NotNull
+  @Nullable
   TypeSpecPath getPath();
 
 }

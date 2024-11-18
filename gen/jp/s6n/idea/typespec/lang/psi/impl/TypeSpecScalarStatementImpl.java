@@ -9,13 +9,15 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static jp.s6n.idea.typespec.lang.psi.TypeSpecElementTypes.*;
 import jp.s6n.idea.typespec.lang.psi.*;
+import com.intellij.navigation.ItemPresentation;
 
-public class TypeSpecScalarStatementImpl extends TypeSpecElementImpl implements TypeSpecScalarStatement {
+public class TypeSpecScalarStatementImpl extends TypeSpecStatementImpl implements TypeSpecScalarStatement {
 
   public TypeSpecScalarStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull TypeSpecVisitor visitor) {
     visitor.visitScalarStatement(this);
   }
@@ -33,9 +35,9 @@ public class TypeSpecScalarStatementImpl extends TypeSpecElementImpl implements 
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TypeSpecIdentifier getIdentifier() {
-    return findNotNullChildByClass(TypeSpecIdentifier.class);
+    return findChildByClass(TypeSpecIdentifier.class);
   }
 
   @Override
@@ -54,6 +56,12 @@ public class TypeSpecScalarStatementImpl extends TypeSpecElementImpl implements 
   @Nullable
   public TypeSpecTypeParameterList getTypeParameterList() {
     return findChildByClass(TypeSpecTypeParameterList.class);
+  }
+
+  @Override
+  @Nullable
+  public ItemPresentation getPresentation() {
+    return TypeSpecImplUtil.getPresentation(this);
   }
 
 }
