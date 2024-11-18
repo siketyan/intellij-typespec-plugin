@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface TypeSpecArrayExpression extends TypeSpecOperatorExpression {
 
   @NotNull
-  List<TypeSpecArrayExpression> getArrayExpressionList();
-
-  @NotNull
-  List<TypeSpecNonArrayExpression> getNonArrayExpressionList();
+  TypeSpecNonArrayExpression getNonArrayExpression();
 
 }

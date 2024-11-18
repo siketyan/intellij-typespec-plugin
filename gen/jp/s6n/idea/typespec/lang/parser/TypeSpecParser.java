@@ -144,52 +144,39 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // [NonArrayExpression (NonArrayExpression | ArrayExpression)*] LBRACKET RBRACKET
+  // NonArrayExpression (LBRACKET RBRACKET)+
   public static boolean ArrayExpression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ArrayExpression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ARRAY_EXPRESSION, "<array expression>");
-    r = ArrayExpression_0(b, l + 1);
-    r = r && consumeTokens(b, 0, LBRACKET, RBRACKET);
+    r = NonArrayExpression(b, l + 1);
+    r = r && ArrayExpression_1(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // [NonArrayExpression (NonArrayExpression | ArrayExpression)*]
-  private static boolean ArrayExpression_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ArrayExpression_0")) return false;
-    ArrayExpression_0_0(b, l + 1);
-    return true;
-  }
-
-  // NonArrayExpression (NonArrayExpression | ArrayExpression)*
-  private static boolean ArrayExpression_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ArrayExpression_0_0")) return false;
+  // (LBRACKET RBRACKET)+
+  private static boolean ArrayExpression_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ArrayExpression_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = NonArrayExpression(b, l + 1);
-    r = r && ArrayExpression_0_0_1(b, l + 1);
+    r = ArrayExpression_1_0(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!ArrayExpression_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "ArrayExpression_1", c)) break;
+    }
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // (NonArrayExpression | ArrayExpression)*
-  private static boolean ArrayExpression_0_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ArrayExpression_0_0_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!ArrayExpression_0_0_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "ArrayExpression_0_0_1", c)) break;
-    }
-    return true;
-  }
-
-  // NonArrayExpression | ArrayExpression
-  private static boolean ArrayExpression_0_0_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ArrayExpression_0_0_1_0")) return false;
+  // LBRACKET RBRACKET
+  private static boolean ArrayExpression_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ArrayExpression_1_0")) return false;
     boolean r;
-    r = NonArrayExpression(b, l + 1);
-    if (!r) r = ArrayExpression(b, l + 1);
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, LBRACKET, RBRACKET);
+    exit_section_(b, m, null, r);
     return r;
   }
 

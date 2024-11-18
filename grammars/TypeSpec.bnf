@@ -225,7 +225,7 @@ TypeOfExpression ::= TYPEOF OperatorExpression {extends=OperatorExpression}
 
 CallExpression ::= NonArrayExpression ArgumentList {extends=OperatorExpression}
 
-ArrayExpression ::= [NonArrayExpression (NonArrayExpression | ArrayExpression)*] LBRACKET RBRACKET {extends=OperatorExpression}
+ArrayExpression ::= NonArrayExpression (LBRACKET RBRACKET)+ {extends=OperatorExpression}
 
 NonArrayExpression ::=
     TypeReference

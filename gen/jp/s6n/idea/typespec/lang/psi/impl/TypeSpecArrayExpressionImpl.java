@@ -29,14 +29,8 @@ public class TypeSpecArrayExpressionImpl extends TypeSpecOperatorExpressionImpl 
 
   @Override
   @NotNull
-  public List<TypeSpecArrayExpression> getArrayExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecArrayExpression.class);
-  }
-
-  @Override
-  @NotNull
-  public List<TypeSpecNonArrayExpression> getNonArrayExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TypeSpecNonArrayExpression.class);
+  public TypeSpecNonArrayExpression getNonArrayExpression() {
+    return findNotNullChildByClass(TypeSpecNonArrayExpression.class);
   }
 
 }
