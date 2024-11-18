@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "jp.s6n.idea"
-version = "0.1.2"
+version = "0.1.3"
 
 kotlin {
   jvmToolchain(21)
