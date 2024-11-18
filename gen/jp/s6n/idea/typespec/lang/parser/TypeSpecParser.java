@@ -1591,7 +1591,7 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // !(
-  //     IMPORT | USING | NAMESPACE | SCALAR | ENUM | UNION | MODEL | INTERFACE | OP | ALIAS | EXTERN | AT | ATAT | HASH
+  //     RBRACE | SEMICOLON | IMPORT | USING | NAMESPACE | SCALAR | ENUM | UNION | MODEL | INTERFACE | OP | ALIAS | EXTERN | AT | ATAT | HASH
   // )
   static boolean Statement_recover(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Statement_recover")) return false;
@@ -1602,11 +1602,13 @@ public class TypeSpecParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // IMPORT | USING | NAMESPACE | SCALAR | ENUM | UNION | MODEL | INTERFACE | OP | ALIAS | EXTERN | AT | ATAT | HASH
+  // RBRACE | SEMICOLON | IMPORT | USING | NAMESPACE | SCALAR | ENUM | UNION | MODEL | INTERFACE | OP | ALIAS | EXTERN | AT | ATAT | HASH
   private static boolean Statement_recover_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Statement_recover_0")) return false;
     boolean r;
-    r = consumeToken(b, IMPORT);
+    r = consumeToken(b, RBRACE);
+    if (!r) r = consumeToken(b, SEMICOLON);
+    if (!r) r = consumeToken(b, IMPORT);
     if (!r) r = consumeToken(b, USING);
     if (!r) r = consumeToken(b, NAMESPACE);
     if (!r) r = consumeToken(b, SCALAR);
