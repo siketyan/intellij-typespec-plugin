@@ -26,6 +26,7 @@ dependencies {
 
   intellijPlatform {
     intellijIdeaUltimate("2024.3")
+    bundledPlugin("NodeJS")
 
     instrumentationTools()
     pluginVerifier()

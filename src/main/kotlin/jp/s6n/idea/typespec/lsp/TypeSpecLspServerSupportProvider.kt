@@ -1,5 +1,7 @@
 package jp.s6n.idea.typespec.lsp
 
+import com.intellij.javascript.nodejs.interpreter.NodeJsInterpreter
+import com.intellij.javascript.nodejs.interpreter.NodeJsInterpreterManager
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
 import com.intellij.notification.Notifications
@@ -21,7 +23,9 @@ class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
     ) {
         if (file.fileType != TypeSpecFileType) return
 
-        val descriptor = findTspServer(project, file.parent ?: return) ?: return Notifications.Bus.notify(
+        val interpreter = NodeJsInterpreterManager.getInstance(project).getInterpreter(true) ?: return;
+
+        val descriptor = findTspServer(project, interpreter, file.parent ?: return) ?: return Notifications.Bus.notify(
             Notification(
                 "TypeSpec",
                 "TypeSpec is not installed",
@@ -33,16 +37,16 @@ class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
         serverStarter.ensureServerStarted(descriptor)
     }
 
-    private fun findTspServer(project: Project, directory: VirtualFile): TypeSpecLspServerDescriptor? {
+    private fun findTspServer(project: Project, interpreter: NodeJsInterpreter, directory: VirtualFile): TypeSpecLspServerDescriptor? {
         val tspDirectory = directory.findDirectory("node_modules/@typespec/compiler")
-            ?: return findTspServer(project, directory.parent ?: return null)
+            ?: return findTspServer(project, interpreter, directory.parent ?: return null)
 
         val tspServerFile = tspDirectory.findFile("cmd/tsp-server.js") ?: return null
         val version = tspDirectory.findFile("package.json")
             ?.let { PackageJson.parseFile(it).version }
             ?: return null
 
-        return TypeSpecLspServerDescriptor(project, directory, version, tspServerFile)
+        return TypeSpecLspServerDescriptor(project, directory, version, interpreter, tspServerFile)
     }
 
     @Serializable
