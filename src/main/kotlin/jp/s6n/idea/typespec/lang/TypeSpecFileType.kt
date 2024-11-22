@@ -2,7 +2,10 @@ package jp.s6n.idea.typespec.lang
 
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.fileTypes.LanguageFileType
+ import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiFile
 import org.jetbrains.plugins.textmate.TextMateBackedFileType
+import org.jetbrains.plugins.textmate.TextMateFileType
 import javax.swing.Icon
 
 object TypeSpecFileType : LanguageFileType(TypeSpecLanguage), TextMateBackedFileType {
@@ -10,4 +13,9 @@ object TypeSpecFileType : LanguageFileType(TypeSpecLanguage), TextMateBackedFile
     override fun getDescription() = "TypeSpec file"
     override fun getDefaultExtension() = "tsp"
     override fun getIcon(): Icon = AllIcons.FileTypes.Json
+
+    fun isMyFile(file: PsiFile) = isMyFile(file.virtualFile)
+
+    fun isMyFile(file: VirtualFile) =
+        file.fileType == TextMateFileType.INSTANCE && file.extension == defaultExtension
 }

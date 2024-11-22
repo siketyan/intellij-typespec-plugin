@@ -5,6 +5,7 @@ import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.psi.PsiElement
+import jp.s6n.idea.typespec.lang.TypeSpecFileType
 import jp.s6n.idea.typespec.lsp.LspServerUtil
 import jp.s6n.idea.typespec.lsp.findServerForFile
 import org.eclipse.lsp4j.FoldingRangeRequestParams
@@ -13,6 +14,8 @@ import org.eclipse.lsp4j.FoldingRangeRequestParams
 class TypeSpecFoldingBuilder : FoldingBuilderEx() {
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
         val file = root.containingFile.virtualFile
+        if (!TypeSpecFileType.isMyFile(file)) return emptyArray()
+
         val lspServer = LspServerUtil.getServerManager(root.project).findServerForFile(file) ?: return emptyArray()
 
         val response = lspServer

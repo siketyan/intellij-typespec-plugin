@@ -20,6 +20,8 @@ import org.eclipse.lsp4j.SymbolKind
 // TODO: Replace if the official LSP integration supported code folding (textDocument/documentSymbol).
 class TypeSpecStructureViewFactory : PsiStructureViewFactory {
     override fun getStructureViewBuilder(file: PsiFile): TreeBasedStructureViewBuilder? {
+        if (!TypeSpecFileType.isMyFile(file)) return null
+
         val lspServer = LspServerUtil.getServerManager(file.project).findServerForFile(file.virtualFile) ?: return null
 
         val params = DocumentSymbolParams(lspServer.getDocumentIdentifier(file.virtualFile))

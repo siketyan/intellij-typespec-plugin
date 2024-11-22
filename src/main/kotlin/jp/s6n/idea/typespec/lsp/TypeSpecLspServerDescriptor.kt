@@ -8,8 +8,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServerDescriptor
 import com.intellij.platform.lsp.api.customization.LspSemanticTokensSupport
+import jp.s6n.idea.typespec.lang.TypeSpecFileType
 import org.eclipse.lsp4j.SemanticTokenTypes
-import org.jetbrains.plugins.textmate.TextMateFileType
 import org.jetbrains.yaml.YAMLFileType
 
 @Suppress("UnstableApiUsage")
@@ -41,7 +41,7 @@ class TypeSpecLspServerDescriptor(
 
     companion object {
         fun isSupportedFile(file: VirtualFile) =
-            (file.fileType == TextMateFileType.INSTANCE && file.extension == "tsp") ||
+            TypeSpecFileType.isMyFile(file) ||
                 (file.fileType == YAMLFileType.YML && file.name == "tspconfig.yaml")
     }
 }
