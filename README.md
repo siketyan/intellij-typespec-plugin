@@ -1,13 +1,10 @@
 # TypeSpec Language Support Plugin for IntelliJ Platform
 
-> [!WARNING]
-> This project is heavily in progress.
-
 ## Prerequisites
 
 - JetBrains IDE 2024.3 or later
 
-> [!WARNING]
+> [!NOTE]
 > This plugin cannot be installed on Community IDEs as the plugin is built on top of the official LSP integration,
 > which is only available in paid IDEs.
 
@@ -15,6 +12,7 @@
 
 - Syntax highlighting
 - Code folding
-- LSP integration
-  - Static analysing
-  - Go to definition / Find usages
+- Structure view
+- Diagnostics
+- Go to definition
+- Find usages
