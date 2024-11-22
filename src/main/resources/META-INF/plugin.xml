@@ -67,7 +67,6 @@
       name="TypeSpec"
       implementationClass="jp.s6n.idea.typespec.lang.TypeSpecFileType"
       fieldName="INSTANCE"
-      language="textmate"
       extensions="tsp"
     />
 
