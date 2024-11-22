@@ -2,3 +2,4 @@
 /.intellijPlatform/
 /.kotlin/
 /build/
+/node_modules/

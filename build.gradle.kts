@@ -26,7 +26,11 @@ dependencies {
 
   intellijPlatform {
     intellijIdeaUltimate("2024.3")
-    bundledPlugins("NodeJS", "org.jetbrains.plugins.yaml")
+    bundledPlugins(
+      "org.jetbrains.plugins.textmate",
+      "org.jetbrains.plugins.yaml",
+      "NodeJS",
+    )
 
     instrumentationTools()
     pluginVerifier()
@@ -59,3 +63,11 @@ intellijPlatform {
 }
 
 sourceSets["main"].java.srcDirs("gen")
+
+tasks {
+  prepareSandbox {
+    from(layout.projectDirectory.dir("textmate")) {
+      into(pluginName.map { "$it/textmate" })
+    }
+  }
+}

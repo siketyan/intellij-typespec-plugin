@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "@siketyan/intellij-typespec-plugin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/siketyan/intellij-typespec-plugin.git"
+  },
+  "dependencies": {
+    "typespec-vscode": "^0.62.0"
+  },
+  "devDependencies": {
+    "unzipper": "^0.12.3"
+  },
+  "scripts": {
+    "update-tmbundle": "node ./scripts/update-tmbundle.mjs"
+  }
+}
