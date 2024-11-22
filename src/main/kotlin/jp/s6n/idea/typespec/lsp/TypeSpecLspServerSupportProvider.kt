@@ -10,7 +10,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.findDirectory
 import com.intellij.openapi.vfs.findFile
 import com.intellij.platform.lsp.api.LspServerSupportProvider
-import jp.s6n.idea.typespec.lang.TypeSpecFileType
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -19,9 +18,11 @@ import kotlinx.serialization.json.decodeFromStream
 @Suppress("UnstableApiUsage")
 class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
     override fun fileOpened(
-        project: Project, file: VirtualFile, serverStarter: LspServerSupportProvider.LspServerStarter
+        project: Project,
+        file: VirtualFile,
+        serverStarter: LspServerSupportProvider.LspServerStarter
     ) {
-        if (file.fileType != TypeSpecFileType) return
+        if (!TypeSpecLspServerDescriptor.isSupportedFile(file)) return
 
         val interpreter = NodeJsInterpreterManager.getInstance(project).getInterpreter(true) ?: return;
 

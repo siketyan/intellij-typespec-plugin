@@ -26,7 +26,7 @@ dependencies {
 
   intellijPlatform {
     intellijIdeaUltimate("2024.3")
-    bundledPlugin("NodeJS")
+    bundledPlugins("NodeJS", "org.jetbrains.plugins.yaml")
 
     instrumentationTools()
     pluginVerifier()
