@@ -62,8 +62,6 @@ intellijPlatform {
   }
 }
 
-sourceSets["main"].java.srcDirs("gen")
-
 tasks {
   prepareSandbox {
     from(layout.projectDirectory.dir("textmate")) {
