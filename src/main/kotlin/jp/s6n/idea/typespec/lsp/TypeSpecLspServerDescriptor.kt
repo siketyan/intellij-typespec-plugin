@@ -17,9 +17,11 @@ class TypeSpecLspServerDescriptor(
     project: Project,
     root: VirtualFile,
     version: String,
-    private val interpreter: NodeJsInterpreter,
+    interpreter: NodeJsInterpreter,
     private val tspServerFile: VirtualFile
 ) : LspServerDescriptor(project, "TypeSpec $version", root) {
+    private val commandLineConfigurator = NodeCommandLineConfigurator.find(interpreter)
+
     override val lspSemanticTokensSupport = object : LspSemanticTokensSupport() {
         override fun getTextAttributesKey(tokenType: String, modifiers: List<String>) =
             when (tokenType) {
@@ -43,8 +45,11 @@ class TypeSpecLspServerDescriptor(
 
     override fun createCommandLine() = GeneralCommandLine().also {
         it.addParameters(tspServerFile.path, "--stdio")
-        NodeCommandLineConfigurator.find(interpreter).configure(it)
+        commandLineConfigurator.configure(it)
     }
+
+    override fun getFilePath(file: VirtualFile): String =
+        commandLineConfigurator.convertLocalPathToRemote(file.path)
 
     companion object {
         fun isSupportedFile(file: VirtualFile) =
