@@ -42,7 +42,7 @@
   <change-notes><![CDATA[
     <h2>Breaking changes</h2>
     <ul>
-      <li>Language syntax now follows the official tmLanguage definition. Results of syntax highlighting may differ.<li>
+      <li>Language syntax now follows the official tmLanguage definition. Results of syntax highlighting may differ.</li>
     </ul>
     <h2>Features</h2>
     <ul>
