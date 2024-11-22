@@ -23,9 +23,16 @@ class TypeSpecLspServerDescriptor(
     override val lspSemanticTokensSupport = object : LspSemanticTokensSupport() {
         override fun getTextAttributesKey(tokenType: String, modifiers: List<String>) =
             when (tokenType) {
-                SemanticTokenTypes.Type -> DefaultLanguageHighlighterColors.CLASS_NAME
+                // Changing colours for better appearance and consistency in IntelliJ IDE
+                SemanticTokenTypes.Type,
                 SemanticTokenTypes.Struct -> DefaultLanguageHighlighterColors.CLASS_NAME
-                SemanticTokenTypes.Macro -> DefaultLanguageHighlighterColors.METADATA
+
+                // Skip these tokens as they are already well handled by TextMate
+                SemanticTokenTypes.Macro,
+                SemanticTokenTypes.Decorator,
+                SemanticTokenTypes.Operator,
+                SemanticTokenTypes.Comment -> null
+
                 else -> super.getTextAttributesKey(tokenType, modifiers)
             }
     }
