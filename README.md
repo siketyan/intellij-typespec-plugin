@@ -14,5 +14,6 @@
 - Code folding
 - Structure view
 - Diagnostics
+- Quick fixes
 - Go to definition
 - Find usages
