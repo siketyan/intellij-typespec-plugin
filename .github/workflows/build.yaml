@@ -46,7 +46,7 @@ jobs:
           name: ${{ steps.artifact.outputs.filename }}
           path: ./build/distributions/content/*/*
 
-      - name: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v2
         if: ${{ github.event_name == 'release' }}
         with:
           files: ./build/distributions/*.zip
