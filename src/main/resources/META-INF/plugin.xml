@@ -38,6 +38,11 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <h2>v0.2.3</h2>
+    <h3>Features</h3>
+    <ul>
+      <li>Add "Create new TypeSpec file" action.</li>
+    </ul>
     <h2>v0.2.2</h2>
     <h3>Internal Changes</h3>
     <ul>
@@ -88,10 +93,24 @@
     <!-- TextMate Bundle -->
     <textmate.bundleProvider implementation="jp.s6n.idea.typespec.textmate.TypeSpecTextMateBundleProvider" />
 
+    <!-- File Templates -->
+    <internalFileTemplate name="TypeSpec file" />
+
     <!-- Notification Group -->
     <notificationGroup id="TypeSpec" displayType="STICKY_BALLOON" />
 
     <!-- LSP -->
     <platform.lsp.serverSupportProvider implementation="jp.s6n.idea.typespec.lsp.TypeSpecLspServerSupportProvider" />
   </extensions>
+
+  <actions>
+    <action
+      id="Create.TypeSpec"
+      class="jp.s6n.idea.typespec.actions.CreateTypeSpecFileAction"
+      text="TypeSpec File"
+      icon="AllIcons.FileTypes.Json"
+    >
+      <add-to-group group-id="NewGroup" anchor="last" />
+    </action>
+  </actions>
 </idea-plugin>
