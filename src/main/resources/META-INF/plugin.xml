@@ -38,6 +38,12 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <h2>v0.2.2</h2>
+    <h3>Internal Changes</h3>
+    <ul>
+      <li>Remove internal API usages.</li>
+      <li>Remove unnecessary files.</li>
+    </ul>
     <h2>v0.2.1</h2>
     <h3>Fixes</h3>
     <ul>
