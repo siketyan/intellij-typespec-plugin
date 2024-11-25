@@ -108,7 +108,7 @@
       id="Create.TypeSpec"
       class="jp.s6n.idea.typespec.actions.CreateTypeSpecFileAction"
       text="TypeSpec File"
-      icon="AllIcons.FileTypes.Json"
+      icon="/icons/tsp.svg"
     >
       <add-to-group group-id="NewGroup" anchor="last" />
     </action>
