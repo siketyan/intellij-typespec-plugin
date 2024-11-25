@@ -1,9 +1,16 @@
 name: Build
+
 on:
   push:
     branches:
       - main
   pull_request: {}
+  release:
+    types:
+      - created
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -38,6 +45,11 @@ jobs:
         with:
           name: ${{ steps.artifact.outputs.filename }}
           path: ./build/distributions/content/*/*
+
+      - name: softprops/action-gh-release@v2
+        if: ${{ github.event_name == 'release' }}
+        with:
+          files: ./build/distributions/*.zip
 
   verify:
     name: Verify plugin
