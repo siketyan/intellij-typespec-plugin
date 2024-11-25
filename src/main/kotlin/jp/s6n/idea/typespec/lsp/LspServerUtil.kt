@@ -5,7 +5,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.LspServerManager
-import com.intellij.platform.lsp.impl.LspServerManagerImpl
 import kotlin.io.path.relativeToOrNull
 
 /**
@@ -13,7 +12,7 @@ import kotlin.io.path.relativeToOrNull
  */
 object LspServerUtil {
     fun getServerManager(project: Project): LspServerManager =
-        LspServerManagerImpl.getInstanceImpl(project)
+        LspServerManager.getInstance(project)
 }
 
 fun LspServerManager.findServerForFile(file: VirtualFile): LspServer? =
