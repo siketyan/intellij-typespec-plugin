@@ -10,12 +10,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.findDirectory
 import com.intellij.openapi.vfs.findFile
 import com.intellij.platform.lsp.api.LspServerSupportProvider
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
 
-@Suppress("UnstableApiUsage")
 class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
     override fun fileOpened(
         project: Project,
@@ -24,7 +19,7 @@ class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
     ) {
         if (!TypeSpecLspServerDescriptor.isSupportedFile(file)) return
 
-        val interpreter = NodeJsInterpreterManager.getInstance(project).getInterpreter(true) ?: return;
+        val interpreter = NodeJsInterpreterManager.getInstance(project).getInterpreter(true) ?: return
 
         val descriptor = findTspServer(project, interpreter, file.parent ?: return) ?: return Notifications.Bus.notify(
             Notification(
@@ -43,23 +38,7 @@ class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
             ?: return findTspServer(project, interpreter, directory.parent ?: return null)
 
         val tspServerFile = tspDirectory.findFile("cmd/tsp-server.js") ?: return null
-        val version = tspDirectory.findFile("package.json")
-            ?.let { PackageJson.parseFile(it).version }
-            ?: return null
 
-        return TypeSpecLspServerDescriptor(project, directory, version, interpreter, tspServerFile)
-    }
-
-    @Serializable
-    class PackageJson(val version: String?) {
-        companion object {
-            private val decoder = Json {
-                ignoreUnknownKeys = true
-            }
-
-            @OptIn(ExperimentalSerializationApi::class)
-            fun parseFile(file: VirtualFile): PackageJson =
-                decoder.decodeFromStream(file.inputStream)
-        }
+        return TypeSpecLspServerDescriptor(project, directory, interpreter, tspServerFile)
     }
 }

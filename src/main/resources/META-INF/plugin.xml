@@ -45,6 +45,11 @@
       <li>Add icon for the plugin and the file type.</li>
       <li>Support 2025.1 builds.</li>
     </ul>
+    <h2>v0.2.4</h2>
+    <h3>Fixes</h3>
+    <ul>
+      <li>Fix duplicated server version in "Language Services" view.</li>
+    </ul>
   ]]></change-notes>
 
   <!-- Product and plugin compatibility requirements.

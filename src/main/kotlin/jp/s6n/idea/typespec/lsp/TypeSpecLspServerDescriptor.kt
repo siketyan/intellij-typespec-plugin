@@ -12,14 +12,12 @@ import jp.s6n.idea.typespec.lang.TypeSpecFileType
 import org.eclipse.lsp4j.SemanticTokenTypes
 import org.jetbrains.yaml.YAMLFileType
 
-@Suppress("UnstableApiUsage")
 class TypeSpecLspServerDescriptor(
     project: Project,
     root: VirtualFile,
-    version: String,
     interpreter: NodeJsInterpreter,
     private val tspServerFile: VirtualFile
-) : LspServerDescriptor(project, "TypeSpec $version", root) {
+) : LspServerDescriptor(project, "TypeSpec", root) {
     private val commandLineConfigurator = NodeCommandLineConfigurator.find(interpreter)
 
     override val lspSemanticTokensSupport = object : LspSemanticTokensSupport() {

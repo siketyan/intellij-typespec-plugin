@@ -1,4 +1,3 @@
-@file:Suppress("UnstableApiUsage")
 package jp.s6n.idea.typespec.lsp
 
 import com.intellij.openapi.project.Project

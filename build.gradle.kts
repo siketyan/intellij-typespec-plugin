@@ -25,7 +25,7 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 
   intellijPlatform {
-    intellijIdeaUltimate("2024.3.2.2")
+    intellijIdeaUltimate("251.18673.35")
     bundledPlugins(
       "org.jetbrains.plugins.textmate",
       "org.jetbrains.plugins.yaml",
