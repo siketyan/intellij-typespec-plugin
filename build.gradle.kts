@@ -2,8 +2,6 @@ plugins {
   id("java")
   id("org.jetbrains.kotlin.jvm") version "2.1.10"
   id("org.jetbrains.intellij.platform") version "2.2.1"
-
-  kotlin("plugin.serialization") version "2.1.10"
 }
 
 group = "jp.s6n.idea"
@@ -22,8 +20,6 @@ repositories {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
-
   intellijPlatform {
     intellijIdeaUltimate("251.18673.35")
     bundledPlugins(
