@@ -25,14 +25,13 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 
   intellijPlatform {
-    intellijIdeaUltimate("2024.3")
+    intellijIdeaUltimate("2024.3.2.2")
     bundledPlugins(
       "org.jetbrains.plugins.textmate",
       "org.jetbrains.plugins.yaml",
       "NodeJS",
     )
 
-    instrumentationTools()
     pluginVerifier()
   }
 }
@@ -41,7 +40,7 @@ intellijPlatform {
   pluginConfiguration {
     ideaVersion {
       sinceBuild = "243"
-      untilBuild = "243.*"
+      untilBuild = "251.*"
     }
   }
 
