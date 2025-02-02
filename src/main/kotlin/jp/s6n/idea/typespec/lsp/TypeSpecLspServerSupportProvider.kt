@@ -9,7 +9,10 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.findDirectory
 import com.intellij.openapi.vfs.findFile
+import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.LspServerSupportProvider
+import com.intellij.platform.lsp.api.lsWidget.LspServerWidgetItem
+import jp.s6n.idea.typespec.icons.TypeSpecIcons
 
 class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
     override fun fileOpened(
@@ -32,6 +35,9 @@ class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
 
         serverStarter.ensureServerStarted(descriptor)
     }
+
+    override fun createLspServerWidgetItem(lspServer: LspServer, currentFile: VirtualFile?) =
+        LspServerWidgetItem(lspServer, currentFile, TypeSpecIcons.Tsp)
 
     private fun findTspServer(project: Project, interpreter: NodeJsInterpreter, directory: VirtualFile): TypeSpecLspServerDescriptor? {
         val tspDirectory = directory.findDirectory("node_modules/@typespec/compiler")
