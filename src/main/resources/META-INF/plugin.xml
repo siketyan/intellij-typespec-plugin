@@ -42,29 +42,8 @@
     <h3>Features</h3>
     <ul>
       <li>Add "Create new TypeSpec file" action.</li>
-    </ul>
-    <h2>v0.2.2</h2>
-    <h3>Internal Changes</h3>
-    <ul>
-      <li>Remove internal API usages.</li>
-      <li>Remove unnecessary files.</li>
-    </ul>
-    <h2>v0.2.1</h2>
-    <h3>Fixes</h3>
-    <ul>
-      <li>Fix PluginException during plugin initialisation.</li>
-      <li>Fix invalid file paths on LSP server on WSL 2 environment.</li>
-    </ul>
-    <h2>v0.2.0</h2>
-    <h3>Breaking changes</h3>
-    <ul>
-      <li>Language syntax now follows the official tmLanguage definition. Results of syntax highlighting may differ.</li>
-    </ul>
-    <h3>Features</h3>
-    <ul>
-      <li>Semantic highlighting is now provided by the LSP server.</li>
-      <li>Code folding is now provided by the LSP server (textDocument/foldingRange).</li>
-      <li>Structure view is now provided by the LSP server (textDocument/documentSymbol).</li>
+      <li>Add icon for the plugin and the file type.</li>
+      <li>Support 2025.1 builds.</li>
     </ul>
   ]]></change-notes>
 

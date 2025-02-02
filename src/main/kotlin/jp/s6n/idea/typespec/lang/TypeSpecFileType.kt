@@ -1,6 +1,5 @@
 package jp.s6n.idea.typespec.lang
 
-import com.intellij.icons.AllIcons
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
