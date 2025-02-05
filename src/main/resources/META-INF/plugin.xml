@@ -17,7 +17,7 @@
     <p>TypeSpec language support plugin for IntelliJ Platform.</p>
     <p>
       NOTE: This plugin is still under development.
-      If you found a bug, please <a href="https://github.com/siketyan/intellij-typespec-plguin/issues/new">open an issue</a> on GitHub.
+      If you found a bug, please <a href="https://github.com/siketyan/intellij-typespec-plugin/issues/new">open an issue</a> on GitHub.
     </p>
     <p>Features:</p>
     <ul>
