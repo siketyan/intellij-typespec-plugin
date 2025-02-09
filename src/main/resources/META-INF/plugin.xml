@@ -38,23 +38,14 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h2>v0.2.5</h2>
-    <h3>Fixes</h3>
+    <h2>v0.3.0</h2>
+    <h3>Breaking Changes</h3>
     <ul>
-      <li>Remove unnecessary dependencies.</li>
+      <li>Drop support for 2024.* builds.</li>
     </ul>
-    <h2>v0.2.4</h2>
-    <h3>Fixes</h3>
-    <ul>
-      <li>Fix duplicated server version in "Language Services" view.</li>
-      <li>Fix the TSP icon in "Language Services" view.</li>
-    </ul>
-    <h2>v0.2.3</h2>
     <h3>Features</h3>
     <ul>
-      <li>Add "Create new TypeSpec file" action.</li>
-      <li>Add icon for the plugin and the file type.</li>
-      <li>Support 2025.1 builds.</li>
+      <li>Add support for 251.20015.29 and later builds.</li>
     </ul>
   ]]></change-notes>
 
