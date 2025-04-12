@@ -54,6 +54,7 @@
   <depends>com.intellij.modules.ultimate</depends>
   <depends>org.jetbrains.plugins.textmate</depends>
   <depends>org.jetbrains.plugins.yaml</depends>
+  <depends>JavaScript</depends>
   <depends>NodeJS</depends>
 
   <!-- Extension points defined by the plugin.

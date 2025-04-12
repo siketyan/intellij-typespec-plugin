@@ -1,7 +1,7 @@
 plugins {
   id("java")
   id("org.jetbrains.kotlin.jvm") version "2.1.10"
-  id("org.jetbrains.intellij.platform") version "2.3.0"
+  id("org.jetbrains.intellij.platform") version "2.5.0"
 }
 
 group = "jp.s6n.idea"
@@ -21,11 +21,11 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    intellijIdeaUltimate("251.20015.29")
-    bundledModules("intellij.yaml.editing")
+    intellijIdeaUltimate("251.23774.318")
     bundledPlugins(
       "org.jetbrains.plugins.textmate",
       "org.jetbrains.plugins.yaml",
+      "JavaScript",
       "NodeJS",
     )
 
@@ -36,7 +36,7 @@ dependencies {
 intellijPlatform {
   pluginConfiguration {
     ideaVersion {
-      sinceBuild = "251.20015.29"
+      sinceBuild = "243"
       untilBuild = "251.*"
     }
   }
