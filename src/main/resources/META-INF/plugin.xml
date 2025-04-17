@@ -38,14 +38,10 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h2>v0.3.0</h2>
-    <h3>Breaking Changes</h3>
-    <ul>
-      <li>Drop support for 2024.* builds.</li>
-    </ul>
+    <h2>v0.2.6</h2>
     <h3>Features</h3>
     <ul>
-      <li>Add support for 251.20015.29 and later builds.</li>
+      <li>Add support for 2025.1.</li>
     </ul>
   ]]></change-notes>
 

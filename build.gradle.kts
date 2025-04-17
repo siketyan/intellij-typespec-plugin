@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "jp.s6n.idea"
-version = "0.3.0"
+version = "0.2.6"
 
 kotlin {
   jvmToolchain(21)
@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    intellijIdeaUltimate("251.23774.318")
+    intellijIdeaUltimate("2025.1")
     bundledPlugins(
       "org.jetbrains.plugins.textmate",
       "org.jetbrains.plugins.yaml",
