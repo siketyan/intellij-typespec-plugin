@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "jp.s6n.idea"
-version = "0.2.6"
+version = "0.2.7"
 
 kotlin {
   jvmToolchain(21)
@@ -37,7 +37,7 @@ intellijPlatform {
   pluginConfiguration {
     ideaVersion {
       sinceBuild = "243"
-      untilBuild = "251.*"
+      untilBuild = "252.*"
     }
   }
 
