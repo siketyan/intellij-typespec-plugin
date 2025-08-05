@@ -98,7 +98,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=[_$[:alpha:]])|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=([_$[:alpha:]]|`))|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -229,7 +229,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=[_$[:alpha:]])|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=([_$[:alpha:]]|`))|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -423,67 +423,6 @@
           </dict>
         </dict>
       </dict>
-      <key>else-expression</key>
-      <dict>
-        <key>name</key>
-        <string>meta.else-expression.typespec</string>
-        <key>begin</key>
-        <string>\b(else)\b</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.other.tsp</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>((?&lt;=\})|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#projection-expression</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#projection-body</string>
-          </dict>
-        </array>
-      </dict>
-      <key>else-if-expression</key>
-      <dict>
-        <key>name</key>
-        <string>meta.else-if-expression.typespec</string>
-        <key>begin</key>
-        <string>\b(else)\s+(if)\b</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.other.tsp</string>
-          </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.other.tsp</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>((?&lt;=\})|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#projection-expression</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#projection-body</string>
-          </dict>
-        </array>
-      </dict>
       <key>enum-body</key>
       <dict>
         <key>name</key>
@@ -659,43 +598,6 @@
           </dict>
         </array>
       </dict>
-      <key>function-call</key>
-      <dict>
-        <key>name</key>
-        <string>meta.function-call.typespec</string>
-        <key>begin</key>
-        <string>(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)\s*(\()</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>entity.name.function.tsp</string>
-          </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.parenthesis.open.tsp</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>\)</string>
-        <key>endCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.parenthesis.close.tsp</string>
-          </dict>
-        </dict>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#expression</string>
-          </dict>
-        </array>
-      </dict>
       <key>function-declaration-statement</key>
       <dict>
         <key>name</key>
@@ -744,34 +646,6 @@
         <string>entity.name.type.tsp</string>
         <key>match</key>
         <string>\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`</string>
-      </dict>
-      <key>if-expression</key>
-      <dict>
-        <key>name</key>
-        <string>meta.if-expression.typespec</string>
-        <key>begin</key>
-        <string>\b(if)\b</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.other.tsp</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>((?&lt;=\})|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#projection-expression</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#projection-body</string>
-          </dict>
-        </array>
       </dict>
       <key>import-statement</key>
       <dict>
@@ -1147,7 +1021,7 @@
         <key>name</key>
         <string>meta.namespace-name.typespec</string>
         <key>begin</key>
-        <string>(?=[_$[:alpha:]])</string>
+        <string>(?=([_$[:alpha:]]|`))</string>
         <key>end</key>
         <string>((?=\{)|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
         <key>patterns</key>
@@ -1452,218 +1326,6 @@
           </dict>
         </array>
       </dict>
-      <key>projection</key>
-      <dict>
-        <key>name</key>
-        <string>meta.projection.typespec</string>
-        <key>begin</key>
-        <string>(from|to)</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.other.tsp</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>((?&lt;=\})|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#projection-parameters</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#projection-body</string>
-          </dict>
-        </array>
-      </dict>
-      <key>projection-body</key>
-      <dict>
-        <key>name</key>
-        <string>meta.projection-body.typespec</string>
-        <key>begin</key>
-        <string>\{</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.curlybrace.open.tsp</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>\}</string>
-        <key>endCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.curlybrace.close.tsp</string>
-          </dict>
-        </dict>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#projection-expression</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#punctuation-semicolon</string>
-          </dict>
-        </array>
-      </dict>
-      <key>projection-expression</key>
-      <dict>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#else-if-expression</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#if-expression</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#else-expression</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#function-call</string>
-          </dict>
-        </array>
-      </dict>
-      <key>projection-parameter</key>
-      <dict>
-        <key>name</key>
-        <string>meta.projection-parameter.typespec</string>
-        <key>begin</key>
-        <string>(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>variable.name.tsp</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>(?=\))|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
-        <key>patterns</key>
-        <array/>
-      </dict>
-      <key>projection-parameters</key>
-      <dict>
-        <key>name</key>
-        <string>meta.projection-parameters.typespec</string>
-        <key>begin</key>
-        <string>\(</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.parenthesis.open.tsp</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>\)</string>
-        <key>endCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.parenthesis.close.tsp</string>
-          </dict>
-        </dict>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#token</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#projection-parameter</string>
-          </dict>
-        </array>
-      </dict>
-      <key>projection-statement</key>
-      <dict>
-        <key>name</key>
-        <string>meta.projection-statement.typespec</string>
-        <key>begin</key>
-        <string>\b(projection)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)(#)(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.other.tsp</string>
-          </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.other.tsp</string>
-          </dict>
-          <key>3</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.operator.selector.tsp</string>
-          </dict>
-          <key>4</key>
-          <dict>
-            <key>name</key>
-            <string>variable.name.tsp</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>((?&lt;=\})|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#projection-statement-body</string>
-          </dict>
-        </array>
-      </dict>
-      <key>projection-statement-body</key>
-      <dict>
-        <key>name</key>
-        <string>meta.projection-statement-body.typespec</string>
-        <key>begin</key>
-        <string>\{</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.curlybrace.open.tsp</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>\}</string>
-        <key>endCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.curlybrace.close.tsp</string>
-          </dict>
-        </dict>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#projection</string>
-          </dict>
-        </array>
-      </dict>
       <key>punctuation-accessor</key>
       <dict>
         <key>name</key>
@@ -1926,10 +1588,6 @@
           <dict>
             <key>include</key>
             <string>#function-declaration-statement</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#projection-statement</string>
           </dict>
           <dict>
             <key>include</key>
