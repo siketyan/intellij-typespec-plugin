@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    intellijIdeaUltimate("2025.1")
+    intellijIdeaUltimate("2025.2.5")
     bundledPlugins(
       "org.jetbrains.plugins.textmate",
       "org.jetbrains.plugins.yaml",
@@ -37,7 +37,7 @@ intellijPlatform {
   pluginConfiguration {
     ideaVersion {
       sinceBuild = "243"
-      untilBuild = "252.*"
+      untilBuild = "253.*"
     }
   }
 

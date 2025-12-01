@@ -36,7 +36,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -65,7 +65,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -98,7 +98,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=([_$[:alpha:]]|`))|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=([_$[:alpha:]]|`))|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -192,7 +192,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -229,7 +229,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=([_$[:alpha:]]|`))|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=([_$[:alpha:]]|`))|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -267,7 +267,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -285,7 +285,7 @@
         <key>name</key>
         <string>meta.directive.typespec</string>
         <key>begin</key>
-        <string>\s*(#\b[_$[:alpha:]][_$[:alnum:]]*\b)</string>
+        <string>\s*(#)(\b[_$[:alpha:]][_$[:alnum:]]*\b)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -293,9 +293,14 @@
             <key>name</key>
             <string>keyword.directive.name.tsp</string>
           </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.directive.name.tsp</string>
+          </dict>
         </dict>
         <key>end</key>
-        <string>$|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>$|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -491,7 +496,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -524,7 +529,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -623,7 +628,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -662,7 +667,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -767,7 +772,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -795,7 +800,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -927,7 +932,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -963,7 +968,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1023,7 +1028,7 @@
         <key>begin</key>
         <string>(?=([_$[:alpha:]]|`))</string>
         <key>end</key>
-        <string>((?=\{)|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
+        <string>((?=\{)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1051,7 +1056,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>((?&lt;=\})|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
+        <string>((?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1143,7 +1148,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1171,7 +1176,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1270,7 +1275,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1411,7 +1416,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1472,7 +1477,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1508,7 +1513,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1818,7 +1823,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>endCaptures</key>
         <dict>
           <key>0</key>
@@ -1898,7 +1903,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1930,7 +1935,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1954,7 +1959,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -2014,7 +2019,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -2095,7 +2100,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -2128,7 +2133,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -2156,7 +2161,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -2188,7 +2193,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
