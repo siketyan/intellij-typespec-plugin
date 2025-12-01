@@ -6,7 +6,7 @@
     "url": "https://github.com/siketyan/intellij-typespec-plugin.git"
   },
   "dependencies": {
-    "typespec-vscode": "^1.2.1"
+    "typespec-vscode": "^1.6.0"
   },
   "devDependencies": {
     "unzipper": "^0.12.3"
