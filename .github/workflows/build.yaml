@@ -19,6 +19,20 @@ jobs:
     outputs:
       pluginVerifierHomeDir: ${{ steps.plugin-verifier.outputs.pluginVerifierHomeDir }}
     steps:
+      - name: Cleanup disk
+        run: |
+          sudo rm -rf \
+            /opt/az \
+            /opt/microsoft \
+            /opt/google \
+            /opt/hostedtoolcache \
+            /usr/local/.ghcup \
+            /usr/local/lib/android \
+            /usr/local/share/chromium \
+            /usr/local/share/powershell \
+            /usr/share/dotnet \
+            /usr/share/swift
+
       - uses: actions/checkout@v6
 
       - uses: actions/setup-java@v5
