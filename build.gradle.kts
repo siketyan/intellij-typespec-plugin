@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "jp.s6n.idea"
-version = "0.2.8"
+version = "0.2.9"
 
 kotlin {
   jvmToolchain(21)
@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    intellijIdeaUltimate("2025.2.5")
+    intellijIdeaUltimate("2026.1")
     bundledPlugins(
       "org.jetbrains.plugins.textmate",
       "org.jetbrains.plugins.yaml",
@@ -37,7 +37,7 @@ intellijPlatform {
   pluginConfiguration {
     ideaVersion {
       sinceBuild = "243"
-      untilBuild = "253.*"
+      untilBuild = "261.*"
     }
   }
 
