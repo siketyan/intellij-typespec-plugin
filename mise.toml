@@ -1,0 +1,15 @@
+[tools]
+java = "zulu-21.50.19.0"
+
+[tasks.run]
+run = "./gradlew runIde"
+description = "Run IntelliJ IDEA with the plugin"
+
+[tasks.build]
+run = "./gradlew buildPlugin"
+description = "Build plugin zip to build/distributions/"
+
+[tasks.release]
+run = "gh release create v$(grep '^version' build.gradle.kts | head -1 | grep -o '\".*\"' | tr -d '\"') build/distributions/*.zip --generate-notes"
+description = "Create GitHub release with built plugin"
+depends = ["build"]

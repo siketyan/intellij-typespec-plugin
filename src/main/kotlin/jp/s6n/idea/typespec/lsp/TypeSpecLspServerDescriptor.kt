@@ -20,6 +20,7 @@ class TypeSpecLspServerDescriptor(
 ) : LspServerDescriptor(project, "TypeSpec", root) {
     private val commandLineConfigurator = NodeCommandLineConfigurator.find(interpreter)
 
+    @Suppress("OVERRIDE_DEPRECATION")
     override val lspSemanticTokensSupport = object : LspSemanticTokensSupport() {
         override fun getTextAttributesKey(tokenType: String, modifiers: List<String>) =
             when (tokenType) {

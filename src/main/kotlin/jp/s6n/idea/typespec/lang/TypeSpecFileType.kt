@@ -17,6 +17,5 @@ object TypeSpecFileType : FileType, TextMateBackedFileType {
 
     fun isMyFile(file: PsiFile) = isMyFile(file.virtualFile)
 
-    fun isMyFile(file: VirtualFile) =
-        file.fileType === TypeSpecFileType && file.extension == defaultExtension
+    fun isMyFile(file: VirtualFile) = file.extension == defaultExtension
 }
