@@ -3,3 +3,6 @@
 /.kotlin/
 /build/
 /node_modules/
+/package.json
+/package-lock.json
+/pnpm-lock.yaml
