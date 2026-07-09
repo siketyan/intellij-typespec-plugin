@@ -38,10 +38,14 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h2>v0.2.9</h2>
+    <h2>v0.3.0</h2>
+    <h3>Breaking Changes</h3>
+    <ul>
+      <li>Remove support for 2024.3.</li>
+    </ul>
     <h3>Features</h3>
     <ul>
-      <li>Add support for 2026.1.</li>
+      <li>Add support for 2026.2.</li>
     </ul>
   ]]></change-notes>
 
