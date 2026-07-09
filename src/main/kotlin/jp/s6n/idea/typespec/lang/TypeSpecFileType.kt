@@ -4,11 +4,9 @@ import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import jp.s6n.idea.typespec.icons.TypeSpecIcons
-import org.jetbrains.plugins.textmate.TextMateBackedFileType
-import org.jetbrains.plugins.textmate.TextMateFileType
 import javax.swing.Icon
 
-object TypeSpecFileType : FileType, TextMateBackedFileType {
+object TypeSpecFileType : FileType {
     override fun getName() = "TypeSpec"
     override fun getDescription() = "TypeSpec file"
     override fun getDefaultExtension() = "tsp"

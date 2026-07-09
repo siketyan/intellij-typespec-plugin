@@ -5,6 +5,7 @@ import com.intellij.javascript.nodejs.interpreter.NodeJsInterpreterManager
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
 import com.intellij.notification.Notifications
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.findDirectory
@@ -20,6 +21,7 @@ class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
         file: VirtualFile,
         serverStarter: LspServerSupportProvider.LspServerStarter
     ) {
+        Logger.getInstance(this.javaClass).warn("fileOpened")
         if (!TypeSpecLspServerDescriptor.isSupportedFile(file)) return
 
         val interpreter = NodeJsInterpreterManager.getInstance(project).getInterpreter(true) ?: return
