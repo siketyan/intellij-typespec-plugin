@@ -5,6 +5,7 @@ import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.psi.PsiElement
+import com.intellij.platform.lsp.api.LspServer
 import jp.s6n.idea.typespec.lang.TypeSpecFileType
 import jp.s6n.idea.typespec.lsp.LspServerUtil
 import jp.s6n.idea.typespec.lsp.findServerForFile
@@ -19,7 +20,7 @@ class TypeSpecFoldingBuilder : FoldingBuilderEx() {
         val lspServer = LspServerUtil.getServerManager(root.project).findServerForFile(file) ?: return emptyArray()
 
         val response = lspServer
-            .sendRequestSync { server ->
+            .sendRequestSync(LspServer.DEFAULT_REQUEST_TIMEOUT_MS) { server ->
                 server.textDocumentService.foldingRange(
                     FoldingRangeRequestParams(lspServer.getDocumentIdentifier(file))
                 )
