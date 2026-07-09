@@ -46,6 +46,7 @@
     <h3>Features</h3>
     <ul>
       <li>Add support for 2026.2.</li>
+      <li>Update language syntax to TypeSpec 1.13.0.</li>
     </ul>
   ]]></change-notes>
 

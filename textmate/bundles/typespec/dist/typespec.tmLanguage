@@ -36,7 +36,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -50,22 +50,27 @@
         <key>name</key>
         <string>meta.alias-statement.typespec</string>
         <key>begin</key>
-        <string>\b(alias)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)\s*</string>
+        <string>(?:(internal)\s+)?\b(alias)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)\s*</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.tsp</string>
+            <string>storage.modifier.tsp</string>
           </dict>
           <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.tsp</string>
+          </dict>
+          <key>3</key>
           <dict>
             <key>name</key>
             <string>entity.name.type.tsp</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -98,7 +103,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=([_$[:alpha:]]|`))|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=([_$[:alpha:]]|`))|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -177,22 +182,27 @@
         <key>name</key>
         <string>meta.const-statement.typespec</string>
         <key>begin</key>
-        <string>\b(const)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
+        <string>(?:(internal)\s+)?\b(const)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.tsp</string>
+            <string>storage.modifier.tsp</string>
           </dict>
           <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.tsp</string>
+          </dict>
+          <key>3</key>
           <dict>
             <key>name</key>
             <string>variable.name.tsp</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -229,7 +239,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=([_$[:alpha:]]|`))|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=([_$[:alpha:]]|`))|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -247,13 +257,13 @@
         <key>name</key>
         <string>meta.decorator-declaration-statement.typespec</string>
         <key>begin</key>
-        <string>(?:(extern)\s+)?\b(dec)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
+        <string>(?:(internal)\s+)?(?:(extern)\s+)?\b(dec)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.tsp</string>
+            <string>storage.modifier.tsp</string>
           </dict>
           <key>2</key>
           <dict>
@@ -263,11 +273,16 @@
           <key>3</key>
           <dict>
             <key>name</key>
+            <string>keyword.other.tsp</string>
+          </dict>
+          <key>4</key>
+          <dict>
+            <key>name</key>
             <string>entity.name.function.tsp</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -300,7 +315,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>$|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>$|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -496,7 +511,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -514,22 +529,27 @@
         <key>name</key>
         <string>meta.enum-statement.typespec</string>
         <key>begin</key>
-        <string>\b(enum)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
+        <string>(?:(internal)\s+)?\b(enum)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.tsp</string>
+            <string>storage.modifier.tsp</string>
           </dict>
           <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.tsp</string>
+          </dict>
+          <key>3</key>
           <dict>
             <key>name</key>
             <string>entity.name.type.tsp</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -608,13 +628,13 @@
         <key>name</key>
         <string>meta.function-declaration-statement.typespec</string>
         <key>begin</key>
-        <string>(?:(extern)\s+)?\b(fn)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
+        <string>(?:(internal)\s+)?(?:(extern)\s+)?\b(fn)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.tsp</string>
+            <string>storage.modifier.tsp</string>
           </dict>
           <key>2</key>
           <dict>
@@ -624,11 +644,16 @@
           <key>3</key>
           <dict>
             <key>name</key>
+            <string>keyword.other.tsp</string>
+          </dict>
+          <key>4</key>
+          <dict>
+            <key>name</key>
             <string>entity.name.function.tsp</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -667,7 +692,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -739,7 +764,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>((?=\{)|(?=;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
+        <string>((?=\{)|(?=;|@|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -772,7 +797,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -790,17 +815,22 @@
         <key>name</key>
         <string>meta.interface-statement.typespec</string>
         <key>begin</key>
-        <string>\b(interface)\b</string>
+        <string>(?:(internal)\s+)?\b(interface)\b</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>storage.modifier.tsp</string>
+          </dict>
+          <key>2</key>
           <dict>
             <key>name</key>
             <string>keyword.other.tsp</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -899,7 +929,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>((?=\{)|(?=;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
+        <string>((?=\{)|(?=;|@|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -932,7 +962,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -958,17 +988,22 @@
         <key>name</key>
         <string>meta.model-statement.typespec</string>
         <key>begin</key>
-        <string>\b(model)\b</string>
+        <string>(?:(internal)\s+)?\b(model)\b</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>storage.modifier.tsp</string>
+          </dict>
+          <key>2</key>
           <dict>
             <key>name</key>
             <string>keyword.other.tsp</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1028,7 +1063,7 @@
         <key>begin</key>
         <string>(?=([_$[:alpha:]]|`))</string>
         <key>end</key>
-        <string>((?=\{)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
+        <string>((?=\{)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1056,7 +1091,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>((?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
+        <string>((?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b))</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1148,7 +1183,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1176,7 +1211,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1260,22 +1295,27 @@
         <key>name</key>
         <string>meta.operation-statement.typespec</string>
         <key>begin</key>
-        <string>\b(op)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
+        <string>(?:(internal)\s+)?\b(op)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.tsp</string>
+            <string>storage.modifier.tsp</string>
           </dict>
           <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.tsp</string>
+          </dict>
+          <key>3</key>
           <dict>
             <key>name</key>
             <string>entity.name.function.tsp</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1416,7 +1456,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1444,7 +1484,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=;|@|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=;|@|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1462,22 +1502,27 @@
         <key>name</key>
         <string>meta.scalar-statement.typespec</string>
         <key>begin</key>
-        <string>\b(scalar)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
+        <string>(?:(internal)\s+)?\b(scalar)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.tsp</string>
+            <string>storage.modifier.tsp</string>
           </dict>
           <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.tsp</string>
+          </dict>
+          <key>3</key>
           <dict>
             <key>name</key>
             <string>entity.name.type.tsp</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1513,7 +1558,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1823,7 +1868,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>endCaptures</key>
         <dict>
           <key>0</key>
@@ -1903,7 +1948,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1935,7 +1980,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1959,7 +2004,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -2019,7 +2064,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -2085,22 +2130,27 @@
         <key>name</key>
         <string>meta.union-statement.typespec</string>
         <key>begin</key>
-        <string>\b(union)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
+        <string>(?:(internal)\s+)?\b(union)\b\s+(\b[_$[:alpha:]][_$[:alnum:]]*\b|`(?:[^`\\]|\\.)*`)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.tsp</string>
+            <string>storage.modifier.tsp</string>
           </dict>
           <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.tsp</string>
+          </dict>
+          <key>3</key>
           <dict>
             <key>name</key>
             <string>entity.name.type.tsp</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?&lt;=\})|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -2133,7 +2183,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -2161,7 +2211,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -2193,7 +2243,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
+        <string>(?=&gt;)|(?=,|;|@|#[a-z]|\)|\}|\b(?:extern|internal)\b|\b(?:namespace|model|op|using|import|enum|alias|union|interface|dec|fn)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
