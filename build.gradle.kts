@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    webstorm("2026.1")
+    webstorm("2026.3")
     bundledPlugins(
       "org.jetbrains.plugins.textmate",
       "org.jetbrains.plugins.yaml",
@@ -37,7 +37,7 @@ intellijPlatform {
   pluginConfiguration {
     ideaVersion {
       sinceBuild = "251"
-      untilBuild = "262.*"
+      untilBuild = "263.*"
     }
   }
 
