@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "jp.s6n.idea"
-version = "0.3.1"
+version = "0.4.0"
 
 kotlin {
   jvmToolchain(21)
@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    webstorm("2026.1")
+    webstorm("2026.1.4")
     bundledPlugins(
       "org.jetbrains.plugins.textmate",
       "org.jetbrains.plugins.yaml",
@@ -36,7 +36,7 @@ dependencies {
 intellijPlatform {
   pluginConfiguration {
     ideaVersion {
-      sinceBuild = "251"
+      sinceBuild = "261.26222"
       untilBuild = "263.*"
     }
   }

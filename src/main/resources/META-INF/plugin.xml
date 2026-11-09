@@ -38,10 +38,14 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h2>v0.3.1</h2>
-    <h3>Features</h3>
+    <h2>v0.4.0</h2>
+    <h3>Breaking Changes</h3>
     <ul>
-      <li>Add support for 2026.3.</li>
+      <li>Remove support for 2025.1, 2025.2, 2025.3, and 2026.1 prior to 2026.1.4.</li>
+    </ul>
+    <h3>Improvements</h3>
+    <ul>
+      <li>Migrate to the new LSP client API.</li>
     </ul>
   ]]></change-notes>
 
@@ -78,7 +82,7 @@
     <notificationGroup id="TypeSpec" displayType="STICKY_BALLOON" />
 
     <!-- LSP -->
-    <platform.lsp.serverSupportProvider implementation="jp.s6n.idea.typespec.lsp.TypeSpecLspServerSupportProvider" />
+    <platform.lsp.integrationProvider implementation="jp.s6n.idea.typespec.lsp.TypeSpecLspIntegrationProvider" />
   </extensions>
 
   <actions>

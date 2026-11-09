@@ -10,19 +10,19 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.findDirectory
 import com.intellij.openapi.vfs.findFile
-import com.intellij.platform.lsp.api.LspServer
-import com.intellij.platform.lsp.api.LspServerSupportProvider
-import com.intellij.platform.lsp.api.lsWidget.LspServerWidgetItem
+import com.intellij.platform.lsp.api.LspClient
+import com.intellij.platform.lsp.api.LspIntegrationProvider
+import com.intellij.platform.lsp.api.lsWidget.LspClientWidgetItem
 import jp.s6n.idea.typespec.icons.TypeSpecIcons
 
-class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
+class TypeSpecLspIntegrationProvider : LspIntegrationProvider {
     override fun fileOpened(
         project: Project,
         file: VirtualFile,
-        serverStarter: LspServerSupportProvider.LspServerStarter
+        clientStarter: LspIntegrationProvider.LspClientStarter
     ) {
         Logger.getInstance(this.javaClass).warn("fileOpened")
-        if (!TypeSpecLspServerDescriptor.isSupportedFile(file)) return
+        if (!TypeSpecLspClientDescriptor.isSupportedFile(file)) return
 
         val interpreter = NodeJsInterpreterManager.getInstance(project).getInterpreter(true) ?: return
 
@@ -35,18 +35,18 @@ class TypeSpecLspServerSupportProvider : LspServerSupportProvider {
             )
         )
 
-        serverStarter.ensureServerStarted(descriptor)
+        clientStarter.ensureClientStarted(descriptor)
     }
 
-    override fun createLspServerWidgetItem(lspServer: LspServer, currentFile: VirtualFile?) =
-        LspServerWidgetItem(lspServer, currentFile, TypeSpecIcons.Tsp)
+    override fun createWidgetItem(lspClient: LspClient, currentFile: VirtualFile?) =
+        LspClientWidgetItem(lspClient, currentFile, TypeSpecIcons.Tsp)
 
-    private fun findTspServer(project: Project, interpreter: NodeJsInterpreter, directory: VirtualFile): TypeSpecLspServerDescriptor? {
+    private fun findTspServer(project: Project, interpreter: NodeJsInterpreter, directory: VirtualFile): TypeSpecLspClientDescriptor? {
         val tspDirectory = directory.findDirectory("node_modules/@typespec/compiler")
             ?: return findTspServer(project, interpreter, directory.parent ?: return null)
 
         val tspServerFile = tspDirectory.findFile("cmd/tsp-server.js") ?: return null
 
-        return TypeSpecLspServerDescriptor(project, directory, interpreter, tspServerFile)
+        return TypeSpecLspClientDescriptor(project, directory, interpreter, tspServerFile)
     }
 }

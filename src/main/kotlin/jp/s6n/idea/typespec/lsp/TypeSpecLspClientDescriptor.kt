@@ -9,39 +9,42 @@ import com.intellij.openapi.vfs.StandardFileSystems
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileManager
-import com.intellij.platform.lsp.api.LspServerDescriptor
+import com.intellij.platform.lsp.api.LspClientDescriptor
+import com.intellij.platform.lsp.api.customization.LspCustomization
 import com.intellij.platform.lsp.api.customization.LspSemanticTokensSupport
 import com.intellij.util.io.URLUtil
 import jp.s6n.idea.typespec.lang.TypeSpecFileType
 import org.eclipse.lsp4j.SemanticTokenTypes
 import org.jetbrains.yaml.YAMLFileType
 
-class TypeSpecLspServerDescriptor(
+class TypeSpecLspClientDescriptor(
     project: Project,
     root: VirtualFile,
     interpreter: NodeJsInterpreter,
     private val tspServerFile: VirtualFile
-) : LspServerDescriptor(project, "TypeSpec", root) {
+) : LspClientDescriptor(project, "TypeSpec", root) {
     private val commandLineConfigurator = NodeCommandLineConfigurator.find(interpreter)
 
-    override val lspSemanticTokensSupport = object : LspSemanticTokensSupport() {
-        override fun getTextAttributesKey(tokenType: String, modifiers: List<String>) =
-            when (tokenType) {
-                // Changing colours for better appearance and consistency in IntelliJ IDE
-                SemanticTokenTypes.Type,
-                SemanticTokenTypes.Struct -> DefaultLanguageHighlighterColors.CLASS_NAME
+    override val lspCustomization = object : LspCustomization() {
+        override val semanticTokensCustomizer = object : LspSemanticTokensSupport() {
+            override fun getTextAttributesKey(tokenType: String, modifiers: List<String>) =
+                when (tokenType) {
+                    // Changing colours for better appearance and consistency in IntelliJ IDE
+                    SemanticTokenTypes.Type,
+                    SemanticTokenTypes.Struct -> DefaultLanguageHighlighterColors.CLASS_NAME
 
-                // Skip these tokens as they are already well handled by TextMate
-                SemanticTokenTypes.Macro,
-                SemanticTokenTypes.Decorator,
-                SemanticTokenTypes.Operator,
-                SemanticTokenTypes.Comment -> null
+                    // Skip these tokens as they are already well handled by TextMate
+                    SemanticTokenTypes.Macro,
+                    SemanticTokenTypes.Decorator,
+                    SemanticTokenTypes.Operator,
+                    SemanticTokenTypes.Comment -> null
 
-                else -> super.getTextAttributesKey(tokenType, modifiers)
-            }
+                    else -> super.getTextAttributesKey(tokenType, modifiers)
+                }
+        }
     }
 
-    override fun isSupportedFile(file: VirtualFile) = TypeSpecLspServerDescriptor.isSupportedFile(file)
+    override fun isSupportedFile(file: VirtualFile) = TypeSpecLspClientDescriptor.isSupportedFile(file)
 
     override fun getLanguageId(file: VirtualFile) = "typespec"
 
