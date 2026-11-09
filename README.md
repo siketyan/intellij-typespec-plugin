@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-- JetBrains IDE 2024.3 or later
+- JetBrains IDE 2026.1.4 or later
 
 > [!NOTE]
 > This plugin cannot be installed on Community IDEs as the plugin is built on top of the official LSP integration,
