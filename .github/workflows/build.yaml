@@ -45,6 +45,10 @@ jobs:
 
       - run: ./gradlew buildPlugin
 
+      - name: Install fixture project for LSP tests
+        run: npm ci
+        working-directory: src/test/testData/tsp-project
+
       - run: ./gradlew test
 
       - name: Prepare Plugin Artifact
