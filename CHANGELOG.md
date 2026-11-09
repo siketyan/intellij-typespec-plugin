@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.4.0](https://github.com/siketyan/intellij-typespec-plugin/compare/v0.3.0...v0.4.0) (2026-11-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate to LspClient API, require 2026.1.4 or later ([#88](https://github.com/siketyan/intellij-typespec-plugin/issues/88))
+
+### Features
+
+* migrate to LspClient API, require 2026.1.4 or later ([#88](https://github.com/siketyan/intellij-typespec-plugin/issues/88)) ([826baaf](https://github.com/siketyan/intellij-typespec-plugin/commit/826baafcc7f7b9009a0c25e78c137576f72325af))
+
+
+### Bug Fixes
+
+* allow IDE builds 263.* ([#85](https://github.com/siketyan/intellij-typespec-plugin/issues/85)) ([4fc89c6](https://github.com/siketyan/intellij-typespec-plugin/commit/4fc89c6c49541b11a5e213da6297eaf42ee39748))
+* override getFileUri instead of internal getFilePath in LSP descriptor ([#86](https://github.com/siketyan/intellij-typespec-plugin/issues/86)) ([5fae1bb](https://github.com/siketyan/intellij-typespec-plugin/commit/5fae1bb9a0fa5830e1b3818b2241adc5ba89a142))
+
 ## [0.3.0](https://github.com/siketyan/intellij-typespec-plugin/compare/v0.2.9...v0.3.0) (2026-07-09)
 
 
