@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "tsp-project",
+  "description": "Fixture project for the LSP integration tests. Run `npm ci` here before running the tests.",
+  "dependencies": {
+    "@typespec/compiler": "1.17.0"
+  }
+}

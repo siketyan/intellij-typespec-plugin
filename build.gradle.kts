@@ -1,3 +1,5 @@
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+
 plugins {
   id("java")
   id("org.jetbrains.kotlin.jvm") version "2.4.21"
@@ -20,6 +22,9 @@ repositories {
 }
 
 dependencies {
+  testImplementation("junit:junit:4.13.2")
+  testImplementation("org.opentest4j:opentest4j:1.3.0")
+
   intellijPlatform {
     webstorm("2026.1.4")
     bundledPlugins(
@@ -30,6 +35,7 @@ dependencies {
     )
 
     pluginVerifier()
+    testFramework(TestFrameworkType.Platform)
   }
 }
 
@@ -60,6 +66,12 @@ intellijPlatform {
 
 tasks {
   prepareSandbox {
+    from(layout.projectDirectory.dir("textmate")) {
+      into(pluginName.map { "$it/textmate" })
+    }
+  }
+
+  prepareTestSandbox {
     from(layout.projectDirectory.dir("textmate")) {
       into(pluginName.map { "$it/textmate" })
     }
