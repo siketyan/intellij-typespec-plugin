@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/siketyan/intellij-typespec-plugin/compare/v0.4.0...v0.4.1) (2026-11-09)
+
+
+### Features
+
+* depend on the LSP module instead of the Ultimate module ([#94](https://github.com/siketyan/intellij-typespec-plugin/issues/94)) ([ffa5726](https://github.com/siketyan/intellij-typespec-plugin/commit/ffa572699ba323bba313889bb1a3f1ffe7b188b9))
+
 ## [0.4.0](https://github.com/siketyan/intellij-typespec-plugin/compare/v0.3.0...v0.4.0) (2026-11-09)
 
 
