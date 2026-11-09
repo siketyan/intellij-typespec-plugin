@@ -2,6 +2,7 @@ package jp.s6n.idea.typespec.lsp
 
 import com.intellij.notification.Notification
 import com.intellij.notification.Notifications
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.platform.lsp.api.LspClientDescriptor
 import com.intellij.platform.lsp.api.LspIntegrationProvider
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
@@ -10,13 +11,18 @@ class TypeSpecLspIntegrationProviderTest : BasePlatformTestCase() {
     private val startedDescriptors = mutableListOf<LspClientDescriptor>()
     private val notifications = mutableListOf<Notification>()
 
-    private val clientStarter = LspIntegrationProvider.LspClientStarter { startedDescriptors.add(it) }
+    private val clientStarter = object : LspIntegrationProvider.LspClientStarter {
+        override fun ensureClientStarted(descriptor: LspClientDescriptor) {
+            startedDescriptors.add(descriptor)
+        }
+    }
 
     override fun setUp() {
         super.setUp()
         setUpLocalNodeInterpreter(project, testRootDisposable)
 
-        project.messageBus.connect(testRootDisposable).subscribe(
+        // Notifications without a project are published to the application message bus.
+        ApplicationManager.getApplication().messageBus.connect(testRootDisposable).subscribe(
             Notifications.TOPIC,
             object : Notifications {
                 override fun notify(notification: Notification) {

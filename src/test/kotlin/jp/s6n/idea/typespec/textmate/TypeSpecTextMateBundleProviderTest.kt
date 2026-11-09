@@ -8,6 +8,6 @@ class TypeSpecTextMateBundleProviderTest : BasePlatformTestCase() {
         val bundle = TypeSpecTextMateBundleProvider().getBundles().single()
 
         assertEquals("typespec", bundle.name)
-        assertTrue(bundle.path.resolve("package.json").exists())
+        assertTrue(bundle.path.toString(), bundle.path.resolve("package.json").exists())
     }
 }

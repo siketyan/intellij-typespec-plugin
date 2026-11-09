@@ -45,6 +45,8 @@ jobs:
 
       - run: ./gradlew buildPlugin
 
+      - run: ./gradlew test
+
       - name: Prepare Plugin Artifact
         id: artifact
         shell: bash

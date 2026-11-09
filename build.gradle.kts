@@ -70,4 +70,10 @@ tasks {
       into(pluginName.map { "$it/textmate" })
     }
   }
+
+  prepareTestSandbox {
+    from(layout.projectDirectory.dir("textmate")) {
+      into(pluginName.map { "$it/textmate" })
+    }
+  }
 }
