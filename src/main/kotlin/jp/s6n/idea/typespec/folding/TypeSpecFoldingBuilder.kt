@@ -5,10 +5,10 @@ import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.psi.PsiElement
-import com.intellij.platform.lsp.api.LspServer
+import com.intellij.platform.lsp.api.LspClient
 import jp.s6n.idea.typespec.lang.TypeSpecFileType
-import jp.s6n.idea.typespec.lsp.LspServerUtil
-import jp.s6n.idea.typespec.lsp.findServerForFile
+import jp.s6n.idea.typespec.lsp.LspClientUtil
+import jp.s6n.idea.typespec.lsp.findClientForFile
 import org.eclipse.lsp4j.FoldingRangeRequestParams
 
 // TODO: Replace if the official LSP integration supported code folding (textDocument/foldingRange).
@@ -17,12 +17,12 @@ class TypeSpecFoldingBuilder : FoldingBuilderEx() {
         val file = root.containingFile.virtualFile
         if (!TypeSpecFileType.isMyFile(file)) return emptyArray()
 
-        val lspServer = LspServerUtil.getServerManager(root.project).findServerForFile(file) ?: return emptyArray()
+        val lspClient = LspClientUtil.getClientManager(root.project).findClientForFile(file) ?: return emptyArray()
 
-        val response = lspServer
-            .sendRequestSync(LspServer.DEFAULT_REQUEST_TIMEOUT_MS) { server ->
+        val response = lspClient
+            .sendRequestSync(LspClient.DEFAULT_REQUEST_TIMEOUT_MS) { server ->
                 server.textDocumentService.foldingRange(
-                    FoldingRangeRequestParams(lspServer.getDocumentIdentifier(file))
+                    FoldingRangeRequestParams(lspClient.getDocumentIdentifier(file))
                 )
             }
             ?: return emptyArray()

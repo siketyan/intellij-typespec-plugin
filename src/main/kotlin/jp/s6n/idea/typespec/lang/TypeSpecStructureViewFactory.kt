@@ -10,10 +10,10 @@ import com.intellij.lang.PsiStructureViewFactory
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
-import com.intellij.platform.lsp.api.LspServer
+import com.intellij.platform.lsp.api.LspClient
 import com.intellij.psi.PsiFile
-import jp.s6n.idea.typespec.lsp.LspServerUtil
-import jp.s6n.idea.typespec.lsp.findServerForFile
+import jp.s6n.idea.typespec.lsp.LspClientUtil
+import jp.s6n.idea.typespec.lsp.findClientForFile
 import org.eclipse.lsp4j.DocumentSymbol
 import org.eclipse.lsp4j.DocumentSymbolParams
 import org.eclipse.lsp4j.SymbolKind
@@ -23,10 +23,10 @@ class TypeSpecStructureViewFactory : PsiStructureViewFactory {
     override fun getStructureViewBuilder(file: PsiFile): TreeBasedStructureViewBuilder? {
         if (!TypeSpecFileType.isMyFile(file)) return null
 
-        val lspServer = LspServerUtil.getServerManager(file.project).findServerForFile(file.virtualFile) ?: return null
+        val lspClient = LspClientUtil.getClientManager(file.project).findClientForFile(file.virtualFile) ?: return null
 
-        val params = DocumentSymbolParams(lspServer.getDocumentIdentifier(file.virtualFile))
-        val response = lspServer.sendRequestSync(LspServer.DEFAULT_REQUEST_TIMEOUT_MS) { it.textDocumentService.documentSymbol(params) } ?: return null
+        val params = DocumentSymbolParams(lspClient.getDocumentIdentifier(file.virtualFile))
+        val response = lspClient.sendRequestSync(LspClient.DEFAULT_REQUEST_TIMEOUT_MS) { it.textDocumentService.documentSymbol(params) } ?: return null
 
         return object : TreeBasedStructureViewBuilder() {
             override fun createStructureViewModel(editor: Editor?) =

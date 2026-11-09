@@ -9,3 +9,8 @@ updates:
     directory: '/'
     schedule:
       interval: weekly
+
+  - package-ecosystem: npm
+    directory: '/src/test/testData/tsp-project'
+    schedule:
+      interval: weekly
