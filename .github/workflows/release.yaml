@@ -64,7 +64,9 @@ jobs:
 
       - run: ./gradlew test
 
-      - name: Sign and publish to JetBrains Marketplace
+      # Signing is optional: without the CERTIFICATE_CHAIN / PRIVATE_KEY secrets, signPlugin is skipped
+      # and publishPlugin uploads the unsigned archive instead.
+      - name: Publish to JetBrains Marketplace
         run: ./gradlew publishPlugin
         env:
           CERTIFICATE_CHAIN: ${{ secrets.CERTIFICATE_CHAIN }}
@@ -73,7 +75,15 @@ jobs:
           PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
 
       - name: Upload plugin to GitHub Release
-        run: gh release upload "$TAG_NAME" build/distributions/*-signed.zip
+        shell: bash
+        run: |
+          shopt -s nullglob
+          # Prefer the signed archive if signing is configured.
+          files=(build/distributions/*-signed.zip)
+          if [ ${#files[@]} -eq 0 ]; then
+            files=(build/distributions/*.zip)
+          fi
+          gh release upload "$TAG_NAME" "${files[@]}"
         env:
           GH_TOKEN: ${{ github.token }}
           TAG_NAME: ${{ needs.release-please.outputs.tag_name }}
