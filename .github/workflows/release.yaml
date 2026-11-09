@@ -17,7 +17,8 @@ jobs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
-      # Opens or updates the release PR, and creates a tag and a GitHub Release once the PR is merged.
+      # Opens or updates the release PR, and creates a tag and a draft GitHub Release once the PR is merged.
+      # The release is kept as a draft until the assets are uploaded, since immutable releases are enabled.
       - uses: googleapis/release-please-action@v5
         id: release
 
@@ -84,6 +85,13 @@ jobs:
             files=(build/distributions/*.zip)
           fi
           gh release upload "$TAG_NAME" "${files[@]}"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ needs.release-please.outputs.tag_name }}
+
+      # Publishing makes the release immutable, so this must be the last step.
+      - name: Publish GitHub Release
+        run: gh release edit "$TAG_NAME" --draft=false
         env:
           GH_TOKEN: ${{ github.token }}
           TAG_NAME: ${{ needs.release-please.outputs.tag_name }}
