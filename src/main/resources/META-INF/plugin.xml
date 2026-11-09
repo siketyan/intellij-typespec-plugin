@@ -41,7 +41,7 @@
 
   <!-- Product and plugin compatibility requirements.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
-  <depends>com.intellij.modules.ultimate</depends>
+  <depends>com.intellij.modules.lsp</depends>
   <depends>org.jetbrains.plugins.textmate</depends>
   <depends>org.jetbrains.plugins.yaml</depends>
   <depends>JavaScript</depends>

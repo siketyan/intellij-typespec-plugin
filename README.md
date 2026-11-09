@@ -4,11 +4,12 @@
 
 ## Prerequisites
 
-- JetBrains IDE 2026.1.4 or later
+- JetBrains IDE 2026.1.4 or later with the JavaScript and Node.js plugins enabled (e.g. IntelliJ IDEA, WebStorm)
+- Node.js and `@typespec/compiler` installed in your project
 
 > [!NOTE]
-> This plugin cannot be installed on Community IDEs as the plugin is built on top of the official LSP integration,
-> which is only available in paid IDEs.
+> The plugin is built on top of the official LSP integration, which no longer requires a paid subscription.
+> You can use this plugin in the free IntelliJ IDEA as well.
 
 ## Features
 
