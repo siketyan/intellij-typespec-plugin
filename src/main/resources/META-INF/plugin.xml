@@ -37,17 +37,7 @@
     </ol>
   ]]></description>
 
-  <change-notes><![CDATA[
-    <h2>v0.4.0</h2>
-    <h3>Breaking Changes</h3>
-    <ul>
-      <li>Remove support for 2025.1, 2025.2, 2025.3, and 2026.1 prior to 2026.1.4.</li>
-    </ul>
-    <h3>Improvements</h3>
-    <ul>
-      <li>Migrate to the new LSP client API.</li>
-    </ul>
-  ]]></change-notes>
+  <!-- Change notes are generated from CHANGELOG.md at build time. -->
 
   <!-- Product and plugin compatibility requirements.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
